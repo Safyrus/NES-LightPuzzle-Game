@@ -1,0 +1,11 @@
+# NES
+*.nes
+*.dbg
+*.deb
+
+# VSCode
+*.vscode/
+
+# Other files
+.markdownlint.json
+*ignore/

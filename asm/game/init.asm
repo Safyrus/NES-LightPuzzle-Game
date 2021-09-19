@@ -1,0 +1,3 @@
+; 
+initGame:
+    RTS

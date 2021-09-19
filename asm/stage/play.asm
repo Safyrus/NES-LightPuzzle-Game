@@ -1,0 +1,2 @@
+stage_play:
+    RTS
