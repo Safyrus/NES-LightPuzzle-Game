@@ -31,6 +31,8 @@ main:
     BEQ main_menu_load
     CMP #STG_PLAY_LOAD  ; are we in the PlayLoad stage ?
     BEQ main_play_load
+    CMP #STG_PLAY_LEVEL  ; are we in the PlayLevel stage ?
+    BEQ main_play_level
 
     main_end:
     LDA #$00        ; put a zero at the end of bgDrawData array
@@ -45,6 +47,9 @@ main:
     main_play_load:
         JSR stage_play_load
         JMP main_end
+    main_play_level:
+        JSR stage_play_level
+        JMP main_end
     main_menu:
         JSR stage_menu
         JMP main_end
@@ -54,5 +59,6 @@ main:
 
 .include "stage/play.asm"
 .include "stage/play_load.asm"
+.include "stage/play_level.asm"
 .include "stage/menu.asm"
 .include "stage/menu_load.asm"

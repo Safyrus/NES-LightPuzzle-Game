@@ -33,8 +33,9 @@ rst_vwait2:
     BIT PPUSTATUS
     BPL rst_vwait2      ; At this point, about 57165 cycles have passed
 
-    JSR init_apu
-
+    JSR init_apu        ; Initialize Audio
+    LDA #%00000000
+    STA APU_FRAME
     JSR loadPalettes    ; load palettes
 
     LDA #%10010000      ; Enable NMI + set background table to $1000
@@ -42,9 +43,6 @@ rst_vwait2:
 
     LDA #STG_MENU_LOAD  ; set the stage to MenuLoad
     STA gameStage
-
-    LDA #%00000000
-    STA APU_FRAME
 
     CLI
 

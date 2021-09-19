@@ -53,7 +53,7 @@ VBLANK:
     BEQ vblank_bgUpdate_end
 
     ; Background updating
-    bit PPUSTATUS   ; set scrolling position to 0,0
+    bit PPUSTATUS   ; reset latch
     LDX #$FF        ; reset X to 0, it will serve as an array index
     vblank_bgUpdate:
         INX

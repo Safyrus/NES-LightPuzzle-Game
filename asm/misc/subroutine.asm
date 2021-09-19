@@ -28,7 +28,7 @@ getMTileNametableAdr:
     RTS
 
 
-;
+; add 1 to dataAdr
 incDataAdr:
     PHA
     TXA
@@ -37,7 +37,8 @@ incDataAdr:
     LDX dataAdr_l
     INX
     STX dataAdr_l
-    BCC incDataAdr_end
+    CPX #$00
+    BNE incDataAdr_end
     LDX dataAdr_h
     INX
     STX dataAdr_h
@@ -48,7 +49,7 @@ incDataAdr:
     PLA
     RTS
 
-; X = to Add
+; X = number to add
 addDataAdr:
     PHA
     TXA

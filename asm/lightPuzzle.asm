@@ -3,8 +3,11 @@
 ;****************
 
 ; TODO:
-; - DrawMetaTile
-; - DrawLevel
+; - more Mtiles
+; - load palette
+; - level Stage
+; - level_load Stage
+; - Cursor
 
 ; Header of the file (not part of the cartridge, used by the emulator)
 .segment "HEADER"
@@ -32,16 +35,22 @@
 
 .include "main.asm"
 
-.include "subroutine.asm"
-.include "control.asm"
-.include "game/init.asm"
+.include "misc/subroutine.asm"
+
+.include "game/control.asm"
+.include "game/laser.asm"
+.include "game/level.asm"
+
 .include "graphics/background.asm"
+.include "graphics/bgUpdate.asm"
 .include "graphics/palette.asm"
 .include "graphics/sprite.asm"
+
 .include "audio/init.asm"
 .include "audio/subroutine.asm"
 
 .include "data/data.asm"
+.include "data/palette.asm"
 .include "data/level.asm"
 .include "data/levelMeta.asm"
 .include "data/metaTile.asm"

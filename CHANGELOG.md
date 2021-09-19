@@ -6,6 +6,68 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.0.2]** - _2021-09-15_
+
+### **Added**
+
+#### Project
+
+- Information for building and running the game in README
+- A RAM segment in linker config.
+
+#### ASM
+
+- LASER_MAX, POS_OUTOFMAP and STG_PLAY_LEVEL constants.
+- An enum for metatiles.
+- Variables for the level and lasers.
+- A play_level stage in main.
+- _Data:_
+  - A lot of metatiles
+- _Game:_
+  - getNextLaserPos subroutine to find the next position of a laser.
+  - laserAction_move subroutine to move and draw a laser.
+  - laserAction_stop subroutine to stop a laser.
+  - loadLevel subroutine to load a level into RAM.
+- _Graphics_:
+  - drawLevel subroutine to draw a level onto the screen.
+  - updateBgMTile subroutine to update a metatile on the screen during the game.
+- _Stage:_
+  - An empty play_error stage.
+  - A new play_level stage to run the lasers in the current level.
+
+### **Changed**
+
+#### Project
+
+- Some textures (notably the emitter and mirrors textures).
+
+#### ASM
+
+- Include new file in lightPuzzle.asm.
+- Move control.asm into game folder.
+- Move subroutine.asm into misc folder.
+- _Data_:
+  - move palette data into its own file.
+  - Level 00 (old level 1) to use metatiles constant instead of hard coded value.
+  - Level 01 (old level 2) to show every metatiles for testing.
+- _Graphics_:
+  - save dataAdr when calling drawMetaTile.
+  - Move updateBgData in bgUpdate.asm.
+- _Stage:_
+  - The play stage will switch to stage play_level.
+  - Stage play_load now load the first level, draw it to the screen
+    and initialized a laser at position (9,5) going up and level_MaxFrame to 60.
+- _Vector_:
+  - rearrange audio initialization in reset.
+
+### **Removed**
+
+- Useless constants.
+- Test metatiles in menu_load.
+- Empty init subroutine.
+
+-----------------
+
 ## **[0.0.1]** - _2021-09-06_
 
 ### **Added**

@@ -1,13 +1,74 @@
-; 
+; X = level
 drawLevel:
-    RTS
-    RTS
+    PHA
+    TXA
+    PHA
+    TYA
+    PHA
+
+    ; get level address
+    LDA levelArrayHi, X
+    STA dataAdr_h
+    LDA levelArrayLo, X
+    STA dataAdr_l
+
+    LDX #$00
+    drawLevel_loop:
+        ; Check if Special Mtile
+        LDY #$00
+        LDA (dataAdr), Y
+        CMP #$FF
+        BEQ drawLevel_array
+
+        drawLevel_normal:
+            ; draw Mtile
+            TAY
+            JSR drawMetaTile
+            INX
+            JSR incDataAdr
+            JMP drawLevel_loopEnd
+
+        drawLevel_array:
+            ; get length
+            JSR incDataAdr
+            LDA (dataAdr), Y
+            STA counter
+            ; get tile
+            JSR incDataAdr
+            drawLevel_array_loop:
+                LDY #$00
+                LDA (dataAdr), Y
+                TAY
+                JSR drawMetaTile
+                INX
+
+                LDY counter
+                DEY
+                STY counter
+                CPY #$00
+                BNE drawLevel_array_loop
+
+        drawLevel_loopEnd:
+        CPX #$F0
+        BNE drawLevel_loop
+
+    PLA
+    TAY
+    PLA
+    TAX
+    PLA
     RTS
 
 ; X = Coord, Y= ID
 drawMetaTile:
+    ; push registers
     PHA
     TXA
+    PHA
+    ; push dataAdr
+    LDA dataAdr_l
+    PHA
+    LDA dataAdr_h
     PHA
 
     ; set VRAM adr
@@ -80,6 +141,12 @@ drawMetaTile:
     ; set lower right tile
     STA PPUDATA
 
+    ; pull dataAdr
+    PLA
+    STA dataAdr_h
+    PLA
+    STA dataAdr_l
+    ; pull registers
     PLA
     TAX
     PLA
@@ -124,44 +191,3 @@ drawMenu:
         BNE drawMenu_title
     RTS
 
-
-; add a string of data to update the background
-; param: A= length, dataAdr, vramAdr
-updateBgData:
-    CMP #$00
-    BEQ updateBgData_end
-
-    LDY bgDataIndex
-    STA bgDrawData, Y
-
-    TAX
-
-    INY
-    LDA vramAdr_h
-    STA bgDrawData, Y
-    INY
-    LDA vramAdr_l
-    STA bgDrawData, Y
-
-    STY bgDataIndex
-    LDA #$00
-    STA counter
-    updateBgData_data:
-        LDY counter
-        LDA (dataAdr), Y
-        INY
-        STY counter
-
-        LDY bgDataIndex
-        INY
-        STA bgDrawData, Y
-        STY bgDataIndex
-
-        DEX
-        CPX #$00
-        BNE updateBgData_data
-        LDY bgDataIndex
-    INY
-    STY bgDataIndex
-    updateBgData_end:
-    RTS
