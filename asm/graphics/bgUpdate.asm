@@ -2,15 +2,11 @@
 ; param: X= length
 ; vars:  dataAdr, vramAdr
 updateBgData:
-    PHA
-    TXA
-    PHA
-    TYA
-    PHA
+    pushreg
 
     TXA
     CMP #$00
-    BEQ updateBgData_end
+    BEQ @end
 
     LDY bgDataIndex
     STA bgDrawData, Y
@@ -27,7 +23,7 @@ updateBgData:
     STY bgDataIndex
     LDA #$00
     STA counter
-    updateBgData_data:
+    @data:
         LDY counter
         LDA (dataAdr), Y
         INY
@@ -40,16 +36,12 @@ updateBgData:
 
         DEX
         CPX #$00
-        BNE updateBgData_data
+        BNE @data
         LDY bgDataIndex
     INY
     STY bgDataIndex
-    updateBgData_end:
-    PLA
-    TAY
-    PLA
-    TAX
-    PLA
+    @end:
+    pullreg
     RTS
 
 

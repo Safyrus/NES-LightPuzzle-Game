@@ -1,17 +1,11 @@
 VBLANK:
-    PHA     ; back up registers
-    TXA
-    PHA
-    TYA
-    PHA
+    pushreg
 
     LDA drawStates
     AND #%01000000
-    CMP #$00
     BEQ vblank_sprUpdate
         LDA drawStates
         AND #%00100000
-        CMP #$00
         BEQ vblank_turnPPUOff
 
         LDX PPUOffcounter
@@ -41,7 +35,6 @@ VBLANK:
     vblank_sprUpdate:
     LDA drawStates
     AND #%00000010
-    CMP #$00
     BEQ vblank_sprUpdate_end
         LDA #$02        ; Update sprites
         STA OAMDMA
@@ -49,7 +42,6 @@ VBLANK:
 
     LDA drawStates
     AND #%00000001
-    CMP #$00
     BEQ vblank_bgUpdate_end
 
     ; Background updating
@@ -58,8 +50,8 @@ VBLANK:
     vblank_bgUpdate:
         INX
         LDA bgDrawData, X       ; Check if next string length is 0
-        CMP #$00                ; If 0, then stop because it means
-        BEQ vblank_bgUpdate_end ; their is no more data to draw
+        BEQ vblank_bgUpdate_end ; If 0, then stop because it means
+                                ; their is no more data to draw
 
         TAY     ; save data length in Y
 
@@ -94,10 +86,5 @@ VBLANK:
     ORA #%10000000
     STA drawStates
 
-    PLA     ; restore regs
-    TAY
-    PLA
-    TAX
-    PLA
-    
+    pullreg
     RTI     ; Return

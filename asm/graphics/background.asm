@@ -13,29 +13,29 @@ drawLevel:
     STA dataAdr_l
 
     LDX #$00
-    drawLevel_loop:
+    @loop:
         ; Check if Special Mtile
         LDY #$00
         LDA (dataAdr), Y
         CMP #$FF
-        BEQ drawLevel_array
+        BEQ @array
 
-        drawLevel_normal:
+        @normal:
             ; draw Mtile
             TAY
             JSR drawMetaTile
             INX
             JSR incDataAdr
-            JMP drawLevel_loopEnd
+            JMP @loopEnd
 
-        drawLevel_array:
+        @array:
             ; get length
             JSR incDataAdr
             LDA (dataAdr), Y
             STA counter
             ; get tile
             JSR incDataAdr
-            drawLevel_array_loop:
+            @array_loop:
                 LDY #$00
                 LDA (dataAdr), Y
                 TAY
@@ -46,11 +46,11 @@ drawLevel:
                 DEY
                 STY counter
                 CPY #$00
-                BNE drawLevel_array_loop
+                BNE @array_loop
 
-        drawLevel_loopEnd:
+        @loopEnd:
         CPX #$F0
-        BNE drawLevel_loop
+        BNE @loop
 
     PLA
     TAY
@@ -162,18 +162,18 @@ drawMenu:
     
     LDA #$00        ; tile number
     LDX #$04        ; number of high loop
-    drawMenu_back1:
+    @back1:
         LDY #$F0        ; number of low loop
-        drawMenu_back2:
+        @back2:
             STA PPUDATA
     
             DEY
             CPY #$00
-            BNE drawMenu_back2
+            BNE @back2
 
         DEX
         CPX #$00
-        BNE drawMenu_back1
+        BNE @back1
 
     bit PPUSTATUS   ; reset adress latch
     LDA #$21        ; set the vram address to start from
@@ -182,12 +182,12 @@ drawMenu:
     STA PPUADDR
 
     LDX #$00
-    drawMenu_title:
+    @title:
         LDA txt_menu, X
         STA PPUDATA
         INX
 
         CPX #$04
-        BNE drawMenu_title
+        BNE @title
     RTS
 

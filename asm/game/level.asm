@@ -1,10 +1,6 @@
 ; X = level
 loadLevel:
-    PHA
-    TXA
-    PHA
-    TYA
-    PHA
+    pushreg
 
     ; get level address
     LDA levelArrayHi, X
@@ -13,27 +9,27 @@ loadLevel:
     STA dataAdr_l
 
     LDX #$00 ; tileCount
-    loadLevel_loop:
+    @loop:
         ; Check if Special Mtile
         LDY #$00
         LDA (dataAdr), Y
         CMP #$FF
-        BEQ loadLevel_array
+        BEQ @array
 
-        loadLevel_normal:
+        @normal:
             STA level, X    ; store the tile into Level
             INX             ; Increase tileCount
             JSR incDataAdr  ; increase dataAdr
-            JMP loadLevel_loopEnd
+            JMP @loopEnd
 
-        loadLevel_array:
+        @array:
             ; get length
             JSR incDataAdr
             LDA (dataAdr), Y
             STA counter ; counter for the loop
             ; increase dataAdr to get the tile
             JSR incDataAdr
-            loadLevel_array_loop:
+            @array_loop:
                 LDY #$00        ; get the tile
                 LDA (dataAdr), Y
                 STA level, X    ; store the tile into Level
@@ -43,15 +39,11 @@ loadLevel:
                 DEY
                 STY counter
                 CPY #$00
-                BNE loadLevel_array_loop
+                BNE @array_loop
 
-        loadLevel_loopEnd:
+        @loopEnd:
         CPX #$F0
-        BNE loadLevel_loop
+        BNE @loop
 
-    PLA
-    TAY
-    PLA
-    TAX
-    PLA
+    pullreg
     RTS

@@ -37,6 +37,7 @@ rst_vwait2:
     LDA #%00000000
     STA APU_FRAME
     JSR loadPalettes    ; load palettes
+    JSR resetNametablePalette
 
     LDA #%10010000      ; Enable NMI + set background table to $1000
     STA PPUCTRL

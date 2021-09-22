@@ -25,6 +25,8 @@ string: .res 8
 bgDataIndex: .res 1
 bgDrawData: .res 32
 
+.segment "STACK"
+stack: .res 256
 
 .segment "OAM"
 ; sprite 0
@@ -38,10 +40,10 @@ spr0_x: .res 1
 level: .res 256
 
 laserArray_pos: .res LASER_MAX
-laserArray_meta: .res LASER_MAX
+laserArray_state: .res LASER_MAX
 laserAntiArray_pos: .res LASER_MAX
-laserAntiArray_meta: .res LASER_MAX
-; Note about laserMeta element:
+laserAntiArray_state: .res LASER_MAX
+; Note about laserState element:
 ; bits .....SDD
 ; D = Direction (0=up, 1=down, 2=left, 3=right)
 ; S = Stop moving

@@ -1,16 +1,7 @@
 IRQ:
-    PHA     ; back up registers
-    TXA
-    PHA
-    TYA
-    PHA
+    pushreg
 
     LDA APU_STATUS
 
-    PLA     ; restore regs
-    TAY
-    PLA
-    TAX
-    PLA
-    
+    pullreg    
     RTI     ; Return

@@ -6,6 +6,74 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.0.3]** - _2021-09-22_
+
+### **Added**
+
+#### Project
+
+- Add stack segment in config.
+
+#### ASM
+
+- Macros for push and pull registers.
+- Include new ASM files in lightPuzzle.asm.
+- _Data:_
+  - txt_pressplay (PRESS TO PLAY).
+- _Game:_
+  - game/laser.asm with subroutines to update lasers positions and states.
+  - moveLaserMirror1 (\\ mirror) and moveLaserMirror2 (/ mirror) subroutines
+    in laser.asm to update the direction of the laser based on the direction
+    in which it came.
+  - Multiple laserAction subroutines in laser.asm to move the laser depending
+    on which type of metatile it collides with. *List of new laserAction subroutine:
+    "laserhor, laserver, mirror_1, mirror_2, mirror_ul, mirror_ur, mirror_dl,
+    mirror_dr, mirror_cross1, mirror_cross2"*
+- _Graphics_:
+  - resetNametablePalette subroutine to set the first default palette in
+    nametable 1.
+  - graphics/laser.asm with multiples laserDraw subroutines to update
+    the metatile of where a laser is standing. *list of subroutine: "ground,
+    crosshor, crossver, mirror2, mirror1, mirror_ul, mirror_ur, mirror_dl, mirror_dr"*
+
+### **Changed**
+
+#### Project
+
+- Update background tiles graphic.
+- Update Makefile.
+
+#### ASM
+
+- Metatile enum constant names
+- Replace push and pull registers instructions with macros.
+- Replace labels in subroutines with cheap labels.
+- Rename laserArray_meta to laserArray_state.
+- _Game:_
+  - laserAction_move to match the new laserAction subroutine type behavoir.
+- _Stage:_
+  - The stage change from play to play_level now required to press a button.
+  - play_load stage to add a new test laser and display txt_pressplay.
+  - play_level stage for laser to react on more metatile
+    and a way to return to the menu by pressing select or start.
+- _Data:_
+  - Default palette colors.
+  - Metatiles array and data to match the new constants
+    and remove duplicated metatiles data.
+  - Level 01 to display 64 metatiles.
+  - Level 00 by adding multiple mirrors to test lasers.
+
+### **Fixed**
+
+- Spelling mistake in CHANGELOG.
+- Palette not being set on reset.
+
+### **Removed**
+
+- Useless CMP instructions.
+
+-----------------
+
 ## **[0.0.2]** - _2021-09-15_
 
 ### **Added**
@@ -96,12 +164,12 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 - Game
   - Empty init subroutine.
 - Graphics
-  - Empty drawLevel subrountine.
-  - drawMetaTile subrountine to draw a metatile at a given position.
-  - drawMenu subrountine to draw the menu stage.
+  - Empty drawLevel subroutine.
+  - drawMetaTile subroutine to draw a metatile at a given position.
+  - drawMenu subroutine to draw the menu stage.
   - updateBgData subroutine to update background tiles during game with data in bgDrawData.
-  - loadPalettes subrountine to load default palettes.
-  - Empty updateSprite subrountine.
+  - loadPalettes subroutine to load default palettes.
+  - Empty updateSprite subroutine.
 - Stage
   - menu
   - menu_load
@@ -119,6 +187,6 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
   - memory file to define all variables.
   - incDataAdr subroutine to increase the 16bits value dataAdr.
   - decDataAdr subroutine to decrease the 16bits value dataAdr.
-  - getMTileNametableAdr subroutine that gets the PPU address of a mtile.
+  - getMTileNametableAdr subroutine that gets the PPU address of a metatile.
 
 -----------------

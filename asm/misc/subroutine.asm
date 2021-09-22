@@ -38,12 +38,12 @@ incDataAdr:
     INX
     STX dataAdr_l
     CPX #$00
-    BNE incDataAdr_end
+    BNE @end
     LDX dataAdr_h
     INX
     STX dataAdr_h
 
-    incDataAdr_end:
+    @end:
     PLA
     TAX
     PLA
@@ -60,12 +60,12 @@ addDataAdr:
     STX tmp
     ADC tmp
     STA dataAdr_l
-    BCC addDataAdr_end
+    BCC @end
     LDX dataAdr_h
     INX
     STX dataAdr_h
 
-    addDataAdr_end:
+    @end:
     PLA
     TAX
     PLA

@@ -3,11 +3,18 @@
 ;****************
 
 ; TODO:
-; - more Mtiles
+; - cursor
+; - place/remove object
 ; - load palette
-; - level Stage
-; - level_load Stage
-; - Cursor
+; - update palette
+; - laser behavior
+;   - corner mirrors
+;   - receiver
+;   - splitter
+;   - merger
+;   - door
+;   - timewall
+; - fix POS_OUTOFMAP
 
 ; Header of the file (not part of the cartridge, used by the emulator)
 .segment "HEADER"
@@ -24,6 +31,7 @@
 
 .include "constants.asm"
 .include "memory.asm"
+.include "macro.asm"
 
 
 ; Code data 
@@ -45,10 +53,12 @@
 .include "graphics/bgUpdate.asm"
 .include "graphics/palette.asm"
 .include "graphics/sprite.asm"
+.include "graphics/laser.asm"
 
 .include "audio/init.asm"
 .include "audio/subroutine.asm"
 
+data:
 .include "data/data.asm"
 .include "data/palette.asm"
 .include "data/level.asm"

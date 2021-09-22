@@ -7,11 +7,29 @@ loadPalettes:
     STA PPUADDR         ; write the low byte of $3F00 address
 
     LDX #$00            ; start out at 0
-    loadPalettes_loop:
+    @loop:
         LDA palettes, x     ; load data from address
         STA PPUDATA         ; write to PPU
         INX                 ; X = X + 1
         CPX #$20            ; Compare X to $20(4*8 palettes)
-        BNE loadPalettes_loop   ; Branch to LoadPalettesLoop if compare was Not Equal to zero
-                                ; if compare was equal, keep going down
+        BNE @loop           ; Branch to loop if compare was Not Equal to zero
+                            ; if compare was equal, keep going down
+    RTS
+
+
+resetNametablePalette:
+    LDA PPUSTATUS   ; read PPU status to reset the high/low latch
+    LDA #$23
+    STA PPUADDR     ; write the high byte of $23C0 address
+    LDA #$C0
+    STA PPUADDR     ; write the low byte of $23C0 address
+
+    LDX #$00        ; start out at 0
+    LDA #$00        ; load default palette
+    @loop:
+        STA PPUDATA     ; write to PPU
+        INX             ; X = X + 1
+        CPX #$40        ; Compare X to $40
+        BNE @loop       ; Branch to loop if compare was Not Equal to zero
+                        ; if compare was equal, keep going down
     RTS

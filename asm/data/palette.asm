@@ -1,13 +1,13 @@
 ; palettes data
 palettes:
     ; background
-    .byte $2D, $00, $10, $20
-    .byte $2D, $00, $10, $2D
-    .byte $2D, $00, $10, $20
-    .byte $2D, $00, $10, $20
+    .byte $0F, $00, $10, $30
+    .byte $0F, $04, $14, $36
+    .byte $0F, $0C, $1B, $39
+    .byte $0F, $06, $15, $36
 
     ; sprite
-    .byte $2D, $00, $10, $20
-    .byte $2D, $00, $10, $20
-    .byte $2D, $00, $10, $20
-    .byte $2D, $00, $10, $20
+    .byte $0F, $00, $10, $30
+    .byte $0F, $00, $10, $30
+    .byte $0F, $00, $10, $30
+    .byte $0F, $00, $10, $30

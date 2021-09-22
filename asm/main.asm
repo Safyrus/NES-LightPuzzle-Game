@@ -2,14 +2,12 @@ main:
     ; wait for a transition to finish
     waitPPUOffCounter:
         LDA PPUOffcounter
-        CMP #$00
         BNE waitPPUOffCounter
 
     ; wait for the screen to refresh
     main_waitDrawEnd:
         LDA drawStates
         AND #%10000000
-        CMP #$00
         BEQ main_waitDrawEnd
 
     LDA drawStates  ; clear the draw_end flag
