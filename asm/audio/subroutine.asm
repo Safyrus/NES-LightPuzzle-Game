@@ -1,5 +1,5 @@
 ; X = note index
-playNote:
+play_note:
     LDA #%10011111
     STA APU_PULSE1_CTRL
 

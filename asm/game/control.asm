@@ -16,3 +16,22 @@ readjoy:
         ROL buttons2    ; Carry -> bit 0; bit 7 -> Carry
         BCC @loop
     RTS
+
+
+update_btn_timer:
+    @timer:
+    LDA buttons1Timer   ; decrease buttons1Timer if it is not 0
+    BEQ @timerReset
+    SEC
+    SBC #$01
+    STA buttons1Timer
+    JMP @end
+
+    @timerReset:
+    LDA buttons1        ; set buttons1Timer if any button was pressed
+    BEQ @end
+    LDA #BTN_TIMER
+    STA buttons1Timer
+
+    @end:
+    RTS

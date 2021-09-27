@@ -3,7 +3,6 @@
 ;****************
 
 ; TODO:
-; - cursor
 ; - place/remove object
 ; - load palette
 ; - update palette
@@ -46,6 +45,7 @@
 .include "misc/subroutine.asm"
 
 .include "game/control.asm"
+.include "game/cursor.asm"
 .include "game/laser.asm"
 .include "game/level.asm"
 

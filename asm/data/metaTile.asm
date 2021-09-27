@@ -148,12 +148,12 @@ metaTile_LOCK:          .byte $05, $05, $05, $05   ; LOCK
 
 metaTile_EMIT_UP:       .byte $42, $43, $44, $45   ; EMIT_UP
 metaTile_EMIT_DOWN:     .byte $54, $55, $42, $43   ; EMIT_DOWN
-metaTile_EMIT_LEFT:     .byte $47, $52, $57, $53   ; EMIT_LEFT
-metaTile_EMIT_RIGHT:    .byte $52, $46, $53, $56   ; EMIT_RIGHT
+metaTile_EMIT_LEFT:     .byte $52, $46, $53, $56   ; EMIT_LEFT
+metaTile_EMIT_RIGHT:    .byte $47, $52, $57, $53   ; EMIT_RIGHT
 metaTile_RECEIVE_UP:    .byte $42, $43, $48, $49   ; RECEIVE_UP
 metaTile_RECEIVE_DOWN:  .byte $58, $59, $42, $43   ; RECEIVE_DOWN
-metaTile_RECEIVE_LEFT:  .byte $4B, $52, $5B, $53   ; RECEIVE_LEFT
-metaTile_RECEIVE_RIGHT: .byte $52, $4A, $53, $5A   ; RECEIVE_RIGHT
+metaTile_RECEIVE_LEFT:  .byte $52, $4A, $53, $5A   ; RECEIVE_LEFT
+metaTile_RECEIVE_RIGHT: .byte $4B, $52, $5B, $53   ; RECEIVE_RIGHT
 
 metaTile_LASER_HOR:     .byte $42, $43, $42, $43   ; LASER_HOR
 metaTile_LASER_VER:     .byte $52, $52, $53, $53   ; LASER_VER

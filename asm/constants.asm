@@ -34,6 +34,7 @@ APU_FRAME := $4017
 ; IO
 JOYPAD1 = $4016
 JOYPAD2 = $4017
+BTN_TIMER = 16
 
 ; OAM
 OAMDMA := $4014
@@ -43,12 +44,16 @@ LASER_MAX := 16
 POS_OUTOFMAP = $F0
 
 ; Game Stage
-STG_PLAY = 0
-STG_WIN = 1
-STG_MENU_LOAD = 2
-STG_MENU = 3
-STG_PLAY_LOAD = 4
-STG_PLAY_LEVEL = 5
+.enum STG
+    LEVEL_EDIT
+    WIN
+    MENU_LOAD
+    MENU
+    LEVEL_LOAD
+    LEVEL_PLAY
+    LEVEL_WIN
+    LEVEL_LOOSE
+.endenum
 
 ; Meta Tiles
 .enum MTILE
@@ -121,4 +126,11 @@ STG_PLAY_LEVEL = 5
     NULL_3F
 
     SPE_ARRAY = $FF
+.endenum
+
+
+.enum SPR
+    NULL
+    CURS1
+    CURS2
 .endenum

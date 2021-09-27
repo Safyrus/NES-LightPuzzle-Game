@@ -6,6 +6,63 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.0.4]** - _2021-09-27_
+
+### **Added**
+
+- SPR enum for sprites.
+- BTN_TIMER constant to set the number of frame to wait when a button is pressed.
+- New variables (buttons1Timer, cursX, cursY and cursAnimTimer)
+  and sprites addresses (sprCursUL, sprCursUR, sprCursDL, sprCursDR).
+- _Data:_
+  - txt_win and txt_loose.
+  - 10 data bytes to levels (unused for now).
+- _Game:_
+  - New laser_action subroutines (receive_up, receive_down, receive_left, receive_right).
+  - add_laser subroutines in game/laser/add.asm to add a new laser in the level.
+  - update_btn_timer subroutine to update the number of frame remaining to press
+    a button again.
+  - move_cursor subroutine to move the cursor based on inputs.
+  - place_at_cursor subroutine to place a different metatile where the cursor is.
+  - level_place_lasers subroutine to place lasers on the level base on the
+    location of emitters.
+- _Graphics_:
+  - New laser_draw subroutines (receive_up, receive_down, receive_left, receive_right).
+  - update_cursor_sprite subroutine to update the cursor sprites.
+- _Stage:_
+  - Very basic win and loose stage that just reload the level when pressing
+    start or select.
+  - A cursor in level_edit stage.
+
+### **Changed**
+
+- Refactor subroutines names.
+- STG constant type into an enum.
+- Include new files.
+- Main subroutine to include the new stages and call update_btn_timer at the end.
+- _Game:_
+  - Move all laser_action subroutines into game/laser/action.asm
+  - Move all move_laser subroutines into game/laser/move.asm
+  - load_level subroutine to load the 10 data bytes.
+- _Stage:_
+  - Play... stages names for Level..., change constants and files names accordingly.
+  - level_load by letting the game place the lasers.
+  - level_play that now check if every laser has stop and change the stage to win
+    or loose if there are at least one receiver off. Also add laser behavior for
+    off receiver.
+
+### **Fixed**
+
+- metaTile_EMIT_LEFT and metaTile_EMIT_RIGHT being inverted.
+  Same for metaTile_RECEIVE_LEFT and metaTile_RECEIVE_RIGHT.
+
+### **Removed**
+
+- Level 00 test mirrors.
+- level_load test lasers.
+
+-----------------
+
 ## **[0.0.3]** - _2021-09-22_
 
 ### **Added**

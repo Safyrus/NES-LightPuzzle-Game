@@ -36,13 +36,13 @@ rst_vwait2:
     JSR init_apu        ; Initialize Audio
     LDA #%00000000
     STA APU_FRAME
-    JSR loadPalettes    ; load palettes
-    JSR resetNametablePalette
+    JSR load_palettes    ; load palettes
+    JSR reset_nametable_palette
 
     LDA #%10010000      ; Enable NMI + set background table to $1000
     STA PPUCTRL
 
-    LDA #STG_MENU_LOAD  ; set the stage to MenuLoad
+    LDA #STG::MENU_LOAD  ; set the stage to MenuLoad
     STA gameStage
 
     CLI

@@ -1,7 +1,7 @@
 ; add a string of data to update the background
 ; param: X= length
 ; vars:  dataAdr, vramAdr
-updateBgData:
+update_bg_data:
     pushreg
 
     TXA
@@ -47,7 +47,7 @@ updateBgData:
 
 ; param: X=index
 ; vars:  vramAdr
-updateBgMTile:
+update_bg_metaTile:
     PHA
     TXA
     PHA
@@ -59,11 +59,11 @@ updateBgMTile:
 
     TXA
     LDX #$02
-    JSR updateBgData
+    JSR update_bg_data
     TAX
 
     LDX #$02
-    JSR addDataAdr
+    JSR add_dataAdr
     LDA vramAdr_l
     CLC
     ADC #$20
@@ -74,7 +74,7 @@ updateBgMTile:
     STA vramAdr_h
     @next:
     LDX #$02
-    JSR updateBgData
+    JSR update_bg_data
 
     PLA
     TAX

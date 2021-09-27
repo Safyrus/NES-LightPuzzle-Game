@@ -19,8 +19,11 @@ tmp: .res 1
 
 buttons1: .res 1
 buttons2: .res 1
+buttons1Timer: .res 1
 
-string: .res 8
+cursX: .res 1
+cursY: .res 1
+cursAnimTimer: .res 1
 
 bgDataIndex: .res 1
 bgDrawData: .res 32
@@ -34,6 +37,24 @@ spr0_y: .res 1
 spr0: .res 1
 spr0_atr: .res 1
 spr0_x: .res 1
+
+; sprite cursor
+sprCursUL_y: .res 1
+sprCursUL: .res 1
+sprCursUL_atr: .res 1
+sprCursUL_x: .res 1
+sprCursUR_y: .res 1
+sprCursUR: .res 1
+sprCursUR_atr: .res 1
+sprCursUR_x: .res 1
+sprCursDL_y: .res 1
+sprCursDL: .res 1
+sprCursDL_atr: .res 1
+sprCursDL_x: .res 1
+sprCursDR_y: .res 1
+sprCursDR: .res 1
+sprCursDR_atr: .res 1
+sprCursDR_x: .res 1
 
 
 .segment "RAM"

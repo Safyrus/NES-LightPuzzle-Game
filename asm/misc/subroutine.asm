@@ -1,5 +1,5 @@
 ; X = Coord
-getMTileNametableAdr:
+get_metaTile_nametable_adr:
     PHA
 
     TXA
@@ -29,7 +29,7 @@ getMTileNametableAdr:
 
 
 ; add 1 to dataAdr
-incDataAdr:
+inc_dataAdr:
     PHA
     TXA
     PHA
@@ -50,7 +50,7 @@ incDataAdr:
     RTS
 
 ; X = number to add
-addDataAdr:
+add_dataAdr:
     PHA
     TXA
     PHA

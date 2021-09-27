@@ -1,5 +1,5 @@
 ; X = level
-drawLevel:
+draw_level:
     PHA
     TXA
     PHA
@@ -23,23 +23,23 @@ drawLevel:
         @normal:
             ; draw Mtile
             TAY
-            JSR drawMetaTile
+            JSR draw_metaTile
             INX
-            JSR incDataAdr
+            JSR inc_dataAdr
             JMP @loopEnd
 
         @array:
             ; get length
-            JSR incDataAdr
+            JSR inc_dataAdr
             LDA (dataAdr), Y
             STA counter
             ; get tile
-            JSR incDataAdr
+            JSR inc_dataAdr
             @array_loop:
                 LDY #$00
                 LDA (dataAdr), Y
                 TAY
-                JSR drawMetaTile
+                JSR draw_metaTile
                 INX
 
                 LDY counter
@@ -60,7 +60,7 @@ drawLevel:
     RTS
 
 ; X = Coord, Y= ID
-drawMetaTile:
+draw_metaTile:
     ; push registers
     PHA
     TXA
@@ -72,7 +72,7 @@ drawMetaTile:
     PHA
 
     ; set VRAM adr
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
     BIT PPUSTATUS   ; reset adress latch
     LDA dataAdr_h
     STA PPUADDR
@@ -95,7 +95,7 @@ drawMetaTile:
     STA PPUDATA
 
     ; inc MTile adr
-    JSR incDataAdr
+    JSR inc_dataAdr
     LDA (dataAdr, X)
 
     ; set upper right tile
@@ -111,9 +111,9 @@ drawMetaTile:
     PHA
 
     ; set VRAM adr
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
     LDX #$20        ; add $20 to dataAdr
-    JSR addDataAdr
+    JSR add_dataAdr
     BIT PPUSTATUS   ; reset adress latch
     LDA dataAdr_h   ; set VRAM adr
     STA PPUADDR
@@ -127,7 +127,7 @@ drawMetaTile:
     STA dataAdr_l
 
     ; inc MTile adr
-    JSR incDataAdr
+    JSR inc_dataAdr
     LDX #$00
     LDA (dataAdr, X)
 
@@ -135,7 +135,7 @@ drawMetaTile:
     STA PPUDATA
 
     ; inc MTile adr
-    JSR incDataAdr
+    JSR inc_dataAdr
     LDA (dataAdr, X)
 
     ; set lower right tile
@@ -153,7 +153,7 @@ drawMetaTile:
     RTS
 
 ;
-drawMenu:
+draw_menu:
     bit PPUSTATUS   ; reset adress latch
     LDA #$20        ; set the vram address to start from
     STA PPUADDR

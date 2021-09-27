@@ -1,10 +1,10 @@
 ; Y = laser index
-laserDraw_ground:
+laser_draw_ground:
     pushreg
 
     LDA laserArray_pos, Y   ; get the laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -20,7 +20,7 @@ laserDraw_ground:
     LDX #MTILE::LASER_HOR
     
     @draw:                  ; draw the laser
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
@@ -31,12 +31,12 @@ laserDraw_ground:
 
 
 ; Y = laser index
-laserDraw_crosshor:
+laser_draw_crosshor:
     pushreg
 
     LDA laserArray_pos, Y   ; get the laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -48,7 +48,7 @@ laserDraw_crosshor:
     BEQ @end
 
     LDX #MTILE::LASER_CROSS
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
@@ -60,12 +60,12 @@ laserDraw_crosshor:
 
 
 ; Y = laser index
-laserDraw_crossver:
+laser_draw_crossver:
     pushreg
 
     LDA laserArray_pos, Y   ; get the laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -77,7 +77,7 @@ laserDraw_crossver:
     BNE @end
 
     LDX #MTILE::LASER_CROSS
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
@@ -89,12 +89,12 @@ laserDraw_crossver:
 
 
 ; Y = laser index
-laserDraw_mirror2:
+laser_draw_mirror2:
     pushreg
 
     LDA laserArray_pos, Y   ; get laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -116,7 +116,7 @@ laserDraw_mirror2:
     LDX #MTILE::MIRROR_UR
 
     @draw:
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
@@ -127,12 +127,12 @@ laserDraw_mirror2:
 
 
 ; Y = laser index
-laserDraw_mirror1:
+laser_draw_mirror1:
     pushreg
 
     LDA laserArray_pos, Y   ; get laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -148,7 +148,7 @@ laserDraw_mirror1:
     LDX #MTILE::MIRROR_UL
 
     @draw:
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
@@ -159,12 +159,12 @@ laserDraw_mirror1:
 
 
 ; Y = laser index
-laserDraw_mirror_ul:
+laser_draw_mirror_ul:
     pushreg
 
     LDA laserArray_pos, Y   ; get laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -175,7 +175,7 @@ laserDraw_mirror_ul:
     AND #%00000001          ; and if it is going down or right
     BEQ @end                ; then draw the MIRROR_CROSS2 mtile
     LDX #MTILE::MIRROR_CROSS2
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
@@ -187,12 +187,12 @@ laserDraw_mirror_ul:
 
 
 ; Y = laser index
-laserDraw_mirror_ur:
+laser_draw_mirror_ur:
     pushreg
 
     LDA laserArray_pos, Y   ; get laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -209,7 +209,7 @@ laserDraw_mirror_ur:
     EOR tmp
     BEQ @end
     LDX #MTILE::MIRROR_CROSS1
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
@@ -221,12 +221,12 @@ laserDraw_mirror_ur:
 
 
 ; Y = laser index
-laserDraw_mirror_dl:
+laser_draw_mirror_dl:
     pushreg
 
     LDA laserArray_pos, Y   ; get laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -243,7 +243,7 @@ laserDraw_mirror_dl:
     EOR tmp
     BNE @end
     LDX #MTILE::MIRROR_CROSS1
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
@@ -255,12 +255,12 @@ laserDraw_mirror_dl:
 
 
 ; Y = laser index
-laserDraw_mirror_dr:
+laser_draw_mirror_dr:
     pushreg
 
     LDA laserArray_pos, Y   ; get laser position in nametable
     TAX
-    JSR getMTileNametableAdr
+    JSR get_metaTile_nametable_adr
 
     LDA dataAdr_h           ; set the laser position to vramAdr
     STA vramAdr_h
@@ -271,12 +271,108 @@ laserDraw_mirror_dr:
     AND #%00000001          ; and if it is going up or left
     BNE @end                ; then draw the MIRROR_CROSS1 mtile
     LDX #MTILE::MIRROR_CROSS2
-    JSR updateBgMTile
+    JSR update_bg_metaTile
     LDA laserArray_pos, Y
     TAY
     TXA
     STA level, Y
 
     @end:
+    pullreg
+    RTS
+
+
+; Y = laser index
+laser_draw_receive_up:
+    pushreg
+
+    LDA laserArray_pos, Y   ; get laser position in nametable
+    TAX
+    JSR get_metaTile_nametable_adr
+
+    LDA dataAdr_h           ; set the laser position to vramAdr
+    STA vramAdr_h
+    LDA dataAdr_l
+    STA vramAdr_l
+
+    LDX #MTILE::RECEIVE_UP_ON
+    JSR update_bg_metaTile
+    LDA laserArray_pos, Y
+    TAY
+    TXA
+    STA level, Y
+
+    pullreg
+    RTS
+
+
+; Y = laser index
+laser_draw_receive_down:
+    pushreg
+
+    LDA laserArray_pos, Y   ; get laser position in nametable
+    TAX
+    JSR get_metaTile_nametable_adr
+
+    LDA dataAdr_h           ; set the laser position to vramAdr
+    STA vramAdr_h
+    LDA dataAdr_l
+    STA vramAdr_l
+
+    LDX #MTILE::RECEIVE_DOWN_ON
+    JSR update_bg_metaTile
+    LDA laserArray_pos, Y
+    TAY
+    TXA
+    STA level, Y
+
+    pullreg
+    RTS
+
+
+; Y = laser index
+laser_draw_receive_left:
+    pushreg
+
+    LDA laserArray_pos, Y   ; get laser position in nametable
+    TAX
+    JSR get_metaTile_nametable_adr
+
+    LDA dataAdr_h           ; set the laser position to vramAdr
+    STA vramAdr_h
+    LDA dataAdr_l
+    STA vramAdr_l
+
+    LDX #MTILE::RECEIVE_LEFT_ON
+    JSR update_bg_metaTile
+    LDA laserArray_pos, Y
+    TAY
+    TXA
+    STA level, Y
+
+    pullreg
+    RTS
+
+
+; Y = laser index
+laser_draw_receive_right:
+    pushreg
+
+    LDA laserArray_pos, Y   ; get laser position in nametable
+    TAX
+    JSR get_metaTile_nametable_adr
+
+    LDA dataAdr_h           ; set the laser position to vramAdr
+    STA vramAdr_h
+    LDA dataAdr_l
+    STA vramAdr_l
+
+    LDX #MTILE::RECEIVE_RIGHT_ON
+    JSR update_bg_metaTile
+    LDA laserArray_pos, Y
+    TAY
+    TXA
+    STA level, Y
+
     pullreg
     RTS

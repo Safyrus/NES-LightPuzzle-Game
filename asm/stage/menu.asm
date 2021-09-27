@@ -16,11 +16,11 @@ stage_menu:
 
     @A:
         LDX #(2*12)+3
-        JSR playNote
+        JSR play_note
         JMP @end
     @B:
         LDX #(2*12)+0
-        JSR playNote
+        JSR play_note
         JMP @end
 
     @play:
@@ -31,7 +31,7 @@ stage_menu:
         LDA #30        ; Disable for 30 frame
         STA PPUOffcounter
 
-        LDA #STG_PLAY_LOAD  ; load the main game
+        LDA #STG::LEVEL_LOAD  ; load the main game
         STA gameStage
 
     @end:

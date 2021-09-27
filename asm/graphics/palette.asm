@@ -1,5 +1,5 @@
 ; Load Default palettes into the VRAM adresses corresponding to palette data
-loadPalettes:
+load_palettes:
     LDA PPUSTATUS       ; read PPU status to reset the high/low latch
     LDA #$3F
     STA PPUADDR         ; write the high byte of $3F00 address
@@ -17,7 +17,7 @@ loadPalettes:
     RTS
 
 
-resetNametablePalette:
+reset_nametable_palette:
     LDA PPUSTATUS   ; read PPU status to reset the high/low latch
     LDA #$23
     STA PPUADDR     ; write the high byte of $23C0 address

@@ -1,14 +1,22 @@
+.include "stage/level_edit.asm"
+.include "stage/level_load.asm"
+.include "stage/level_play.asm"
+.include "stage/level_win.asm"
+.include "stage/level_loose.asm"
+.include "stage/menu.asm"
+.include "stage/menu_load.asm"
+
 main:
     ; wait for a transition to finish
-    waitPPUOffCounter:
+    @waitPPUOffCounter:
         LDA PPUOffcounter
-        BNE waitPPUOffCounter
+        BNE @waitPPUOffCounter
 
     ; wait for the screen to refresh
-    main_waitDrawEnd:
+    @waitDrawEnd:
         LDA drawStates
         AND #%10000000
-        BEQ main_waitDrawEnd
+        BEQ @waitDrawEnd
 
     LDA drawStates  ; clear the draw_end flag
     AND #%01111111
@@ -21,42 +29,47 @@ main:
     JSR readjoy     ; read controllers inputs
 
     LDA gameStage   ; get the variable gameStage
-    CMP #STG_PLAY   ; are we in the Play stage ?
-    BEQ main_play
-    CMP #STG_MENU   ; are we in the Menu stage ?
-    BEQ main_menu
-    CMP #STG_MENU_LOAD  ; are we in the MenuLoad stage ?
-    BEQ main_menu_load
-    CMP #STG_PLAY_LOAD  ; are we in the PlayLoad stage ?
-    BEQ main_play_load
-    CMP #STG_PLAY_LEVEL  ; are we in the PlayLevel stage ?
-    BEQ main_play_level
+    CMP #STG::MENU   ; are we in the Menu stage ?
+    BEQ @menu
+    CMP #STG::MENU_LOAD     ; are we in the MenuLoad stage ?
+    BEQ @menu_load
+    CMP #STG::LEVEL_EDIT    ; are we in the LevelEdit stage ?
+    BEQ @level_edit
+    CMP #STG::LEVEL_LOAD    ; are we in the LevelLoad stage ?
+    BEQ @level_load
+    CMP #STG::LEVEL_PLAY    ; are we in the LevelPlay stage ?
+    BEQ @level_play
+    CMP #STG::LEVEL_WIN    ; are we in the LevelWin stage ?
+    BEQ @level_win
+    CMP #STG::LEVEL_LOOSE  ; are we in the LevelLoose stage ?
+    BEQ @level_loose
 
-    main_end:
+    @end:
+    JSR update_btn_timer
     LDA #$00        ; put a zero at the end of bgDrawData array
     LDX bgDataIndex
     STA bgDrawData, X
     JMP main        ; return to the start of the main loop
 
     ; stages
-    main_play:
-        JSR stage_play
-        JMP main_end
-    main_play_load:
-        JSR stage_play_load
-        JMP main_end
-    main_play_level:
-        JSR stage_play_level
-        JMP main_end
-    main_menu:
+    @level_edit:
+        JSR stage_level_edit
+        JMP @end
+    @level_load:
+        JSR stage_level_load
+        JMP @end
+    @level_play:
+        JSR stage_level_play
+        JMP @end
+    @level_win:
+        JSR stage_level_win
+        JMP @end
+    @level_loose:
+        JSR stage_level_loose
+        JMP @end
+    @menu:
         JSR stage_menu
-        JMP main_end
-    main_menu_load:
+        JMP @end
+    @menu_load:
         JSR stage_menu_load
-        JMP main_end
-
-.include "stage/play.asm"
-.include "stage/play_load.asm"
-.include "stage/play_level.asm"
-.include "stage/menu.asm"
-.include "stage/menu_load.asm"
+        JMP @end
