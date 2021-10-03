@@ -6,6 +6,58 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.0.5]** - _2021-10-03_
+
+### **Added**
+
+#### ASM
+
+- New arrays in memory (attributes and palettes).
+- Labels in the level memory page to access level palettes and other data.
+- drawStates flags (for updating attributes, palettes and scroll).
+- change_to_level_load subroutine.
+- _Data:_
+  - palettes table (only 6 palettes are unique for now).
+- _Graphics_:
+  - change_attribute subroutine to change the attribute of a metatile.
+  - set_palette subroutine to change a palette.
+- _Vector_:
+  - Vblank can now change the nametable attributes and palettes using the
+    attributes and the palettes array.
+
+### **Changed**
+
+- CHR laser sprites to use only 1 color, background text color and some object
+  sprites (mirrors, emitters, receivers).
+
+#### ASM
+
+- bgDrawData size from 32 to 63 bytes.
+- drawStates comment about flag description.
+- Renamed load_palettes in load_palettes_ppu and reset_nametable_palette in reset_nametable_attributes.
+- _Data:_
+  - level 00 and 01 palettes.
+- _Graphics_:
+  - Update metatile attribute when changing its sprite.
+- _Stage:_
+  - Refactor in stages Menu, LevelWin, LevelLoose and LevelPlay action that change
+    the stage to LevelLoad to use the change_to_level_load subroutine.
+  - Enable scroll update in Menu.
+  - Placing laser in LevelEdit when pressing A instead of LevelLoad.
+  - Disable sprites when switching from LevelEdit to LevelPlay.
+  - Disable palette update and activate background, sprites, attributes and
+    scroll in LevelEdit.
+  - Load level palettes and set attribute table in LevelLoad.
+- _Vector_:
+  - Load the first 8 palettes of the palette table during reset before
+    resetting the nametable attributes.
+
+### **Removed**
+
+- Default palettes.
+
+-----------------
+
 ## **[0.0.4]** - _2021-09-27_
 
 ### **Added**

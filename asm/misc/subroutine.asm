@@ -70,3 +70,20 @@ add_dataAdr:
     TAX
     PLA
     RTS
+
+
+change_to_level_load:
+    PHA
+
+    LDA drawStates  ; Disable PPU at the next Vblank
+    AND #%11101100
+    ORA #%01001000
+    STA drawStates
+    LDA #10        ; Disable for 10 frame
+    STA PPUOffcounter
+
+    LDA #STG::LEVEL_LOAD  ; load the main game
+    STA gameStage
+
+    PLA
+    RTS

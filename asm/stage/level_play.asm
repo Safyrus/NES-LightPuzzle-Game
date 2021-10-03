@@ -2,16 +2,7 @@ stage_level_play:
     LDA buttons1
     AND #%00110000
     BEQ @start
-        LDA drawStates  ; Disable PPU at the next Vblank
-        AND #%11111100
-        ORA #%01000000
-        STA drawStates
-        LDA #30        ; Disable for 30 frame
-        STA PPUOffcounter
-
-        LDA #STG::LEVEL_LOAD  ; load the main game
-        STA gameStage
-
+        JSR change_to_level_load
 
     @start:
     LDX level_FrameCounter      ; Check if frameCounter is zero

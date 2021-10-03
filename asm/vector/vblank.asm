@@ -3,7 +3,7 @@ VBLANK:
 
     LDA drawStates
     AND #%01000000
-    BEQ vblank_sprUpdate
+    BEQ vblank_update
         LDA drawStates
         AND #%00100000
         BEQ vblank_turnPPUOff
@@ -31,11 +31,12 @@ VBLANK:
             STA drawStates
 
             JMP vblank_end
+    vblank_update:
 
-    vblank_sprUpdate:
     LDA drawStates
     AND #%00000010
     BEQ vblank_sprUpdate_end
+    vblank_sprUpdate:
         LDA #$02        ; Update sprites
         STA OAMDMA
     vblank_sprUpdate_end:
@@ -43,9 +44,8 @@ VBLANK:
     LDA drawStates
     AND #%00000001
     BEQ vblank_bgUpdate_end
-
     ; Background updating
-    bit PPUSTATUS   ; reset latch
+    BIT PPUSTATUS   ; reset latch
     LDX #$FF        ; reset X to 0, it will serve as an array index
     vblank_bgUpdate:
         INX
@@ -72,16 +72,46 @@ VBLANK:
             DEY
             CPY #$00
             BNE vblank_bgUpdate_loop
-            JMP vblank_bgUpdate
+        JMP vblank_bgUpdate
     vblank_bgUpdate_end:
 
-    vblank_end:
-    bit PPUSTATUS   ; set scrolling position to 0,0
-    LDA #$00
-    STA PPUSCROLL
-    LDA #$00
-    STA PPUSCROLL
+    LDA drawStates
+    AND #%00000100
+    BEQ vblank_attribute_end
+    vblank_attribute:
+        BIT PPUSTATUS   ; reset latch
+        LDA #$23
+        STA PPUADDR
+        LDA #$C0
+        STA PPUADDR
+        LDX #$00
+        vblank_attribute_loop:
+            LDA attributes, X
+            STA PPUDATA
+            INX
+            CPX #$40
+            BNE vblank_attribute_loop
+    vblank_attribute_end:
 
+    LDA drawStates
+    AND #%00001000
+    BEQ vblan_palette_end
+    vblan_palette:
+        JSR load_palettes_ppu
+    vblan_palette_end:
+
+    LDA drawStates
+    AND #%00010000
+    BEQ vblan_scroll_end
+    vblan_scroll:
+        BIT PPUSTATUS   ; reset latch
+        LDA #$00        ; set scrolling position to 0,0
+        STA PPUSCROLL
+        LDA #$00
+        STA PPUSCROLL
+    vblan_scroll_end:
+
+    vblank_end:
     LDA drawStates ; set draw_end flag
     ORA #%10000000
     STA drawStates

@@ -26,6 +26,11 @@ laser_draw_ground:
     TXA
     STA level, Y
 
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
+
     pullreg
     RTS
 
@@ -53,6 +58,11 @@ laser_draw_crosshor:
     TAY
     TXA
     STA level, Y
+
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
 
     @end:
     pullreg
@@ -82,6 +92,11 @@ laser_draw_crossver:
     TAY
     TXA
     STA level, Y
+
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
 
     @end:
     pullreg
@@ -122,6 +137,11 @@ laser_draw_mirror2:
     TXA
     STA level, Y
 
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
+
     pullreg
     RTS
 
@@ -154,6 +174,11 @@ laser_draw_mirror1:
     TXA
     STA level, Y
 
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
+
     pullreg
     RTS
 
@@ -180,6 +205,11 @@ laser_draw_mirror_ul:
     TAY
     TXA
     STA level, Y
+
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
 
     @end:
     pullreg
@@ -215,6 +245,11 @@ laser_draw_mirror_ur:
     TXA
     STA level, Y
 
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
+
     @end:
     pullreg
     RTS
@@ -249,6 +284,11 @@ laser_draw_mirror_dl:
     TXA
     STA level, Y
 
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
+
     @end:
     pullreg
     RTS
@@ -277,6 +317,11 @@ laser_draw_mirror_dr:
     TXA
     STA level, Y
 
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
+
     @end:
     pullreg
     RTS
@@ -302,6 +347,11 @@ laser_draw_receive_up:
     TXA
     STA level, Y
 
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
+
     pullreg
     RTS
 
@@ -325,6 +375,11 @@ laser_draw_receive_down:
     TAY
     TXA
     STA level, Y
+
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
 
     pullreg
     RTS
@@ -350,6 +405,11 @@ laser_draw_receive_left:
     TXA
     STA level, Y
 
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
+
     pullreg
     RTS
 
@@ -373,6 +433,11 @@ laser_draw_receive_right:
     TAY
     TXA
     STA level, Y
+
+    TYA
+    TAX
+    LDY #$02
+    JSR change_attribute
 
     pullreg
     RTS

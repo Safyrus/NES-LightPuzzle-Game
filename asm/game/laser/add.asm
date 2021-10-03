@@ -2,6 +2,13 @@
 add_laser_up:
     pushreg
 
+    TYA                     ; change metatile palette
+    TAX
+    LDY #$02
+    JSR change_attribute
+    TXA
+    TAY
+
     LDX level_LaserCount    ; put a laser
     TYA                     ; at Y
     STA laserArray_pos, X   ;
@@ -17,6 +24,13 @@ add_laser_up:
 ; Y = pos
 add_laser_down:
     pushreg
+
+    TYA                     ; change metatile palette
+    TAX
+    LDY #$02
+    JSR change_attribute
+    TXA
+    TAY
 
     LDX level_LaserCount    ; put a laser
     TYA                     ; at Y
@@ -34,6 +48,13 @@ add_laser_down:
 add_laser_left:
     pushreg
 
+    TYA                     ; change metatile palette
+    TAX
+    LDY #$02
+    JSR change_attribute
+    TXA
+    TAY
+
     LDX level_LaserCount    ; put a laser
     TYA                     ; at Y
     STA laserArray_pos, X   ;
@@ -49,6 +70,13 @@ add_laser_left:
 ; Y = pos
 add_laser_right:
     pushreg
+
+    TYA                     ; change metatile palette
+    TAX
+    LDY #$02
+    JSR change_attribute
+    TXA
+    TAY
 
     LDX level_LaserCount    ; put a laser
     TYA                     ; at Y

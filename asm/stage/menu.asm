@@ -1,6 +1,6 @@
 stage_menu:
     LDA drawStates
-    ORA #%00000001
+    ORA #%00010001
     STA drawStates
 
     LDA buttons1
@@ -24,15 +24,7 @@ stage_menu:
         JMP @end
 
     @play:
-        LDA drawStates  ; Disable PPU at the next Vblank
-        AND #%11111100
-        ORA #%01000000
-        STA drawStates
-        LDA #30        ; Disable for 30 frame
-        STA PPUOffcounter
-
-        LDA #STG::LEVEL_LOAD  ; load the main game
-        STA gameStage
+        JSR change_to_level_load
 
     @end:
     RTS

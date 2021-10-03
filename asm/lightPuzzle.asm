@@ -4,8 +4,6 @@
 
 ; TODO:
 ; - place/remove object
-; - load palette
-; - update palette
 ; - laser behavior
 ;   - corner mirrors
 ;   - receiver

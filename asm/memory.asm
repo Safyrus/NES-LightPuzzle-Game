@@ -4,7 +4,16 @@
 ; $0200-$02FF: OAM Buffer
 
 .segment "ZEROPAGE"
-drawStates: .res 1 ; 7: draw_end flag, 6:disablePPU ,5:PPUDisable, 1: sprUpdate, 0: bgUpdate
+; 7: draw_end flag
+; 6: disablePPU
+; 5: PPUDisable
+; 4: scroll update
+; 3: palettes update
+; 2: attributes update
+; 1: sprite update
+; 0: background update
+drawStates: .res 1
+; Game stage index
 gameStage: .res 1
 PPUOffcounter: .res 1
 
@@ -25,8 +34,16 @@ cursX: .res 1
 cursY: .res 1
 cursAnimTimer: .res 1
 
+.res 64-15
+
 bgDataIndex: .res 1
-bgDrawData: .res 32
+bgDrawData: .res 63
+
+.res 32
+
+palettes: .res 32
+
+attributes: .res 64
 
 .segment "STACK"
 stack: .res 256
@@ -58,7 +75,10 @@ sprCursDR_x: .res 1
 
 
 .segment "RAM"
-level: .res 256
+level: .res 240
+level_obj_cnt: .res 8
+level_palette: .res 2
+level_data: .res 6
 
 laserArray_pos: .res LASER_MAX
 laserArray_state: .res LASER_MAX
