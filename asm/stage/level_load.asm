@@ -1,10 +1,14 @@
 stage_level_load:
-    LDX #$00        ; Level 0
-    STX level_index
+    LDX level_index
+
     JSR draw_level  ; Draw the level
     JSR load_level  ; Load the level into main memory
+    JSR draw_ui     ; Draw the UI
 
     ; load background palettes
+    LDX #$01
+    LDY #$00
+    JSR set_palette
     LDX level_palette
     LDY #$01
     JSR set_palette
@@ -17,11 +21,13 @@ stage_level_load:
     LDY #$04
     JSR set_palette
 
-    LDA #30         ; Set level_MaxFrame
+    LDA #10         ; Set level_MaxFrame
     STA level_MaxFrame
 
     LDX #$00        ; reset laser count
     STX level_LaserCount
+
+    STX selected    ; reset selected object
 
     ; set attribute table
     LDY #$01
@@ -41,22 +47,6 @@ stage_level_load:
     LDA #$70
     STA cursX
     STA cursY
-
-    bit PPUSTATUS   ; reset adress latch
-    LDA #$20        ; set the vram address to start from
-    STA PPUADDR
-    LDA #$50
-    STA PPUADDR
-
-    ; display txt_pressplay
-    LDX #$00
-    @text:
-        LDA txt_pressplay, X
-        STA PPUDATA
-        INX
-
-        CPX #$0D
-        BNE @text
 
     LDA #STG::LEVEL_EDIT   ; Change gameStage to LevelEdit
     STA gameStage

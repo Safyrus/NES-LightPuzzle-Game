@@ -18,6 +18,8 @@ load_level:
 
         @normal:
             STA level, X    ; store the tile into Level
+            LDA #$00
+            STA level_edit, X
             INX             ; Increase tileCount
             JSR inc_dataAdr ; increase dataAdr
             JMP @loadTilesEnd
@@ -33,6 +35,8 @@ load_level:
                 LDY #$00        ; get the tile
                 LDA (dataAdr), Y
                 STA level, X    ; store the tile into Level
+                LDA #$00
+                STA level_edit, X
 
                 INX             ; Increase tileCount
                 LDY counter     ; decrease counter loop
@@ -45,7 +49,6 @@ load_level:
         CPX #$F0
         BNE @loadTiles
 
-
     LDY #$00
     @loadData:
         LDA (dataAdr), Y
@@ -55,6 +58,8 @@ load_level:
         INY
         CPY #$0A
         BNE @loadData
+
+    JSR load_object
 
     pullreg
     RTS
@@ -97,3 +102,83 @@ level_place_lasers:
 
     pullreg
     RTS
+
+
+level_place_edit:
+    pushreg
+
+    LDY #$00
+    @loop:
+        LDA level_edit, Y
+        BEQ @loop_inc
+
+        STA level, Y
+
+        @loop_inc:
+        INY
+        CPY #$F0
+        BNE @loop
+
+    pullreg
+    RTS
+
+
+load_object:
+    pushreg
+
+    LDY #$00
+    STY tmp
+    @loop:
+        @loop_1:
+        LDA level_obj_cnt, Y
+        AND #%11110000
+        BEQ @loop_2
+            LDA level_obj_cnt, Y
+            LSR
+            LSR
+            LSR
+            LSR
+            LDX tmp
+            STA level_selectable_object_count, X
+
+            TYA
+            ASL
+            TAX
+
+            LDA select_tiles, X
+            LDX tmp
+            STA level_selectable_object_type, X
+            INX
+            STX tmp
+
+        @loop_2:
+        LDA level_obj_cnt, Y
+        AND #%00001111
+        BEQ @loop_3
+            LDA level_obj_cnt, Y
+            AND #%00001111
+            LDX tmp
+            STA level_selectable_object_count, X
+
+            TYA
+            ASL
+            TAX
+            INX
+
+            LDA select_tiles, X
+            LDX tmp
+            STA level_selectable_object_type, X
+            INX
+            STX tmp
+
+        @loop_3:
+        INY
+        CPY #$08
+        BNE @loop
+
+    LDA tmp
+    STA maxSelected
+
+    pullreg
+    RTS
+

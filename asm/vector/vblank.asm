@@ -95,21 +95,23 @@ VBLANK:
 
     LDA drawStates
     AND #%00001000
-    BEQ vblan_palette_end
-    vblan_palette:
+    BEQ vblank_palette_end
+    vblank_palette:
         JSR load_palettes_ppu
-    vblan_palette_end:
+    vblank_palette_end:
 
     LDA drawStates
     AND #%00010000
-    BEQ vblan_scroll_end
-    vblan_scroll:
+    BEQ vblank_scroll_end
+    vblank_scroll:
+        LDA ppu_ctrl
+        STA PPUCTRL
         BIT PPUSTATUS   ; reset latch
         LDA #$00        ; set scrolling position to 0,0
         STA PPUSCROLL
         LDA #$00
         STA PPUSCROLL
-    vblan_scroll_end:
+    vblank_scroll_end:
 
     vblank_end:
     LDA drawStates ; set draw_end flag

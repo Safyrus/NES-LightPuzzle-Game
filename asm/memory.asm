@@ -16,6 +16,7 @@ drawStates: .res 1
 ; Game stage index
 gameStage: .res 1
 PPUOffcounter: .res 1
+ppu_ctrl: .res 1
 
 dataAdr:
     dataAdr_l: .res 1
@@ -33,8 +34,10 @@ buttons1Timer: .res 1
 cursX: .res 1
 cursY: .res 1
 cursAnimTimer: .res 1
+selected: .res 1
+maxSelected: .res 1
 
-.res 64-15
+.res 64-18
 
 bgDataIndex: .res 1
 bgDrawData: .res 63
@@ -80,6 +83,9 @@ level_obj_cnt: .res 8
 level_palette: .res 2
 level_data: .res 6
 
+level_edit: .res 240
+.res 16
+
 laserArray_pos: .res LASER_MAX
 laserArray_state: .res LASER_MAX
 laserAntiArray_pos: .res LASER_MAX
@@ -95,3 +101,5 @@ level_FrameCounter: .res 1
 level_MaxFrame: .res 1
 level_LaserCount: .res 1
 level_AntiLaserCount: .res 1
+level_selectable_object_type: .res 16
+level_selectable_object_count: .res 16

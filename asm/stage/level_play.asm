@@ -2,6 +2,9 @@ stage_level_play:
     LDA buttons1
     AND #%00110000
     BEQ @start
+        LDA buttons1Timer   ;check if buttons are unlock
+        BNE @start
+        
         JSR change_to_level_load
 
     @start:

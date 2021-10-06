@@ -175,19 +175,141 @@ draw_menu:
         CPX #$00
         BNE @back1
 
-    bit PPUSTATUS   ; reset adress latch
-    LDA #$21        ; set the vram address to start from
+    ; display txt_game_title
+    LDA #$20
+    STA vramAdr_h
+    LDA #$A8
+    STA vramAdr_l
+    LDA #>txt_game_title
+    STA dataAdr_h
+    LDA #<txt_game_title
+    STA dataAdr_l
+    JSR draw_text
+
+    ; display txt_menu
+    LDA #$21
+    STA vramAdr_h
+    LDA #$2E
+    STA vramAdr_l
+    LDA #>txt_menu
+    STA dataAdr_h
+    LDA #<txt_menu
+    STA dataAdr_l
+    JSR draw_text
+
+    ; display txt_level
+    LDA #$CC
+    STA vramAdr_l
+    LDA #>txt_level
+    STA dataAdr_h
+    LDA #<txt_level
+    STA dataAdr_l
+    JSR draw_text
+
+    ; display txt_version
+    LDA #$23
+    STA vramAdr_h
+    LDA #$0D
+    STA vramAdr_l
+    LDA #>txt_version
+    STA dataAdr_h
+    LDA #<txt_version
+    STA dataAdr_l
+    JSR draw_text
+
+    RTS
+
+
+;
+draw_ui:
+    pushreg
+
+    BIT PPUSTATUS
+    LDA #$24
     STA PPUADDR
-    LDA #$10
+    LDA #$00
     STA PPUADDR
 
     LDX #$00
-    @title:
-        LDA txt_menu, X
+    LDA #$00
+    @loop_void:
         STA PPUDATA
         INX
+        CPX #($5*$20)
+        BNE @loop_void
 
-        CPX #$04
-        BNE @title
+    LDX #$00
+    LDA #$52
+    @loop_line:
+        STA PPUDATA
+        INX
+        CPX #$20
+        BNE @loop_line
+    
+    LDA #$24
+    STA vramAdr_h
+    LDA #$80
+    STA vramAdr_l
+    LDA #>txt_ui_1
+    STA dataAdr_h
+    LDA #<txt_ui_1
+    STA dataAdr_l
+    JSR draw_text
+
+    LDA #$60
+    STA vramAdr_l
+    LDA #>txt_ui_2
+    STA dataAdr_h
+    LDA #<txt_ui_2
+    STA dataAdr_l
+    JSR draw_text
+
+    LDA #$40
+    STA vramAdr_l
+    LDA #>txt_ui_3
+    STA dataAdr_h
+    LDA #<txt_ui_3
+    STA dataAdr_l
+    JSR draw_text
+
+    LDA PPUSTATUS   ; read PPU status to reset the high/low latch
+    LDA #$27
+    STA PPUADDR     ; write the high byte of $27C0 address
+    LDA #$C0
+    STA PPUADDR     ; write the low byte of $27C0 address
+
+    LDX #$00        ; start out at 0
+    LDA #$00        ; load UI palette
+    @loop:
+        STA PPUDATA     ; write to PPU
+        INX             ; X = X + 1
+        CPX #$40        ; Compare X to $40
+        BNE @loop       ; Branch to loop if compare was Not Equal to zero
+                        ; if compare was equal, keep going down
+
+    pullreg
     RTS
 
+
+; dataAdr = text pointer
+; vramAdr = text location
+draw_text:
+    pushreg
+
+    BIT PPUSTATUS   ; reset adress latch
+    LDA vramAdr_h   ; set the vram address to start from
+    STA PPUADDR
+    LDA vramAdr_l
+    STA PPUADDR
+
+    LDY #$00
+    @loop:
+        LDA (dataAdr), Y
+        CMP #$FF
+        BEQ @end
+        STA PPUDATA
+        JSR inc_dataAdr
+        JMP @loop
+    @end:
+    pullreg
+    RTS

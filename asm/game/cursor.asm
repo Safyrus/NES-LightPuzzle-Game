@@ -57,14 +57,74 @@ move_cursor:
     PLA
     RTS
 
-
+; 
 place_at_cursor:
     pushreg
 
-    LDA buttons1Timer   ;check if buttons are unlock
+    LDA buttons1Timer   ; check if buttons are unlock
     BNE @end
 
-    LDA buttons1    ; check if B was pressed
+    LDA buttons1    ; check if A was pressed
+    AND #%10000000
+    BEQ @end
+
+    LDA cursX       ; compute the cursor pos in the level
+    LSR
+    LSR
+    LSR
+    LSR
+    CLC
+    ADC cursY
+    TAX
+
+    LDA level, X        ; check if the tile we want to place on
+    CMP #MTILE::GROUND  ; is of type GROUND
+    BNE @end
+
+    LDA level_edit, X   ; and check if we have not already
+    CMP #MTILE::VOID    ; place something here
+    BNE @end
+
+    LDY selected                            ; and check if we have enough
+    LDA level_selectable_object_count, Y    ; of this object
+    BEQ @end
+
+    ; decrement the number of this object
+    LDA level_selectable_object_count, Y
+    SEC
+    SBC #$01
+    STA level_selectable_object_count, Y
+
+    JSR update_ui_count
+
+    ; place the mtile
+    LDA level_selectable_object_type, Y
+    TAY
+    STA level_edit, X
+
+    ; draw the new mtile
+    JSR get_metaTile_nametable_adr
+    LDA dataAdr_l
+    STA vramAdr_l
+    LDA dataAdr_h
+    STA vramAdr_h
+    TYA
+    TAX
+    JSR update_bg_metaTile
+    
+    @end:
+    pullreg
+    RTS
+
+
+; 
+remove_at_cursor:
+    pushreg
+
+    LDA buttons1Timer   ; check if buttons are unlock
+    BNE @end
+
+    LDA buttons1        ; check if B was pressed
     AND #%01000000
     BEQ @end
 
@@ -77,12 +137,35 @@ place_at_cursor:
     ADC cursY
     TAX
 
-    LDA level, X
+    LDA level_edit, X   ; check if a mtile was place here
+    BEQ @end
+
+    ; find the index of the object
+    LDY #$00
+    @loop:
+        CMP level_selectable_object_type, Y
+        BEQ @remove
+
+        INY
+        CPY #$10
+        BNE @loop
+    JMP @end
+
+    @remove:
+    ; increment the number of this object
+    LDA level_selectable_object_count, Y
     CLC
     ADC #$01
-    TAY
-    STA level, X
+    STA level_selectable_object_count, Y
 
+    JSR update_ui_count
+
+    LDA #$00            ; update level edit
+    STA level_edit, X
+
+    ; draw the default mtile of the level
+    TXA
+    TAY
     JSR get_metaTile_nametable_adr
     LDA dataAdr_l
     STA vramAdr_l
@@ -90,8 +173,62 @@ place_at_cursor:
     STA vramAdr_h
     TYA
     TAX
+    LDA level, X
+    TAX
     JSR update_bg_metaTile
-    
+
+    @end:
+    pullreg
+    RTS
+
+
+change_at_cursor:
+    pushreg
+
+    LDA buttons1Timer   ; check if buttons are unlock
+    BNE @end
+
+    LDA buttons1    ; check if A was pressed
+    AND #%10000000
+    BEQ @end
+
+    LDA cursX       ; compute the cursor pos in the level
+    LSR
+    LSR
+    LSR
+    LSR
+    CLC
+    ADC cursY
+    TAX
+
+    LDA level_edit, X
+    CMP #MTILE::MIRROR_1
+    BEQ @do_mirror_1
+    CMP #MTILE::MIRROR_2
+    BEQ @do_mirror_2
+    JMP @end
+
+    @do_mirror_1:
+        LDA #MTILE::MIRROR_2
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_mirror_2:
+        LDA #MTILE::MIRROR_1
+        STA level_edit, X
+        TAY
+        JMP @draw
+
+    @draw:
+        ; draw the new mtile
+        JSR get_metaTile_nametable_adr
+        LDA dataAdr_l
+        STA vramAdr_l
+        LDA dataAdr_h
+        STA vramAdr_h
+        TYA
+        TAX
+        JSR update_bg_metaTile
 
     @end:
     pullreg

@@ -87,3 +87,65 @@ change_to_level_load:
 
     PLA
     RTS
+
+;
+change_to_menu_load:
+    PHA
+
+    LDA drawStates  ; Disable PPU at the next Vblank
+    AND #%11101000
+    ORA #%01001000
+    STA drawStates
+    LDA #10        ; Disable for 10 frame
+    STA PPUOffcounter
+
+    LDA #STG::MENU_LOAD ; set the stage to MenuLoad
+    STA gameStage
+
+    PLA
+    RTS
+
+
+wait_spr0:
+    PHA
+
+    @wait:
+    LDA PPUSTATUS
+    AND #%01000000
+    BEQ @wait
+
+    PLA
+    RTS
+
+
+wait_ui:
+    PHA
+    TAX
+    PHA
+
+    BIT PPUSTATUS   ; reset latch
+    LDA #$FF        ; set scrolling position to 255,0
+    STA PPUSCROLL
+    LDA #$00
+    STA PPUSCROLL
+
+    ; wait for the current frame to end
+    ; to reset sprite zero hit flag
+    LDX #$00
+    @wait:
+        INX
+        CPX #$30
+        BNE @wait
+
+    JSR wait_spr0
+
+    BIT PPUSTATUS   ; reset latch
+    LDA #$00        ; set scrolling position to 0,0
+    STA PPUSCROLL
+    LDA #$00
+    STA PPUSCROLL
+
+    PLA
+    TAX
+    PLA
+    RTS

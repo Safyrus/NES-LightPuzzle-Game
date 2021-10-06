@@ -42,6 +42,7 @@ OAMDMA := $4014
 ; Game
 LASER_MAX := 16
 POS_OUTOFMAP = $F0
+LEVEL_MAX := 4
 
 ; Game Stage
 .enum STG
@@ -60,7 +61,7 @@ POS_OUTOFMAP = $F0
     VOID
     WALL
     GROUND
-    UITOP
+    UIBOT
     LOCK
     LASER_HOR
     LASER_VER
@@ -133,4 +134,5 @@ POS_OUTOFMAP = $F0
     NULL
     CURS1
     CURS2
+    ZERO
 .endenum

@@ -80,3 +80,54 @@ update_bg_metaTile:
     TAX
     PLA
     RTS
+
+
+; Y = index
+update_ui_count:
+    pushreg
+
+    LDA level_selectable_object_type, Y
+    LDX #$00
+    @loop:
+        CMP select_tiles, X
+        BEQ @loop_end
+
+        INX
+        CPX #$10
+        BNE @loop
+    @loop_end:
+
+    LDA #$24
+    STA vramAdr_h
+    TXA
+    ASL
+    ASL
+    CLC
+    ADC #$81
+    CMP #$96
+    BCC @next
+    SEC
+    SBC #$38
+    CMP #$76
+    BCC @next
+    SEC
+    SBC #$38
+    SEC
+
+    @next:
+    STA vramAdr_l
+
+    LDA level_selectable_object_count, Y
+    ORA #%00010000
+    STA tmp
+
+    LDA #>tmp
+    STA dataAdr_h
+    LDA #<tmp
+    STA dataAdr_l
+
+    LDX #$01
+    JSR update_bg_data
+
+    pullreg
+    RTS

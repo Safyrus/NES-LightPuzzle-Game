@@ -3,7 +3,7 @@ metaTileArrayLo:
     .byte <metaTile_VOID
     .byte <metaTile_WALL
     .byte <metaTile_GROUND
-    .byte <metaTile_UI_TOP
+    .byte <metaTile_UI_BOT
     .byte <metaTile_LOCK
     .byte <metaTile_LASER_HOR
     .byte <metaTile_LASER_VER
@@ -72,7 +72,7 @@ metaTileArrayHi:
     .byte >metaTile_VOID
     .byte >metaTile_WALL
     .byte >metaTile_GROUND
-    .byte >metaTile_UI_TOP
+    .byte >metaTile_UI_BOT
     .byte >metaTile_LOCK
     .byte >metaTile_LASER_HOR
     .byte >metaTile_LASER_VER
@@ -143,7 +143,7 @@ metaTileArrayHi:
 metaTile_VOID:          .byte $00, $00, $00, $00   ; VOID
 metaTile_WALL:          .byte $50, $50, $40, $50   ; WALL
 metaTile_GROUND:        .byte $5D, $00, $00, $5C   ; GROUND
-metaTile_UI_TOP:        .byte $53, $53, $00, $00   ; UI_TOP
+metaTile_UI_BOT:        .byte $00, $00, $52, $52   ; UI_BOT
 metaTile_LOCK:          .byte $05, $05, $05, $05   ; LOCK
 
 metaTile_EMIT_UP:       .byte $42, $43, $44, $45   ; EMIT_UP

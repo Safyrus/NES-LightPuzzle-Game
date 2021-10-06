@@ -37,21 +37,9 @@ rst_vwait2:
     LDA #%00000000
     STA APU_FRAME
 
-    LDX #$00
-    LDY #$00
-    rst_pal:
-        JSR set_palette
-        INY
-        INX
-        CPY #$08
-        BNE rst_pal
-    rst_pal_end:
-    JSR load_palettes_ppu   ; load palettes
-
-    JSR reset_nametable_attributes
-
     LDA #%10010000      ; Enable NMI + set background table to $1000
     STA PPUCTRL
+    STA ppu_ctrl
 
     LDA #STG::MENU_LOAD ; set the stage to MenuLoad
     STA gameStage

@@ -6,6 +6,90 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.1.0]** - _2021-10-06_
+
+### **Added**
+
+#### ASM
+
+- _Data:_
+  - select_tiles array to know what metatiles can be selected.
+  - New text (game_title, ui_1, ui_2, ui_3, version, level).
+  - Add two new level.
+- _Game:_
+  - remove_at_cursor subroutine to remove a previously placed object from the
+    level by pressing B, also update the number of this object and the UI display.
+  - change_at_cursor subroutine to change the state of a previously placed object
+    in the level (only mirrors are affected for now).
+  - level_place_edit subroutine to transfer level_edit metatiles to the level.
+  - load_object subroutine to load object type and numbers in
+    level_selectable_object arrays and set maxSelected.
+- _Graphics:_
+  - draw_ui subroutine to draw the UI on the second nametable.
+  - draw_text subroutine to draw a string of characters.
+  - update_ui_count subroutine to update one of the number of an object.
+- _Stage:_
+  - LevelWin and LevelLoose controls (A or B) to return to the menu.
+- _Variables:_
+  - ppu_ctrl variable to save the last data send to PPUCTRL.
+  - selected variable to know what object has been selected
+    and maxSelected variable to know how many objects can be selected.
+  - level_edit page to save change made to the level by the player.
+  - level_selectable_object_type array to know what type of object we can select
+    in the level.
+  - level_selectable_object_count array to know how many objects we have in the level.
+  - change_to_menu_load subroutine.
+- _Other:_
+  - Constants LEVEL_MAX and SPR::ZERO.
+  - wait_spr0 subroutine to return once a sprite zero hit has happened.
+  - wait_ui subroutine to wait for the UI to be drawn.
+
+### **Changed**
+
+- Tiles location in CHR and add a sprite for spr0.
+
+#### ASM
+
+- _Data:_
+  - Renamed metatile UI_TOP to UI_BOT.
+  - Level 0 by replacing void and UI tiles by walls and changing the number of objects.
+  - Rename Level 1 to Level Debug and change the number of objects to max.
+- _Game:_
+  - change control to place a tile to A.
+  - place_at_cursor now place the selected object in the level and
+    update the number of this object and its display in the UI.
+  - load_level to also reset the level_edit and loading object.
+- _Graphics_:
+  - draw_menu stage to now display the temporary game title, the version and the
+    selected level.
+- _Stage:_
+  - Menu stage to now select the level to load.
+  - MenuLoad now reset palette, attribute and spr0.
+  - LevelLoad now load the level in level_index, reset selected object to 0,
+    load UI default palette and draw the UI.
+  - LevelEdit to now draw the UI, change or remove the object at the cursor,
+    select another item by pressing SELECT. Also switching to LevelPlay is now
+    done by pressing START and add placed object to the level.
+- _Vector:_
+  - In reset, move palette and attribute reset to the stage MenuLoad
+    and initialized ppu_ctrl.
+  - Vblank update PPUCTRL with ppu_ctrl during scroll update.
+- _Other:_
+  - Laser are now updated every 10 frames.
+  - Constant MTILE::UITOP to MTILE::UIBOT.
+  - Cartridge mirroring to vertical.
+
+### **Fixed**
+
+- Typo for vblank labels (vblank_scroll and vblank_palette).
+- In LevelPlay, wait for button timer before switching to LevelLoad.
+
+### **Removed**
+
+- txt_null and txt_pressplay.
+
+-----------------
+
 ## **[0.0.5]** - _2021-10-03_
 
 ### **Added**

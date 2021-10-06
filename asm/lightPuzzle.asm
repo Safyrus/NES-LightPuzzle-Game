@@ -3,7 +3,6 @@
 ;****************
 
 ; TODO:
-; - place/remove object
 ; - laser behavior
 ;   - corner mirrors
 ;   - receiver
@@ -18,7 +17,7 @@
     .byte "NES", $1A; 0-3: Header
     .byte $01       ;   4: PRG ROM
     .byte $01       ;   5: CHR ROM
-    .byte $00       ;   6: Flags 6
+    .byte $01       ;   6: Flags 6
     .byte $00       ;   7: Flags 7
     .byte $00       ;   8: Flags 8
     .byte $00       ;   9: Flags 9
