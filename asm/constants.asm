@@ -42,7 +42,7 @@ OAMDMA := $4014
 ; Game
 LASER_MAX := 16
 POS_OUTOFMAP = $F0
-LEVEL_MAX := 4
+LEVEL_MAX := 5
 
 ; Game Stage
 .enum STG

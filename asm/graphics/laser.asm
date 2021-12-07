@@ -441,3 +441,17 @@ laser_draw_receive_right:
 
     pullreg
     RTS
+
+
+; Y = laser index
+laser_draw_activate:
+    pushreg
+
+    LDA laserArray_pos, Y
+    TAX
+    LDY #$02
+    JSR change_attribute
+
+    @end:
+    pullreg
+    RTS

@@ -6,6 +6,33 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.1.1]** - _2021-12-??_
+
+### **Added**
+
+#### ASM
+
+- _Data:_
+  - A new simple level to test the corner mirror.
+- _Graphics:_
+  - "laser_draw_activate" to change the palette to the active one at a laser position.
+- _Game:_
+  - laser behavior for corner mirrors in all 4 direction.
+
+### **Changed**
+
+#### ASM
+
+- _Data:_
+  - palettes 3 to 5.
+- _Stage:_
+  - refactor laser loop in LevelPlay.
+  - Inputs in LevelPlay to reset only when SELECT is pressed.
+- _Other:_
+  - Constants LEVEL_MAX to 5.
+
+-----------------
+
 ## **[0.1.0]** - _2021-10-06_
 
 ### **Added**

@@ -3,14 +3,18 @@
 ;****************
 
 ; TODO:
+; - draw laser on multiple frames
+; - add anti lasers
+; - refactor code to take less space
 ; - laser behavior
-;   - corner mirrors
-;   - receiver
 ;   - splitter
 ;   - merger
-;   - door
-;   - timewall
+;   - door (need anti lasers)
+;   - timewall (need anti lasers)
 ; - fix POS_OUTOFMAP
+; - fix graphical glitch when loading end
+; - better comments
+; - a LOT more levels
 
 ; Header of the file (not part of the cartridge, used by the emulator)
 .segment "HEADER"

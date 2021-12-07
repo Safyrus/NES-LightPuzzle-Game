@@ -1,6 +1,6 @@
 stage_level_play:
     LDA buttons1
-    AND #%00110000
+    AND #%00100000
     BEQ @start
         LDA buttons1Timer   ;check if buttons are unlock
         BNE @start
@@ -26,107 +26,109 @@ stage_level_play:
         @laser_loop:
             LDA laserArray_state, X ; check if the laser has stop
             AND #%00000100
-            BNE @laser_loop_inc
+            BEQ @laser_find_action
+            JMP @laser_loop_inc
 
+            @laser_find_action:
             JSR get_next_laser_pos ; get the next position of the laser into A
             ; /!\ TODO: Check for out of map position and if it is then state = PLAY_ERROR and error = LASER_OUTOFMAP
             TAY                 ; and transfere it to Y
             LDA level, Y        ; get tile type at the next laser position
 
             CMP #MTILE::VOID
-            BEQ @laser_action_move
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_move
+                JMP @laser_loop_inc
             CMP #MTILE::GROUND
-            BEQ @laser_action_ground
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_ground
+                JMP @laser_loop_inc
             CMP #MTILE::LASER_HOR
-            BEQ @laser_action_laserhor
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_laserhor
+                JMP @laser_loop_inc
             CMP #MTILE::LASER_VER
-            BEQ @laser_action_laserver
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_laserver
+                JMP @laser_loop_inc
             CMP #MTILE::LASER_CROSS
-            BEQ @laser_action_move
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_move
+                JMP @laser_loop_inc
             CMP #MTILE::MIRROR_1
-            BEQ @laser_action_mirror_1
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_1
+                JMP @laser_loop_inc
             CMP #MTILE::MIRROR_2
-            BEQ @laser_action_mirror_2
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_2
+                JMP @laser_loop_inc
             CMP #MTILE::MIRROR_UL
-            BEQ @laser_action_mirror_ul
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_ul
+                JMP @laser_loop_inc
             CMP #MTILE::MIRROR_UR
-            BEQ @laser_action_mirror_ur
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_ur
+                JMP @laser_loop_inc
             CMP #MTILE::MIRROR_DL
-            BEQ @laser_action_mirror_dl
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_dl
+                JMP @laser_loop_inc
             CMP #MTILE::MIRROR_DR
-            BEQ @laser_action_mirror_dr
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_dr
+                JMP @laser_loop_inc
             CMP #MTILE::MIRROR_CROSS1
-            BEQ @laser_action_mirror_cross1
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_cross1
+                JMP @laser_loop_inc
             CMP #MTILE::MIRROR_CROSS2
-            BEQ @laser_action_mirror_cross2
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_cross2
+                JMP @laser_loop_inc
             CMP #MTILE::RECEIVE_UP
-            BEQ @laser_action_receive_up
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_receive_up
+                JMP @laser_loop_inc
             CMP #MTILE::RECEIVE_DOWN
-            BEQ @laser_action_receive_down
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_receive_down
+                JMP @laser_loop_inc
             CMP #MTILE::RECEIVE_LEFT
-            BEQ @laser_action_receive_left
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_receive_left
+                JMP @laser_loop_inc
             CMP #MTILE::RECEIVE_RIGHT
-            BEQ @laser_action_receive_right
-            JMP @laser_action_stop
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_receive_right
+                JMP @laser_loop_inc
+            CMP #MTILE::MIRRORC_UL
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_corner_ul
+                JMP @laser_loop_inc
+            CMP #MTILE::MIRRORC_UR
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_corner_ur
+                JMP @laser_loop_inc
+            CMP #MTILE::MIRRORC_DL
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_corner_dl
+                JMP @laser_loop_inc
+            CMP #MTILE::MIRRORC_DR
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_mirror_corner_dr
+                JMP @laser_loop_inc
+            @laser_action_stop:
+                JSR laser_action_stop
+                JMP @laser_loop_inc
 
             ; increase the laser index and loop
             @laser_loop_inc:
             INX
             CPX level_LaserCount
-            BNE @laser_loop
-            JMP @laser_loop_end
-
-            @laser_action_move:
-                JSR laser_action_move
-                JMP @laser_loop_inc
-            @laser_action_ground:
-                JSR laser_action_ground
-                JMP @laser_loop_inc
-            @laser_action_stop:
-                JSR laser_action_stop
-                JMP @laser_loop_inc
-            @laser_action_laserhor:
-                JSR laser_action_laserhor
-                JMP @laser_loop_inc
-            @laser_action_laserver:
-                JSR laser_action_laserver
-                JMP @laser_loop_inc
-            @laser_action_mirror_1:
-                JSR laser_action_mirror_1
-                JMP @laser_loop_inc
-            @laser_action_mirror_2:
-                JSR laser_action_mirror_2
-                JMP @laser_loop_inc
-            @laser_action_mirror_ul:
-                JSR laser_action_mirror_ul
-                JMP @laser_loop_inc
-            @laser_action_mirror_ur:
-                JSR laser_action_mirror_ur
-                JMP @laser_loop_inc
-            @laser_action_mirror_dl:
-                JSR laser_action_mirror_dl
-                JMP @laser_loop_inc
-            @laser_action_mirror_dr:
-                JSR laser_action_mirror_dr
-                JMP @laser_loop_inc
-            @laser_action_mirror_cross1:
-                JSR laser_action_mirror_cross1
-                JMP @laser_loop_inc
-            @laser_action_mirror_cross2:
-                JSR laser_action_mirror_cross2
-                JMP @laser_loop_inc
-            @laser_action_receive_up:
-                JSR laser_action_receive_up
-                JMP @laser_loop_inc
-            @laser_action_receive_down:
-                JSR laser_action_receive_down
-                JMP @laser_loop_inc
-            @laser_action_receive_left:
-                JSR laser_action_receive_left
-                JMP @laser_loop_inc
-            @laser_action_receive_right:
-                JSR laser_action_receive_right
-                JMP @laser_loop_inc
+            BEQ @laser_loop_end
+            JMP @laser_loop
 
         @laser_loop_end:
 
