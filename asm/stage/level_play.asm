@@ -18,11 +18,8 @@ stage_level_play:
 
     ; do a step
     @step:
-        LDA level_MaxFrame          ; reset FrameCounter
-        STA level_FrameCounter
-
         ; update all lasers
-        LDX #$00        ; laser index
+        LDX level_LaserDoneCounter  ; laser index
         @laser_loop:
             LDA laserArray_state, X ; check if the laser has stop
             AND #%00000100
@@ -125,79 +122,99 @@ stage_level_play:
 
             ; increase the laser index and loop
             @laser_loop_inc:
-            INX
-            CPX level_LaserCount
+            ; increase laser done counter
+            LDY level_LaserDoneCounter
+            INY
+            STY level_LaserDoneCounter
+
+            ; check if all laser had been updated
+            CPY level_LaserCount
             BEQ @laser_loop_end
+
+            ; else check if we don't exeed the max laser per frame
+            INX
+            TXA
+            AND #MAXLASERPERFRAME
+            BEQ @laser_loop_end_maxframe
             JMP @laser_loop
 
         @laser_loop_end:
+        LDA #$00                    ; reset laser done counter
+        STA level_LaserDoneCounter
+        LDA level_MaxFrame          ; reset FrameCounter
+        STA level_FrameCounter
+        JMP @step_done
+        @laser_loop_end_maxframe:
+        JMP @end
 
         ; TODO antiLaser
 
-        ; check if all lasers has stop
-        LDX #$00
-        @check_laser_stop_loop:
-            LDA laserArray_state, X
-            AND #%00000100
-            BEQ @end
+    @step_done:
 
-            INX
-            CPX level_LaserCount
-            BNE @check_laser_stop_loop
+    ; check if all lasers has stop
+    LDX #$00
+    @check_laser_stop_loop:
+        LDA laserArray_state, X
+        AND #%00000100
+        BEQ @end
+
+        INX
+        CPX level_LaserCount
+        BNE @check_laser_stop_loop
+    
+    @laser_stop:
+        LDY #$00
+        @laser_stop_loop:
+            LDA level, Y
+            CMP #MTILE::RECEIVE_UP
+            BEQ @stage_loose
+            CMP #MTILE::RECEIVE_DOWN
+            BEQ @stage_loose
+            CMP #MTILE::RECEIVE_LEFT
+            BEQ @stage_loose
+            CMP #MTILE::RECEIVE_RIGHT
+            BEQ @stage_loose
+
+            INY
+            CPY #$F0
+            BNE @laser_stop_loop
+        JMP @stage_win
+
+        @stage_loose:
+            LDA #$21
+            STA vramAdr_h
+            LDA #$68
+            STA vramAdr_l
+
+            LDA #>txt_loose
+            STA dataAdr_h
+            LDA #<txt_loose
+            STA dataAdr_l
+
+            LDX #$05
+            JSR update_bg_data
+
+            LDA #STG::LEVEL_LOOSE  ; go to the loose stage
+            STA gameStage
+
+            JMP @end
         
-        @laser_stop:
-            LDY #$00
-            @laser_stop_loop:
-                LDA level, Y
-                CMP #MTILE::RECEIVE_UP
-                BEQ @stage_loose
-                CMP #MTILE::RECEIVE_DOWN
-                BEQ @stage_loose
-                CMP #MTILE::RECEIVE_LEFT
-                BEQ @stage_loose
-                CMP #MTILE::RECEIVE_RIGHT
-                BEQ @stage_loose
+        @stage_win:
+            LDA #$21
+            STA vramAdr_h
+            LDA #$68
+            STA vramAdr_l
 
-                INY
-                CPY #$F0
-                BNE @laser_stop_loop
-            JMP @stage_win
+            LDA #>txt_win
+            STA dataAdr_h
+            LDA #<txt_win
+            STA dataAdr_l
 
-            @stage_loose:
-                LDA #$21
-                STA vramAdr_h
-                LDA #$68
-                STA vramAdr_l
+            LDX #$03
+            JSR update_bg_data
 
-                LDA #>txt_loose
-                STA dataAdr_h
-                LDA #<txt_loose
-                STA dataAdr_l
-
-                LDX #$05
-                JSR update_bg_data
-
-                LDA #STG::LEVEL_LOOSE  ; go to the loose stage
-                STA gameStage
-
-                JMP @end
-            
-            @stage_win:
-                LDA #$21
-                STA vramAdr_h
-                LDA #$68
-                STA vramAdr_l
-
-                LDA #>txt_win
-                STA dataAdr_h
-                LDA #<txt_win
-                STA dataAdr_l
-
-                LDX #$03
-                JSR update_bg_data
-
-                LDA #STG::LEVEL_WIN  ; go to the win stage
-                STA gameStage
+            LDA #STG::LEVEL_WIN  ; go to the win stage
+            STA gameStage
 
     @end:
     RTS     ; Return

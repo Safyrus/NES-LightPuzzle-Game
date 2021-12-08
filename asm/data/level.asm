@@ -65,5 +65,7 @@ level_debug:
     .byte $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $1A, $1B, $1C, $1D, $1E, $1F
     .byte $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $2A, $2B, $2C, $2D, $2E, $2F
     .byte $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $3A, $3B, $3C, $3D, $3E, $3F
-    .byte MTILE::SPE_ARRAY, (16*11-1), MTILE::GROUND
-    .byte $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $01, $01
+    .byte MTILE::SPE_ARRAY, (16-1), MTILE::EMIT_DOWN_ON
+    .byte MTILE::SPE_ARRAY, (16*9-1), MTILE::GROUND
+    .byte MTILE::SPE_ARRAY, (16-1), MTILE::EMIT_UP_ON
+    .byte $FF, $FF, $F0, $00, $00, $00, $00, $00, $01, $01

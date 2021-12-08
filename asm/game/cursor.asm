@@ -206,6 +206,14 @@ change_at_cursor:
     BEQ @do_mirror_1
     CMP #MTILE::MIRROR_2
     BEQ @do_mirror_2
+    CMP #MTILE::MIRRORC_UL
+    BEQ @do_mirrorc_ul
+    CMP #MTILE::MIRRORC_UR
+    BEQ @do_mirrorc_ur
+    CMP #MTILE::MIRRORC_DL
+    BEQ @do_mirrorc_dl
+    CMP #MTILE::MIRRORC_DR
+    BEQ @do_mirrorc_dr
     JMP @end
 
     @do_mirror_1:
@@ -215,6 +223,26 @@ change_at_cursor:
         JMP @draw
     @do_mirror_2:
         LDA #MTILE::MIRROR_1
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_mirrorc_ul:
+        LDA #MTILE::MIRRORC_UR
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_mirrorc_ur:
+        LDA #MTILE::MIRRORC_DR
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_mirrorc_dl:
+        LDA #MTILE::MIRRORC_UL
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_mirrorc_dr:
+        LDA #MTILE::MIRRORC_DL
         STA level_edit, X
         TAY
         JMP @draw

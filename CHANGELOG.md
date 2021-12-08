@@ -17,19 +17,35 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 - _Graphics:_
   - "laser_draw_activate" to change the palette to the active one at a laser position.
 - _Game:_
-  - laser behavior for corner mirrors in all 4 direction.
+  - Laser behavior for corner mirrors in all 4 direction.
+  - Corner mirrors can now be place and rotate.
+- _Other:_
+  - Constant MAXLASERPERFRAME with a value of 3.
+  - A variable level_LaserDoneCounter.
 
 ### **Changed**
 
 #### ASM
 
 - _Data:_
-  - palettes 3 to 5.
+  - Palettes 3 to 5.
+  - Default placeable tiles.
+  - Debug level to test the game behavior with a lot of lasers.
 - _Stage:_
-  - refactor laser loop in LevelPlay.
   - Inputs in LevelPlay to reset only when SELECT is pressed.
+  - Refactor laser loop in LevelPlay.
+  - LevelPlay laser loop do update a maximum of MAXLASERPERFRAME per frame.
+  - "level_place_lasers" function to reset "level_LaserDoneCounter" to 0.
 - _Other:_
-  - Constants LEVEL_MAX to 5.
+  - Constants LEVEL_MAX to 5 and LASER_MAX to 32.
+
+### **Fixed**
+
+- Level glitching when too many lasers needed to be updated.
+
+### **Removed**
+
+- useless levelMeta.asm file
 
 -----------------
 

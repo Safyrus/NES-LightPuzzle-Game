@@ -98,6 +98,7 @@ laserAntiArray_state: .res LASER_MAX
 
 level_index: .res 1
 level_FrameCounter: .res 1
+level_LaserDoneCounter: .res 1
 level_MaxFrame: .res 1
 level_LaserCount: .res 1
 level_AntiLaserCount: .res 1

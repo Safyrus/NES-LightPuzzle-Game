@@ -63,7 +63,6 @@ data:
 .include "data/data.asm"
 .include "data/palette.asm"
 .include "data/level.asm"
-.include "data/levelMeta.asm"
 .include "data/metaTile.asm"
 
 

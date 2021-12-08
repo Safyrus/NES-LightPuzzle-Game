@@ -69,6 +69,9 @@ load_level:
 level_place_lasers:
     pushreg
 
+    LDA #$00
+    STA level_LaserDoneCounter
+
     LDY #$00
     @loop:
         LDA level, Y
