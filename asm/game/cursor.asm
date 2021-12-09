@@ -186,12 +186,16 @@ change_at_cursor:
     pushreg
 
     LDA buttons1Timer   ; check if buttons are unlock
-    BNE @end
+    BEQ @check_button
+    JMP @end
 
+    @check_button:
     LDA buttons1    ; check if A was pressed
     AND #%10000000
-    BEQ @end
+    BNE @get_curs_pos
+    JMP @end
 
+    @get_curs_pos:
     LDA cursX       ; compute the cursor pos in the level
     LSR
     LSR
@@ -214,6 +218,10 @@ change_at_cursor:
     BEQ @do_mirrorc_dl
     CMP #MTILE::MIRRORC_DR
     BEQ @do_mirrorc_dr
+    CMP #MTILE::SPLITTER_H
+    BEQ @do_splitter_h
+    CMP #MTILE::SPLITTER_V
+    BEQ @do_splitter_v
     JMP @end
 
     @do_mirror_1:
@@ -243,6 +251,16 @@ change_at_cursor:
         JMP @draw
     @do_mirrorc_dr:
         LDA #MTILE::MIRRORC_DL
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_splitter_h:
+        LDA #MTILE::SPLITTER_V
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_splitter_v:
+        LDA #MTILE::SPLITTER_H
         STA level_edit, X
         TAY
         JMP @draw

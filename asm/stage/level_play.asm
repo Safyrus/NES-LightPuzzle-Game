@@ -116,6 +116,14 @@ stage_level_play:
             .byte $D0, $06 ; BNE @next
                 JSR laser_action_mirror_corner_dr
                 JMP @laser_loop_inc
+            CMP #MTILE::SPLITTER_H
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_splitter_h
+                JMP @laser_loop_inc
+            CMP #MTILE::SPLITTER_V
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_splitter_v
+                JMP @laser_loop_inc
             @laser_action_stop:
                 JSR laser_action_stop
                 JMP @laser_loop_inc

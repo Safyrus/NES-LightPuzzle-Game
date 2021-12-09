@@ -68,4 +68,4 @@ level_debug:
     .byte MTILE::SPE_ARRAY, (16-1), MTILE::EMIT_DOWN_ON
     .byte MTILE::SPE_ARRAY, (16*9-1), MTILE::GROUND
     .byte MTILE::SPE_ARRAY, (16-1), MTILE::EMIT_UP_ON
-    .byte $FF, $FF, $F0, $00, $00, $00, $00, $00, $01, $01
+    .byte $FF, $FF, $FF, $00, $00, $00, $00, $00, $01, $01

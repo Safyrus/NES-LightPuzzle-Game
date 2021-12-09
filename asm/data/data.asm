@@ -3,10 +3,10 @@
 txt_menu: .byte $26, $1E, $27, $2E, $FF
 txt_game_title: .byte $25, $22, $20, $21, $2D, $00, $29, $2E, $33, $33, $25, $1E, $00, $20, $1A, $26, $1E, $FF
 txt_level: .byte $25, $1E, $2F, $1E, $25, $FF
-txt_version: .byte $2F, $10, $34, $11, $34, $10, $FF
+txt_version: .byte $2F, $10, $34, $11, $34, $11, $FF
 txt_win: .byte $30, $22, $27, $FF
 txt_loose: .byte $25, $28, $28, $2C, $1E, $FF
-txt_ui_1: .byte $00, $10, $37, $07, $00, $10, $37, $08, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $FF
+txt_ui_1: .byte $00, $10, $37, $07, $00, $10, $37, $08, $00, $10, $37, $0E, $00, $10, $37, $0F, $00, $10, $37, $09, $00, $10, $37, $0B, $FF
 txt_ui_2: .byte $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $FF
 txt_ui_3: .byte $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $FF
 
@@ -14,7 +14,7 @@ txt_ui_3: .byte $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00,
 ; selectable metatiles
 select_tiles:
 .byte MTILE::WALL, MTILE::MIRROR_1, MTILE::EMIT_UP_ON, MTILE::RECEIVE_DOWN
-.byte MTILE::MIRRORC_UL, MTILE::VOID, MTILE::VOID, MTILE::VOID
+.byte MTILE::MIRRORC_UL, MTILE::SPLITTER_H, MTILE::VOID, MTILE::VOID
 .byte MTILE::VOID, MTILE::VOID, MTILE::VOID, MTILE::VOID
 .byte MTILE::VOID, MTILE::VOID, MTILE::VOID, MTILE::VOID
 

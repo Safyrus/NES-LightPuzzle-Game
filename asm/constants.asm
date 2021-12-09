@@ -105,10 +105,10 @@ MAXLASERPERFRAME := 3 ; need to be a power of 2-1
     MIRRORC_UR
     MIRRORC_DL
     MIRRORC_DR
-    MIRRORC_UL_ON
-    MIRRORC_UR_ON
-    MIRRORC_DL_ON
-    MIRRORC_DR_ON
+    NULL_2C
+    NULL_2D
+    NULL_2E
+    NULL_2F
 
     DOOR_H
     DOOR_V
@@ -116,14 +116,14 @@ MAXLASERPERFRAME := 3 ; need to be a power of 2-1
     DOORL_V
     SPLITTER_H
     SPLITTER_V
+    SPLITTER_H_ON
+    SPLITTER_V_ON
     MERGER_H
     MERGER_V
+    MERGER_H_ON
+    MERGER_V_ON
     TIMEWALL_OFF
     TIMEWALL_ON
-    NULL_3A
-    NULL_3B
-    NULL_3C
-    NULL_3D
     NULL_3E
     NULL_3F
 

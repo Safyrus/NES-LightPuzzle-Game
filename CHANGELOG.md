@@ -14,16 +14,20 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 - _Data:_
   - A new simple level to test the corner mirror.
+  - Metatiles splitter and merger ON
 - _Graphics:_
   - "laser_draw_activate" to change the palette to the active one at a laser position.
 - _Game:_
   - Laser behavior for corner mirrors in all 4 direction.
-  - Corner mirrors can now be place and rotate.
+  - Laser behavior for splitters.
+  - Corner mirrors and splitters can now be place and rotate.
 - _Other:_
   - Constant MAXLASERPERFRAME with a value of 3.
   - A variable level_LaserDoneCounter.
 
 ### **Changed**
+
+- Some icon tiles in CHR ROM.
 
 #### ASM
 
@@ -31,6 +35,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
   - Palettes 3 to 5.
   - Default placeable tiles.
   - Debug level to test the game behavior with a lot of lasers.
+  - Update UI string.
 - _Stage:_
   - Inputs in LevelPlay to reset only when SELECT is pressed.
   - Refactor laser loop in LevelPlay.
@@ -45,7 +50,8 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 ### **Removed**
 
-- useless levelMeta.asm file
+- Useless levelMeta.asm file.
+- Metatiles of MIRRORC_ON type.
 
 -----------------
 

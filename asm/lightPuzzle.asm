@@ -3,16 +3,15 @@
 ;****************
 
 ; TODO:
-; - draw laser on multiple frames
 ; - add anti lasers
 ; - refactor code to take less space
 ; - laser behavior
-;   - splitter
 ;   - merger
 ;   - door (need anti lasers)
 ;   - timewall (need anti lasers)
 ; - fix POS_OUTOFMAP
 ; - fix graphical glitch when loading end
+; - fix graphical glitch in UI
 ; - better comments
 ; - a LOT more levels
 
