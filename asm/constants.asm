@@ -42,7 +42,7 @@ OAMDMA := $4014
 ; Game
 LASER_MAX := 32
 POS_OUTOFMAP = $F0
-LEVEL_MAX := 5
+LEVEL_MAX := 7
 MAXLASERPERFRAME := 3 ; need to be a power of 2-1
 
 ; Game Stage
@@ -105,8 +105,8 @@ MAXLASERPERFRAME := 3 ; need to be a power of 2-1
     MIRRORC_UR
     MIRRORC_DL
     MIRRORC_DR
-    NULL_2C
-    NULL_2D
+    TIMEWALL_OFF
+    TIMEWALL_ON
     NULL_2E
     NULL_2F
 
@@ -120,12 +120,12 @@ MAXLASERPERFRAME := 3 ; need to be a power of 2-1
     SPLITTER_V_ON
     MERGER_H
     MERGER_V
+    MERGER_H_T
+    MERGER_V_L
+    MERGER_H_B
+    MERGER_V_R
     MERGER_H_ON
     MERGER_V_ON
-    TIMEWALL_OFF
-    TIMEWALL_ON
-    NULL_3E
-    NULL_3F
 
     SPE_ARRAY = $FF
 .endenum

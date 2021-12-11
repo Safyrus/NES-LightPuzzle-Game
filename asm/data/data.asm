@@ -7,14 +7,14 @@ txt_version: .byte $2F, $10, $34, $11, $34, $11, $FF
 txt_win: .byte $30, $22, $27, $FF
 txt_loose: .byte $25, $28, $28, $2C, $1E, $FF
 txt_ui_1: .byte $00, $10, $37, $07, $00, $10, $37, $08, $00, $10, $37, $0E, $00, $10, $37, $0F, $00, $10, $37, $09, $00, $10, $37, $0B, $FF
-txt_ui_2: .byte $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $FF
+txt_ui_2: .byte $00, $10, $37, $0C, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $FF
 txt_ui_3: .byte $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $00, $10, $37, $36, $FF
 
 
 ; selectable metatiles
 select_tiles:
 .byte MTILE::WALL, MTILE::MIRROR_1, MTILE::EMIT_UP_ON, MTILE::RECEIVE_DOWN
-.byte MTILE::MIRRORC_UL, MTILE::SPLITTER_H, MTILE::VOID, MTILE::VOID
+.byte MTILE::MIRRORC_UL, MTILE::SPLITTER_H, MTILE::MERGER_H, MTILE::VOID
 .byte MTILE::VOID, MTILE::VOID, MTILE::VOID, MTILE::VOID
 .byte MTILE::VOID, MTILE::VOID, MTILE::VOID, MTILE::VOID
 

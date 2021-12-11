@@ -6,21 +6,21 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
-## **[0.1.1]** - _2021-12-??_
+## **[0.1.1]** - _2021-12-11_
 
 ### **Added**
 
 #### ASM
 
 - _Data:_
-  - A new simple level to test the corner mirror.
-  - Metatiles splitter and merger ON
+  - 3 new simple levels to test the corner mirror, splitter and merger.
+  - Metatiles splitter ON, merger ON and merger semi ON.
 - _Graphics:_
   - "laser_draw_activate" to change the palette to the active one at a laser position.
 - _Game:_
   - Laser behavior for corner mirrors in all 4 direction.
-  - Laser behavior for splitters.
-  - Corner mirrors and splitters can now be place and rotate.
+  - Laser behavior for splitters and mergers.
+  - Corner mirrors, splitters and mergers can now be place and rotate.
 - _Other:_
   - Constant MAXLASERPERFRAME with a value of 3.
   - A variable level_LaserDoneCounter.
@@ -42,7 +42,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
   - LevelPlay laser loop do update a maximum of MAXLASERPERFRAME per frame.
   - "level_place_lasers" function to reset "level_LaserDoneCounter" to 0.
 - _Other:_
-  - Constants LEVEL_MAX to 5 and LASER_MAX to 32.
+  - Constants LEVEL_MAX to 7 and LASER_MAX to 32.
 
 ### **Fixed**
 
@@ -52,6 +52,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 - Useless levelMeta.asm file.
 - Metatiles of MIRRORC_ON type.
+- Useless push and pop.
 
 -----------------
 

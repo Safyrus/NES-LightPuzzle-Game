@@ -124,6 +124,30 @@ stage_level_play:
             .byte $D0, $06 ; BNE @next
                 JSR laser_action_splitter_v
                 JMP @laser_loop_inc
+            CMP #MTILE::MERGER_H
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_merger_h
+                JMP @laser_loop_inc
+            CMP #MTILE::MERGER_V
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_merger_v
+                JMP @laser_loop_inc
+            CMP #MTILE::MERGER_H_T
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_merger_ht
+                JMP @laser_loop_inc
+            CMP #MTILE::MERGER_H_B
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_merger_hb
+                JMP @laser_loop_inc
+            CMP #MTILE::MERGER_V_L
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_merger_vl
+                JMP @laser_loop_inc
+            CMP #MTILE::MERGER_V_R
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_merger_vr
+                JMP @laser_loop_inc
             @laser_action_stop:
                 JSR laser_action_stop
                 JMP @laser_loop_inc

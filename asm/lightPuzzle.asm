@@ -6,7 +6,6 @@
 ; - add anti lasers
 ; - refactor code to take less space
 ; - laser behavior
-;   - merger
 ;   - door (need anti lasers)
 ;   - timewall (need anti lasers)
 ; - fix POS_OUTOFMAP

@@ -46,8 +46,8 @@ metaTileArrayLo:
     .byte <metaTile_MIRRORC_UR
     .byte <metaTile_MIRRORC_DL
     .byte <metaTile_MIRRORC_DR
-    .byte <metaTile_VOID
-    .byte <metaTile_VOID
+    .byte <metaTile_TIMEWALL_OFF
+    .byte <metaTile_TIMEWALL_ON
     .byte <metaTile_VOID
     .byte <metaTile_VOID
 
@@ -63,10 +63,10 @@ metaTileArrayLo:
     .byte <metaTile_MERGER_V
     .byte <metaTile_MERGER_H
     .byte <metaTile_MERGER_V
-    .byte <metaTile_TIMEWALL_OFF
-    .byte <metaTile_TIMEWALL_ON
-    .byte <metaTile_VOID
-    .byte <metaTile_VOID
+    .byte <metaTile_MERGER_H
+    .byte <metaTile_MERGER_V
+    .byte <metaTile_MERGER_H
+    .byte <metaTile_MERGER_V
 
 metaTileArrayHi:
     .byte >metaTile_VOID
@@ -115,8 +115,8 @@ metaTileArrayHi:
     .byte >metaTile_MIRRORC_UR
     .byte >metaTile_MIRRORC_DL
     .byte >metaTile_MIRRORC_DR
-    .byte >metaTile_VOID
-    .byte >metaTile_VOID
+    .byte >metaTile_TIMEWALL_OFF
+    .byte >metaTile_TIMEWALL_ON
     .byte >metaTile_VOID
     .byte >metaTile_VOID
 
@@ -132,10 +132,10 @@ metaTileArrayHi:
     .byte >metaTile_MERGER_V
     .byte >metaTile_MERGER_H
     .byte >metaTile_MERGER_V
-    .byte >metaTile_TIMEWALL_OFF
-    .byte >metaTile_TIMEWALL_ON
-    .byte >metaTile_VOID
-    .byte >metaTile_VOID
+    .byte >metaTile_MERGER_H
+    .byte >metaTile_MERGER_V
+    .byte >metaTile_MERGER_H
+    .byte >metaTile_MERGER_V
 
 
 
