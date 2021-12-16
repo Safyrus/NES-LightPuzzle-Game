@@ -4,7 +4,7 @@ metaTileArrayLo:
     .byte <metaTile_WALL
     .byte <metaTile_GROUND
     .byte <metaTile_UI_BOT
-    .byte <metaTile_LOCK
+    .byte <metaTile_GLASS
     .byte <metaTile_LASER_HOR
     .byte <metaTile_LASER_VER
     .byte <metaTile_LASER_CROSS
@@ -46,15 +46,15 @@ metaTileArrayLo:
     .byte <metaTile_MIRRORC_UR
     .byte <metaTile_MIRRORC_DL
     .byte <metaTile_MIRRORC_DR
-    .byte <metaTile_TIMEWALL_OFF
-    .byte <metaTile_TIMEWALL_ON
+    .byte <metaTile_VOID
+    .byte <metaTile_VOID
     .byte <metaTile_VOID
     .byte <metaTile_VOID
 
     .byte <metaTile_DOOR_H
     .byte <metaTile_DOOR_V
-    .byte <metaTile_DOORL_H
-    .byte <metaTile_DOORL_V
+    .byte <metaTile_DOOR_H_ON
+    .byte <metaTile_DOOR_V_ON
     .byte <metaTile_SPLITTER_H
     .byte <metaTile_SPLITTER_V
     .byte <metaTile_SPLITTER_H
@@ -73,7 +73,7 @@ metaTileArrayHi:
     .byte >metaTile_WALL
     .byte >metaTile_GROUND
     .byte >metaTile_UI_BOT
-    .byte >metaTile_LOCK
+    .byte >metaTile_GLASS
     .byte >metaTile_LASER_HOR
     .byte >metaTile_LASER_VER
     .byte >metaTile_LASER_CROSS
@@ -115,15 +115,15 @@ metaTileArrayHi:
     .byte >metaTile_MIRRORC_UR
     .byte >metaTile_MIRRORC_DL
     .byte >metaTile_MIRRORC_DR
-    .byte >metaTile_TIMEWALL_OFF
-    .byte >metaTile_TIMEWALL_ON
+    .byte >metaTile_VOID
+    .byte >metaTile_VOID
     .byte >metaTile_VOID
     .byte >metaTile_VOID
 
     .byte >metaTile_DOOR_H
     .byte >metaTile_DOOR_V
-    .byte >metaTile_DOORL_H
-    .byte >metaTile_DOORL_V
+    .byte >metaTile_DOOR_H_ON
+    .byte >metaTile_DOOR_V_ON
     .byte >metaTile_SPLITTER_H
     .byte >metaTile_SPLITTER_V
     .byte >metaTile_SPLITTER_H
@@ -144,7 +144,7 @@ metaTile_VOID:          .byte $00, $00, $00, $00   ; VOID
 metaTile_WALL:          .byte $50, $50, $40, $50   ; WALL
 metaTile_GROUND:        .byte $5D, $00, $00, $5C   ; GROUND
 metaTile_UI_BOT:        .byte $00, $00, $52, $52   ; UI_BOT
-metaTile_LOCK:          .byte $05, $05, $05, $05   ; LOCK
+metaTile_GLASS:          .byte $07, $07, $07, $07  ; GLASS
 
 metaTile_EMIT_UP:       .byte $42, $43, $44, $45   ; EMIT_UP
 metaTile_EMIT_DOWN:     .byte $54, $55, $42, $43   ; EMIT_DOWN
@@ -172,11 +172,9 @@ metaTile_MIRRORC_DR:    .byte $68, $6B, $7C, $71   ; MIRRORC_DR
 
 metaTile_DOOR_H:        .byte $80, $81, $90, $91   ; DOOR_H
 metaTile_DOOR_V:        .byte $82, $83, $92, $93   ; DOOR_V
-metaTile_DOORL_H:       .byte $84, $85, $94, $95   ; DOORL_H
-metaTile_DOORL_V:       .byte $86, $87, $96, $97   ; DOORL_V
+metaTile_DOOR_H_ON:     .byte $84, $85, $94, $95   ; DOOR_H_ON
+metaTile_DOOR_V_ON:     .byte $86, $87, $96, $97   ; DOOR_V_ON
 metaTile_SPLITTER_H:    .byte $88, $89, $98, $99   ; SPLITTER_H
 metaTile_SPLITTER_V:    .byte $8A, $8B, $9A, $9B   ; SPLITTER_V
 metaTile_MERGER_H:      .byte $8C, $8D, $9C, $9D   ; MERGER_H
 metaTile_MERGER_V:      .byte $8E, $8F, $9E, $9F   ; MERGER_V
-metaTile_TIMEWALL_OFF:  .byte $A0, $A1, $B0, $B1   ; TIMEWALL_OFF
-metaTile_TIMEWALL_ON:   .byte $A2, $A3, $B2, $B3   ; TIMEWALL_ON

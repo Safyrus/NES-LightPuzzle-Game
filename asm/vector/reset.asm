@@ -39,7 +39,6 @@ rst_vwait2:
 
     LDA #%10010000      ; Enable NMI + set background table to $1000
     STA PPUCTRL
-    STA ppu_ctrl
 
     LDA #STG::MENU_LOAD ; set the stage to MenuLoad
     STA gameStage

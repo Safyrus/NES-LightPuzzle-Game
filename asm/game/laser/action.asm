@@ -1,19 +1,21 @@
 ; X = laser index
 ; Y = laser position
 laser_action_move:
-    pushreg
+    PHA
 
     TYA
     STA laserArray_pos, X   ; set new laser position
 
-    pullreg
+    PLA
     RTS
 
 
 ; X = laser index
 ; Y = laser position
 laser_action_ground:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     TYA
     STA laserArray_pos, X   ; set new laser position
@@ -22,7 +24,9 @@ laser_action_ground:
     TAY
     JSR laser_draw_ground
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 
@@ -38,9 +42,22 @@ laser_action_stop:
     RTS
 
 ; X = laser index
+laser_action_stop_restart:
+    PHA
+
+    LDA laserArray_state, X
+    ORA #%00001100
+    STA laserArray_state, X
+
+    PLA
+    RTS
+
+; X = laser index
 ; Y = laser position
 laser_action_laserhor:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     TYA
     STA laserArray_pos, X   ; set new laser position
@@ -48,14 +65,18 @@ laser_action_laserhor:
     TAY
     JSR laser_draw_crosshor
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 
 ; X = laser index
 ; Y = laser position
 laser_action_laserver:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     TYA
     STA laserArray_pos, X   ; set new laser position
@@ -63,14 +84,18 @@ laser_action_laserver:
     TAY
     JSR laser_draw_crossver
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_1:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     JSR move_laser_mirror1
 
@@ -78,13 +103,17 @@ laser_action_mirror_1:
     TAY
     JSR laser_draw_mirror1
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_2:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     JSR move_laser_mirror2
 
@@ -92,13 +121,17 @@ laser_action_mirror_2:
     TAY
     JSR laser_draw_mirror2
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_ul:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     JSR move_laser_mirror1
 
@@ -106,13 +139,17 @@ laser_action_mirror_ul:
     TAY
     JSR laser_draw_mirror_ul
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_ur:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     JSR move_laser_mirror2
 
@@ -120,13 +157,17 @@ laser_action_mirror_ur:
     TAY
     JSR laser_draw_mirror_ur
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_dl:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     JSR move_laser_mirror2
 
@@ -134,13 +175,17 @@ laser_action_mirror_dl:
     TAY
     JSR laser_draw_mirror_dl
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_dr:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     JSR move_laser_mirror1
 
@@ -148,33 +193,27 @@ laser_action_mirror_dr:
     TAY
     JSR laser_draw_mirror_dr
 
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_cross1:
-    pushreg
-
-    JSR move_laser_mirror1
-
-    pullreg
-    RTS
+    JMP move_laser_mirror1
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_cross2:
-    pushreg
-
-    JSR move_laser_mirror1
-
-    pullreg
-    RTS
+    JMP move_laser_mirror1
 
 ; X = laser index
 ; Y = laser position
 laser_action_receive_up:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     TYA
     STA laserArray_pos, X   ; set new laser position
@@ -193,13 +232,17 @@ laser_action_receive_up:
     JSR laser_draw_receive_up
 
     @end:
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_receive_down:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     TYA
     STA laserArray_pos, X   ; set new laser position
@@ -218,13 +261,17 @@ laser_action_receive_down:
     JSR laser_draw_receive_down
 
     @end:
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_receive_left:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     TYA
     STA laserArray_pos, X   ; set new laser position
@@ -243,13 +290,17 @@ laser_action_receive_left:
     JSR laser_draw_receive_left
 
     @end:
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 ; X = laser index
 ; Y = laser position
 laser_action_receive_right:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     TYA
     STA laserArray_pos, X   ; set new laser position
@@ -268,14 +319,18 @@ laser_action_receive_right:
     JSR laser_draw_receive_right
 
     @end:
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_corner_ul:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     LDA laserArray_state, X  ; get direction of the laser
     AND #%00000011
@@ -298,14 +353,18 @@ laser_action_mirror_corner_ul:
     JSR laser_draw_activate
 
     @end:
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_corner_ur:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     LDA laserArray_state, X  ; get direction of the laser
     AND #%00000011
@@ -328,14 +387,18 @@ laser_action_mirror_corner_ur:
     JSR laser_draw_activate
 
     @end:
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_corner_dl:
-    pushreg
+    PHA
+    TYA
+    PHA
 
     LDA laserArray_state, X  ; get direction of the laser
     AND #%00000011
@@ -358,13 +421,17 @@ laser_action_mirror_corner_dl:
     JSR laser_draw_activate
 
     @end:
-    pullreg
+    PLA
+    TAY
+    PLA
     RTS
 
 
 ; X = laser index
 ; Y = laser position
 laser_action_mirror_corner_dr:
+    PHA
+    TYA
     PHA
 
     LDA laserArray_state, X  ; get direction of the laser
@@ -388,6 +455,8 @@ laser_action_mirror_corner_dr:
     JSR laser_draw_activate
 
     @end:
+    PLA
+    TAY
     PLA
     RTS
 
@@ -581,5 +650,177 @@ laser_action_merger_vr:
 
     @end:
     JSR laser_action_stop
+    PLA
+    RTS
+
+
+; X = laser index
+; Y = laser position
+laser_action_door_h:
+    PHA
+    TYA
+    PHA
+
+    ; check if laser is going verticaly
+    LDA laserArray_state, X
+    AND #%00000010
+    BNE @stop
+
+    JSR laser_action_move
+
+    ; set door to ON
+    LDA #MTILE::DOOR_H_ON
+    STA level, Y
+
+    ; restart lasers at the door
+    JSR move_laser_restart
+
+    LDA counter
+    BEQ @draw_close
+    @draw_open:
+    ; draw the open door
+    TXA
+    TAY
+    JSR laser_draw_door_h_on
+    JSR laser_draw_activate
+    JMP @end
+    @draw_close:
+    ; draw the close but active door
+    TXA
+    TAY
+    JSR laser_draw_activate
+    JMP @end
+
+    @stop:
+    JSR laser_action_move
+    JSR laser_action_stop_restart
+    @end:
+    JSR laser_action_stop
+    PLA
+    TAY
+    PLA
+    RTS
+
+
+; X = laser index
+; Y = laser position
+laser_action_door_v:
+    PHA
+    TYA
+    PHA
+
+    ; check if laser is going horizontaly
+    LDA laserArray_state, X
+    AND #%00000010
+    BEQ @stop
+
+    JSR laser_action_move
+
+    ; set door to ON
+    LDA #MTILE::DOOR_V_ON
+    STA level, Y
+
+    ; restart lasers at the door
+    JSR move_laser_restart
+
+    LDA counter
+    BEQ @draw_close
+    @draw_open:
+    ; draw the open door
+    TXA
+    TAY
+    JSR laser_draw_door_h_on
+    JSR laser_draw_activate
+    JMP @end
+    @draw_close:
+    ; draw the close but active door
+    TXA
+    TAY
+    JSR laser_draw_activate
+    JMP @end
+
+    @stop:
+    JSR laser_action_move
+    JSR laser_action_stop_restart
+    @end:
+    JSR laser_action_stop
+    PLA
+    TAY
+    PLA
+    RTS
+
+
+; X = laser index
+; Y = laser position
+laser_action_door_h_on:
+    PHA
+    TYA
+    PHA
+
+    ; check if laser is going horizontaly
+    LDA laserArray_state, X
+    AND #%00000010
+    BEQ @stop
+
+    JSR laser_action_move
+
+    ; draw the open door
+    TXA
+    TAY
+    JSR laser_draw_door_h_on
+    JMP @end
+
+    @stop:
+    JSR laser_action_stop
+    @end:
+    PLA
+    TAY
+    PLA
+    RTS
+
+
+; X = laser index
+; Y = laser position
+laser_action_door_v_on:
+    PHA
+    TYA
+    PHA
+
+    ; check if laser is going verticaly
+    LDA laserArray_state, X
+    AND #%00000010
+    BNE @stop
+
+    JSR laser_action_move
+
+    ; draw the open door
+    TXA
+    TAY
+    JSR laser_draw_door_v_on
+    JMP @end
+
+    @stop:
+    JSR laser_action_stop
+    @end:
+    PLA
+    TAY
+    PLA
+    RTS
+
+
+; X = laser index
+; Y = laser position
+laser_action_glass:
+    PHA
+    TYA
+    PHA
+
+    JSR laser_action_move
+    TXA
+    TAY
+    JSR laser_draw_activate
+
+    PLA
+    TAY
     PLA
     RTS

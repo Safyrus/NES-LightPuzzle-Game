@@ -40,9 +40,9 @@ BTN_TIMER = 16
 OAMDMA := $4014
 
 ; Game
-LASER_MAX := 32
+LASER_MAX := 48
 POS_OUTOFMAP = $F0
-LEVEL_MAX := 7
+LEVEL_MAX := 8
 MAXLASERPERFRAME := 3 ; need to be a power of 2-1
 
 ; Game Stage
@@ -63,7 +63,7 @@ MAXLASERPERFRAME := 3 ; need to be a power of 2-1
     WALL
     GROUND
     UIBOT
-    LOCK
+    GLASS
     LASER_HOR
     LASER_VER
     LASER_CROSS
@@ -105,15 +105,15 @@ MAXLASERPERFRAME := 3 ; need to be a power of 2-1
     MIRRORC_UR
     MIRRORC_DL
     MIRRORC_DR
-    TIMEWALL_OFF
-    TIMEWALL_ON
+    NULL_2C
+    NULL_2D
     NULL_2E
     NULL_2F
 
     DOOR_H
     DOOR_V
-    DOORL_H
-    DOORL_V
+    DOOR_H_ON
+    DOOR_V_ON
     SPLITTER_H
     SPLITTER_V
     SPLITTER_H_ON

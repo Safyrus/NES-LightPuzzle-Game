@@ -3,14 +3,12 @@
 ;****************
 
 ; TODO:
-; - add anti lasers
 ; - refactor code to take less space
-; - laser behavior
-;   - door (need anti lasers)
-;   - timewall (need anti lasers)
 ; - fix POS_OUTOFMAP
+; - fix LASER_TOOMANY (add_laser and other functions)
 ; - fix graphical glitch when loading end
 ; - fix graphical glitch in UI
+; - fix typos
 ; - better comments
 ; - a LOT more levels
 

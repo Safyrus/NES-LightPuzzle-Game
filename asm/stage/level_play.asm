@@ -148,6 +148,26 @@ stage_level_play:
             .byte $D0, $06 ; BNE @next
                 JSR laser_action_merger_vr
                 JMP @laser_loop_inc
+            CMP #MTILE::DOOR_H
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_door_h
+                JMP @laser_loop_inc
+            CMP #MTILE::DOOR_V
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_door_v
+                JMP @laser_loop_inc
+            CMP #MTILE::DOOR_H_ON
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_door_h_on
+                JMP @laser_loop_inc
+            CMP #MTILE::DOOR_V_ON
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_door_v_on
+                JMP @laser_loop_inc
+            CMP #MTILE::GLASS
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_glass
+                JMP @laser_loop_inc
             @laser_action_stop:
                 JSR laser_action_stop
                 JMP @laser_loop_inc
@@ -178,8 +198,6 @@ stage_level_play:
         JMP @step_done
         @laser_loop_end_maxframe:
         JMP @end
-
-        ; TODO antiLaser
 
     @step_done:
 

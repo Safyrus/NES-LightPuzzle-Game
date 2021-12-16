@@ -1,4 +1,6 @@
 move_laser_mirror1:
+    PHA
+
     TYA
     STA laserArray_pos, X   ; set new laser position
 
@@ -36,10 +38,13 @@ move_laser_mirror1:
         STA laserArray_state, X
 
     @end:
+    PLA
     RTS
 
 
 move_laser_mirror2:
+    PHA
+
     TYA
     STA laserArray_pos, X   ; set new laser position
 
@@ -77,4 +82,47 @@ move_laser_mirror2:
         STA laserArray_state, X
 
     @end:
+    PLA
+    RTS
+
+
+; Y = position where to reactivate lasers
+move_laser_restart:
+    PHA
+    TXA
+    PHA
+
+    LDX #$00
+    STX counter ; reset return value
+    @loop:
+        LDA laserArray_pos, X
+        STA tmp
+        CPY tmp
+        BNE @loop_cmp
+
+        LDA laserArray_state, X
+        AND #%0001000
+        BEQ @loop_cmp
+
+        LDA laserArray_state, X
+        AND #%11110011 ; desactivate restart + stop flags
+        STA laserArray_state, X
+
+        TXA
+        PHA
+        LDX counter
+        INX
+        STX counter
+        PLA
+        TAX
+
+        @loop_cmp:
+        INX
+        CPX #LASER_MAX
+        BNE @loop
+
+    @end:
+    PLA
+    TAX
+    PLA
     RTS

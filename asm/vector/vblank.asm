@@ -104,13 +104,15 @@ VBLANK:
     AND #%00010000
     BEQ vblank_scroll_end
     vblank_scroll:
-        LDA ppu_ctrl
-        STA PPUCTRL
         BIT PPUSTATUS   ; reset latch
         LDA #$00        ; set scrolling position to 0,0
         STA PPUSCROLL
         LDA #$00
         STA PPUSCROLL
+        LDA #$00        ; set bit 15 of t in PPU to 0
+        STA PPUADDR     ; (because, for unknown reason)
+        LDA #$00        ; to fix scrolling in the wrong nametable.
+        STA PPUADDR
     vblank_scroll_end:
 
     vblank_end:

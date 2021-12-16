@@ -226,6 +226,10 @@ change_at_cursor:
     BEQ @do_merger_h
     CMP #MTILE::MERGER_V
     BEQ @do_merger_v
+    CMP #MTILE::DOOR_H
+    BEQ @do_door_h
+    CMP #MTILE::DOOR_V
+    BEQ @do_door_v
     JMP @end
 
     @do_mirror_1:
@@ -275,6 +279,16 @@ change_at_cursor:
         JMP @draw
     @do_merger_v:
         LDA #MTILE::MERGER_H
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_door_h:
+        LDA #MTILE::DOOR_V
+        STA level_edit, X
+        TAY
+        JMP @draw
+    @do_door_v:
+        LDA #MTILE::DOOR_H
         STA level_edit, X
         TAY
         JMP @draw

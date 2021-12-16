@@ -6,6 +6,55 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.1.2]** - _2021-12-??_
+
+### **Added**
+
+- Glass tile in CHR ROM.
+
+#### ASM
+
+- _Game:_
+  - Laser behavior for doors and glasses.
+  - Doors can now be place and rotate.
+  - "move_laser_restart" function to make lasers (with the restart flag)
+    move again at a certain position.
+  - "laser_action_stop_restart" function to activate the S and R flag of the laser.
+- _Graphics:_
+  - "laser_draw_door" functions.
+- _Data:_
+  - A new level to test the door.
+- _Other:_
+  - Comments for variables.
+
+### **Changed**
+
+- Icon tiles position in CHR ROM.
+
+#### ASM
+
+- _Data:_
+  - UI string icon because of the tiles position change.
+  - select_tiles to have the DOOR_H metatiles.
+- _Vectors_:
+  - Vblank scroll update to work without ppu_ctrl.
+- _Other:_
+  - Metatile names (LOCK to GLASS, DOORL_H to DOOR_H_ON, DOORL_V to DOOR_V_ON).
+  - LEVEL_MAX to 8 and LASER_MAX to 48.
+
+### **Fixed**
+
+- Missing push and pop.
+
+### **Removed**
+
+- Timer wall icon and metatiles in CHR ROM.
+- Metatiles TIMEWALL_OFF and TIMEWALL_ON.
+- Variables (level_AntiLaserCount, laserAntiArray_pos, laserAntiArray_state, ppu_ctrl).
+- Useless push and pop in laser action functions.
+
+-----------------
+
 ## **[0.1.1]** - _2021-12-11_
 
 ### **Added**

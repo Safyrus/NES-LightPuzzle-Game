@@ -444,6 +444,48 @@ laser_draw_receive_right:
 
 
 ; Y = laser index
+laser_draw_door_h_on:
+    pushreg
+
+    LDA laserArray_pos, Y   ; get laser position in nametable
+    TAX
+    JSR get_metaTile_nametable_adr
+
+    LDA dataAdr_h           ; set the laser position to vramAdr
+    STA vramAdr_h
+    LDA dataAdr_l
+    STA vramAdr_l
+
+    LDX #MTILE::DOOR_H_ON
+    JSR update_bg_metaTile
+
+    @end:
+    pullreg
+    RTS
+
+
+; Y = laser index
+laser_draw_door_v_on:
+    pushreg
+
+    LDA laserArray_pos, Y   ; get laser position in nametable
+    TAX
+    JSR get_metaTile_nametable_adr
+
+    LDA dataAdr_h           ; set the laser position to vramAdr
+    STA vramAdr_h
+    LDA dataAdr_l
+    STA vramAdr_l
+
+    LDX #MTILE::DOOR_V_ON
+    JSR update_bg_metaTile
+
+    @end:
+    pullreg
+    RTS
+
+
+; Y = laser index
 laser_draw_activate:
     pushreg
 
