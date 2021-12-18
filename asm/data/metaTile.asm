@@ -8,10 +8,10 @@ metaTileArrayLo:
     .byte <metaTile_LASER_HOR
     .byte <metaTile_LASER_VER
     .byte <metaTile_LASER_CROSS
-    .byte <metaTile_VOID
-    .byte <metaTile_VOID
-    .byte <metaTile_VOID
-    .byte <metaTile_VOID
+    .byte <metaTile_CROSS
+    .byte <metaTile_CROSS_H
+    .byte <metaTile_CROSS_V
+    .byte <metaTile_CROSS
     .byte <metaTile_VOID
     .byte <metaTile_VOID
     .byte <metaTile_VOID
@@ -77,10 +77,10 @@ metaTileArrayHi:
     .byte >metaTile_LASER_HOR
     .byte >metaTile_LASER_VER
     .byte >metaTile_LASER_CROSS
-    .byte >metaTile_VOID
-    .byte >metaTile_VOID
-    .byte >metaTile_VOID
-    .byte >metaTile_VOID
+    .byte >metaTile_CROSS
+    .byte >metaTile_CROSS_H
+    .byte >metaTile_CROSS_V
+    .byte >metaTile_CROSS
     .byte >metaTile_VOID
     .byte >metaTile_VOID
     .byte >metaTile_VOID
@@ -144,7 +144,10 @@ metaTile_VOID:          .byte $00, $00, $00, $00   ; VOID
 metaTile_WALL:          .byte $50, $50, $40, $50   ; WALL
 metaTile_GROUND:        .byte $5D, $00, $00, $5C   ; GROUND
 metaTile_UI_BOT:        .byte $00, $00, $52, $52   ; UI_BOT
-metaTile_GLASS:          .byte $07, $07, $07, $07  ; GLASS
+metaTile_GLASS:         .byte $07, $07, $07, $07   ; GLASS
+metaTile_CROSS:         .byte $62, $63, $72, $73   ; CROSS
+metaTile_CROSS_H:       .byte $64, $65, $74, $75   ; CROSS_H
+metaTile_CROSS_V:       .byte $66, $67, $76, $77   ; CROSS_V
 
 metaTile_EMIT_UP:       .byte $42, $43, $44, $45   ; EMIT_UP
 metaTile_EMIT_DOWN:     .byte $54, $55, $42, $43   ; EMIT_DOWN

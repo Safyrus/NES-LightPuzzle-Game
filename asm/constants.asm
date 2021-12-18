@@ -32,18 +32,18 @@ APU_STATUS := $4015
 APU_FRAME := $4017
 
 ; IO
-JOYPAD1 = $4016
-JOYPAD2 = $4017
+JOYPAD1 := $4016
+JOYPAD2 := $4017
 BTN_TIMER = 16
 
 ; OAM
 OAMDMA := $4014
 
 ; Game
-LASER_MAX := 48
+LASER_MAX = 48
 POS_OUTOFMAP = $F0
-LEVEL_MAX := 8
-MAXLASERPERFRAME := 3 ; need to be a power of 2-1
+LEVEL_MAX = 13
+MAXLASERPERFRAME = 3 ; need to be a power of 2-1
 
 ; Game Stage
 .enum STG
@@ -67,10 +67,10 @@ MAXLASERPERFRAME := 3 ; need to be a power of 2-1
     LASER_HOR
     LASER_VER
     LASER_CROSS
-    NULL_08
-    NULL_09
-    NULL_0A
-    NULL_0B
+    CROSS
+    CROSS_H
+    CROSS_V
+    CROSS_ON
     NULL_0C
     NULL_0D
     NULL_0E

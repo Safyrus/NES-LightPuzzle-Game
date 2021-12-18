@@ -6,7 +6,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
-## **[0.1.2]** - _2021-12-??_
+## **[0.1.2]** - _2021-12-18_
 
 ### **Added**
 
@@ -15,17 +15,19 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 #### ASM
 
 - _Game:_
-  - Laser behavior for doors and glasses.
+  - Laser behavior for doors, glasses and cross.
   - Doors can now be place and rotate.
   - "move_laser_restart" function to make lasers (with the restart flag)
     move again at a certain position.
   - "laser_action_stop_restart" function to activate the S and R flag of the laser.
 - _Graphics:_
-  - "laser_draw_door" functions.
+  - functions to draw doors and crosses.
 - _Data:_
-  - A new level to test the door.
+  - 6 new levels (1 to test the door, another to test the cross).
+  - CROSS metatiles.
 - _Other:_
   - Comments for variables.
+  - CROSS mtile constants.
 
 ### **Changed**
 
@@ -34,13 +36,13 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 #### ASM
 
 - _Data:_
-  - UI string icon because of the tiles position change.
+  - UI string icon because of the tiles position modification.
   - select_tiles to have the DOOR_H metatiles.
 - _Vectors_:
   - Vblank scroll update to work without ppu_ctrl.
 - _Other:_
   - Metatile names (LOCK to GLASS, DOORL_H to DOOR_H_ON, DOORL_V to DOOR_V_ON).
-  - LEVEL_MAX to 8 and LASER_MAX to 48.
+  - LEVEL_MAX to 13 and LASER_MAX to 48.
 
 ### **Fixed**
 

@@ -168,6 +168,18 @@ stage_level_play:
             .byte $D0, $06 ; BNE @next
                 JSR laser_action_glass
                 JMP @laser_loop_inc
+            CMP #MTILE::CROSS
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_cross
+                JMP @laser_loop_inc
+            CMP #MTILE::CROSS_H
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_cross_h
+                JMP @laser_loop_inc
+            CMP #MTILE::CROSS_V
+            .byte $D0, $06 ; BNE @next
+                JSR laser_action_cross_v
+                JMP @laser_loop_inc
             @laser_action_stop:
                 JSR laser_action_stop
                 JMP @laser_loop_inc
@@ -223,6 +235,12 @@ stage_level_play:
             CMP #MTILE::RECEIVE_LEFT
             BEQ @stage_loose
             CMP #MTILE::RECEIVE_RIGHT
+            BEQ @stage_loose
+            CMP #MTILE::CROSS_H
+            BEQ @stage_loose
+            CMP #MTILE::CROSS_V
+            BEQ @stage_loose
+            CMP #MTILE::CROSS_ON
             BEQ @stage_loose
 
             INY
