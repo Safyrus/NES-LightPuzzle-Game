@@ -7,39 +7,39 @@ draw_level:
     PHA
 
     ; get level address
-    LDA levelArrayHi, X
-    STA dataAdr_h
-    LDA levelArrayLo, X
-    STA dataAdr_l
+    LDA level_array_hi, X
+    STA data_adr_h
+    LDA level_array_lo, X
+    STA data_adr_l
 
     LDX #$00
     @loop:
         ; Check if Special Mtile
         LDY #$00
-        LDA (dataAdr), Y
+        LDA (data_adr), Y
         CMP #$FF
         BEQ @array
 
         @normal:
             ; draw Mtile
             TAY
-            JSR draw_metaTile
+            JSR draw_metatile
             INX
-            JSR inc_dataAdr
-            JMP @loopEnd
+            JSR inc_data_adr
+            JMP @loop_end
 
         @array:
             ; get length
-            JSR inc_dataAdr
-            LDA (dataAdr), Y
+            JSR inc_data_adr
+            LDA (data_adr), Y
             STA counter
             ; get tile
-            JSR inc_dataAdr
+            JSR inc_data_adr
             @array_loop:
                 LDY #$00
-                LDA (dataAdr), Y
+                LDA (data_adr), Y
                 TAY
-                JSR draw_metaTile
+                JSR draw_metatile
                 INX
 
                 LDY counter
@@ -48,7 +48,7 @@ draw_level:
                 CPY #$00
                 BNE @array_loop
 
-        @loopEnd:
+        @loop_end:
         CPX #$F0
         BNE @loop
 
@@ -60,23 +60,23 @@ draw_level:
     RTS
 
 ; X = Coord, Y= ID
-draw_metaTile:
+draw_metatile:
     ; push registers
     PHA
     TXA
     PHA
-    ; push dataAdr
-    LDA dataAdr_l
+    ; push data_adr
+    LDA data_adr_l
     PHA
-    LDA dataAdr_h
+    LDA data_adr_h
     PHA
 
     ; set VRAM adr
-    JSR get_metaTile_nametable_adr
+    JSR get_metatile_nametable_adr
     BIT PPUSTATUS   ; reset adress latch
-    LDA dataAdr_h
+    LDA data_adr_h
     STA PPUADDR
-    LDA dataAdr_l
+    LDA data_adr_l
     STA PPUADDR
 
     ; push X
@@ -84,19 +84,19 @@ draw_metaTile:
     PHA
     
     ; get MTile adr
-    LDA metaTileArrayHi, Y
-    STA dataAdr_h
-    LDA metaTileArrayLo, Y
-    STA dataAdr_l
+    LDA metatile_array_hi, Y
+    STA data_adr_h
+    LDA metatile_array_lo, Y
+    STA data_adr_l
     LDX #$00
-    LDA (dataAdr, X)
+    LDA (data_adr, X)
 
     ; set upper left tile
     STA PPUDATA
 
     ; inc MTile adr
-    JSR inc_dataAdr
-    LDA (dataAdr, X)
+    JSR inc_data_adr
+    LDA (data_adr, X)
 
     ; set upper right tile
     STA PPUDATA
@@ -105,47 +105,47 @@ draw_metaTile:
     PLA
     TAX
     ; Push MTile adr
-    LDA dataAdr_l
+    LDA data_adr_l
     PHA
-    LDA dataAdr_h
+    LDA data_adr_h
     PHA
 
     ; set VRAM adr
-    JSR get_metaTile_nametable_adr
-    LDX #$20        ; add $20 to dataAdr
-    JSR add_dataAdr
+    JSR get_metatile_nametable_adr
+    LDX #$20        ; add $20 to data_adr
+    JSR add_data_adr
     BIT PPUSTATUS   ; reset adress latch
-    LDA dataAdr_h   ; set VRAM adr
+    LDA data_adr_h   ; set VRAM adr
     STA PPUADDR
-    LDA dataAdr_l
+    LDA data_adr_l
     STA PPUADDR
 
     ; Pull MTile adr
     PLA
-    STA dataAdr_h
+    STA data_adr_h
     PLA
-    STA dataAdr_l
+    STA data_adr_l
 
     ; inc MTile adr
-    JSR inc_dataAdr
+    JSR inc_data_adr
     LDX #$00
-    LDA (dataAdr, X)
+    LDA (data_adr, X)
 
     ; set lower left tile
     STA PPUDATA
 
     ; inc MTile adr
-    JSR inc_dataAdr
-    LDA (dataAdr, X)
+    JSR inc_data_adr
+    LDA (data_adr, X)
 
     ; set lower right tile
     STA PPUDATA
 
-    ; pull dataAdr
+    ; pull data_adr
     PLA
-    STA dataAdr_h
+    STA data_adr_h
     PLA
-    STA dataAdr_l
+    STA data_adr_l
     ; pull registers
     PLA
     TAX
@@ -177,44 +177,44 @@ draw_menu:
 
     ; display txt_game_title
     LDA #$20
-    STA vramAdr_h
+    STA vram_adr_h
     LDA #$A8
-    STA vramAdr_l
+    STA vram_adr_l
     LDA #>txt_game_title
-    STA dataAdr_h
+    STA data_adr_h
     LDA #<txt_game_title
-    STA dataAdr_l
+    STA data_adr_l
     JSR draw_text
 
     ; display txt_menu
     LDA #$21
-    STA vramAdr_h
+    STA vram_adr_h
     LDA #$2E
-    STA vramAdr_l
+    STA vram_adr_l
     LDA #>txt_menu
-    STA dataAdr_h
+    STA data_adr_h
     LDA #<txt_menu
-    STA dataAdr_l
+    STA data_adr_l
     JSR draw_text
 
     ; display txt_level
     LDA #$CC
-    STA vramAdr_l
+    STA vram_adr_l
     LDA #>txt_level
-    STA dataAdr_h
+    STA data_adr_h
     LDA #<txt_level
-    STA dataAdr_l
+    STA data_adr_l
     JSR draw_text
 
     ; display txt_version
     LDA #$23
-    STA vramAdr_h
+    STA vram_adr_h
     LDA #$0D
-    STA vramAdr_l
+    STA vram_adr_l
     LDA #>txt_version
-    STA dataAdr_h
+    STA data_adr_h
     LDA #<txt_version
-    STA dataAdr_l
+    STA data_adr_l
     JSR draw_text
 
     RTS
@@ -247,29 +247,29 @@ draw_ui:
         BNE @loop_line
     
     LDA #$24
-    STA vramAdr_h
+    STA vram_adr_h
     LDA #$80
-    STA vramAdr_l
+    STA vram_adr_l
     LDA #>txt_ui_1
-    STA dataAdr_h
+    STA data_adr_h
     LDA #<txt_ui_1
-    STA dataAdr_l
+    STA data_adr_l
     JSR draw_text
 
     LDA #$60
-    STA vramAdr_l
+    STA vram_adr_l
     LDA #>txt_ui_2
-    STA dataAdr_h
+    STA data_adr_h
     LDA #<txt_ui_2
-    STA dataAdr_l
+    STA data_adr_l
     JSR draw_text
 
     LDA #$40
-    STA vramAdr_l
+    STA vram_adr_l
     LDA #>txt_ui_3
-    STA dataAdr_h
+    STA data_adr_h
     LDA #<txt_ui_3
-    STA dataAdr_l
+    STA data_adr_l
     JSR draw_text
 
     LDA PPUSTATUS   ; read PPU status to reset the high/low latch
@@ -291,24 +291,24 @@ draw_ui:
     RTS
 
 
-; dataAdr = text pointer
-; vramAdr = text location
+; data_adr = text pointer
+; vram_adr = text location
 draw_text:
     pushreg
 
     BIT PPUSTATUS   ; reset adress latch
-    LDA vramAdr_h   ; set the vram address to start from
+    LDA vram_adr_h   ; set the vram address to start from
     STA PPUADDR
-    LDA vramAdr_l
+    LDA vram_adr_l
     STA PPUADDR
 
     LDY #$00
     @loop:
-        LDA (dataAdr), Y
+        LDA (data_adr), Y
         CMP #$FF
         BEQ @end
         STA PPUDATA
-        JSR inc_dataAdr
+        JSR inc_data_adr
         JMP @loop
     @end:
     pullreg

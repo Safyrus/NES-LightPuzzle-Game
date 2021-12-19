@@ -1,27 +1,27 @@
 stage_level_play:
-    LDA buttons1
+    LDA buttons_1
     AND #%00100000
     BEQ @start
-        LDA buttons1Timer   ;check if buttons are unlock
+        LDA buttons_1_timer   ;check if buttons are unlock
         BNE @start
         
         JSR change_to_level_load
 
     @start:
-    LDX level_FrameCounter      ; Check if frameCounter is zero
+    LDX level_frame_counter      ; Check if frame_counter is zero
     CPX #$00                    ; if it is, then do a step
     BEQ @step
 
-    DEX                         ; Decrease frameCounter
-    STX level_FrameCounter      ; and wait for another frame
+    DEX                         ; Decrease frame_counter
+    STX level_frame_counter      ; and wait for another frame
     JMP @end
 
     ; do a step
     @step:
         ; update all lasers
-        LDX level_LaserDoneCounter  ; laser index
+        LDX level_laser_done_counter  ; laser index
         @laser_loop:
-            LDA laserArray_state, X ; check if the laser has stop
+            LDA laser_array_state, X ; check if the laser has stop
             AND #%00000100
             BEQ @laser_find_action
             JMP @laser_loop_inc
@@ -187,12 +187,12 @@ stage_level_play:
             ; increase the laser index and loop
             @laser_loop_inc:
             ; increase laser done counter
-            LDY level_LaserDoneCounter
+            LDY level_laser_done_counter
             INY
-            STY level_LaserDoneCounter
+            STY level_laser_done_counter
 
             ; check if all laser had been updated
-            CPY level_LaserCount
+            CPY level_laser_count
             BEQ @laser_loop_end
 
             ; else check if we don't exeed the max laser per frame
@@ -204,9 +204,9 @@ stage_level_play:
 
         @laser_loop_end:
         LDA #$00                    ; reset laser done counter
-        STA level_LaserDoneCounter
-        LDA level_MaxFrame          ; reset FrameCounter
-        STA level_FrameCounter
+        STA level_laser_done_counter
+        LDA level_max_frame          ; reset level_max_frame
+        STA level_frame_counter
         JMP @step_done
         @laser_loop_end_maxframe:
         JMP @end
@@ -216,12 +216,12 @@ stage_level_play:
     ; check if all lasers has stop
     LDX #$00
     @check_laser_stop_loop:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%00000100
         BEQ @end
 
         INX
-        CPX level_LaserCount
+        CPX level_laser_count
         BNE @check_laser_stop_loop
     
     @laser_stop:
@@ -250,39 +250,39 @@ stage_level_play:
 
         @stage_loose:
             LDA #$21
-            STA vramAdr_h
+            STA vram_adr_h
             LDA #$68
-            STA vramAdr_l
+            STA vram_adr_l
 
             LDA #>txt_loose
-            STA dataAdr_h
+            STA data_adr_h
             LDA #<txt_loose
-            STA dataAdr_l
+            STA data_adr_l
 
             LDX #$05
             JSR update_bg_data
 
             LDA #STG::LEVEL_LOOSE  ; go to the loose stage
-            STA gameStage
+            STA game_stage
 
             JMP @end
         
         @stage_win:
             LDA #$21
-            STA vramAdr_h
+            STA vram_adr_h
             LDA #$68
-            STA vramAdr_l
+            STA vram_adr_l
 
             LDA #>txt_win
-            STA dataAdr_h
+            STA data_adr_h
             LDA #<txt_win
-            STA dataAdr_l
+            STA data_adr_l
 
             LDX #$03
             JSR update_bg_data
 
             LDA #STG::LEVEL_WIN  ; go to the win stage
-            STA gameStage
+            STA game_stage
 
     @end:
     RTS     ; Return

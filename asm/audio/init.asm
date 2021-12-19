@@ -13,14 +13,6 @@ init_apu:
     LDA #$40
     STA APU_FRAME
 
-    ;LDX #12
-    ;LDA periodTableLo, X
-    ;STA APU_PULSE1_TIME_LOW
-    ;LDA periodTableHi, X
-    ;STA APU_PULSE1_TIME_HIGH
-    ;LDA #%10111111
-    ;STA APU_PULSE1_CTRL
-
     RTS
 @regs:
     .byte $30,$08,$00,$00

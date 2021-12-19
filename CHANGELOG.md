@@ -6,6 +6,16 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.1.3]** - _2021-12-??_
+
+### **Changed**
+
+#### ASM
+
+- Normalized function and variable names
+
+-----------------
+
 ## **[0.1.2]** - _2021-12-18_
 
 ### **Added**

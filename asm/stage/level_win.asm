@@ -1,8 +1,8 @@
 stage_level_win:
-    LDA buttons1
+    LDA buttons_1
     AND #%00110000
     BNE @load
-    LDA buttons1
+    LDA buttons_1
     AND #%11000000
     BNE @menu
     JMP @end

@@ -26,7 +26,7 @@ stage_menu_load:
     LDA #%00001010  ; Activate background and the left 8 pixels
     STA PPUMASK
 
-    LDA #STG::MENU   ; Change gameStage to Menu
-    STA gameStage
+    LDA #STG::MENU   ; Change game_stage to Menu
+    STA game_stage
 
     RTS

@@ -1,6 +1,6 @@
 ; add a string of data to update the background
 ; param: X= length
-; vars:  dataAdr, vramAdr
+; vars:  data_adr, vram_adr
 update_bg_data:
     pushreg
 
@@ -8,54 +8,54 @@ update_bg_data:
     CMP #$00
     BEQ @end
 
-    LDY bgDataIndex
-    STA bgDrawData, Y
+    LDY bg_data_index
+    STA bg_draw_data, Y
 
     TAX
 
     INY
-    LDA vramAdr_h
-    STA bgDrawData, Y
+    LDA vram_adr_h
+    STA bg_draw_data, Y
     INY
-    LDA vramAdr_l
-    STA bgDrawData, Y
+    LDA vram_adr_l
+    STA bg_draw_data, Y
 
-    STY bgDataIndex
+    STY bg_data_index
     LDA #$00
     STA counter
     @data:
         LDY counter
-        LDA (dataAdr), Y
+        LDA (data_adr), Y
         INY
         STY counter
 
-        LDY bgDataIndex
+        LDY bg_data_index
         INY
-        STA bgDrawData, Y
-        STY bgDataIndex
+        STA bg_draw_data, Y
+        STY bg_data_index
 
         DEX
         CPX #$00
         BNE @data
-        LDY bgDataIndex
+        LDY bg_data_index
     INY
-    STY bgDataIndex
+    STY bg_data_index
     @end:
     pullreg
     RTS
 
 
 ; param: X=index
-; vars:  vramAdr
-update_bg_metaTile:
+; vars:  vram_adr
+update_bg_metatile:
     PHA
     TXA
     PHA
 
-    LDA metaTileArrayHi, X
-    STA dataAdr_h
-    LDA metaTileArrayLo, X
-    STA dataAdr_l
+    LDA metatile_array_hi, X
+    STA data_adr_h
+    LDA metatile_array_lo, X
+    STA data_adr_l
 
     TXA
     LDX #$02
@@ -63,15 +63,15 @@ update_bg_metaTile:
     TAX
 
     LDX #$02
-    JSR add_dataAdr
-    LDA vramAdr_l
+    JSR add_data_adr
+    LDA vram_adr_l
     CLC
     ADC #$20
-    STA vramAdr_l
+    STA vram_adr_l
     BCC @next
-    LDA vramAdr_h
+    LDA vram_adr_h
     ADC #$00
-    STA vramAdr_h
+    STA vram_adr_h
     @next:
     LDX #$02
     JSR update_bg_data
@@ -98,7 +98,7 @@ update_ui_count:
     @loop_end:
 
     LDA #$24
-    STA vramAdr_h
+    STA vram_adr_h
     TXA
     ASL
     ASL
@@ -115,16 +115,16 @@ update_ui_count:
     SEC
 
     @next:
-    STA vramAdr_l
+    STA vram_adr_l
 
     LDA level_selectable_object_count, Y
     ORA #%00010000
     STA tmp
 
     LDA #>tmp
-    STA dataAdr_h
+    STA data_adr_h
     LDA #<tmp
-    STA dataAdr_l
+    STA data_adr_l
 
     LDX #$01
     JSR update_bg_data

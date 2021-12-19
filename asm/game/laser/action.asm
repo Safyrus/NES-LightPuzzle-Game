@@ -4,7 +4,7 @@ laser_action_move:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
 
     PLA
     RTS
@@ -18,7 +18,7 @@ laser_action_ground:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
 
     TXA
     TAY
@@ -34,9 +34,9 @@ laser_action_ground:
 laser_action_stop:
     PHA
 
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
 
     PLA
     RTS
@@ -45,9 +45,9 @@ laser_action_stop:
 laser_action_stop_restart:
     PHA
 
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     ORA #%00001100
-    STA laserArray_state, X
+    STA laser_array_state, X
 
     PLA
     RTS
@@ -60,7 +60,7 @@ laser_action_laserhor:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
     TXA
     TAY
     JSR laser_draw_crosshor
@@ -79,7 +79,7 @@ laser_action_laserver:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
     TXA
     TAY
     JSR laser_draw_crossver
@@ -216,13 +216,13 @@ laser_action_receive_up:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
 
-    LDA laserArray_state, X ; stop the laser
+    LDA laser_array_state, X ; stop the laser
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
 
-    LDA laserArray_state, X ; check if the laser is going down
+    LDA laser_array_state, X ; check if the laser is going down
     AND #%00000011
     CMP #$01
     BNE @end
@@ -245,13 +245,13 @@ laser_action_receive_down:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
 
-    LDA laserArray_state, X ; stop the laser
+    LDA laser_array_state, X ; stop the laser
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
 
-    LDA laserArray_state, X ; check if the laser is going up
+    LDA laser_array_state, X ; check if the laser is going up
     AND #%00000011
     CMP #$00
     BNE @end
@@ -274,13 +274,13 @@ laser_action_receive_left:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
 
-    LDA laserArray_state, X ; stop the laser
+    LDA laser_array_state, X ; stop the laser
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
 
-    LDA laserArray_state, X ; check if the laser is going right
+    LDA laser_array_state, X ; check if the laser is going right
     AND #%00000011
     CMP #$03
     BNE @end
@@ -303,13 +303,13 @@ laser_action_receive_right:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
 
-    LDA laserArray_state, X ; stop the laser
+    LDA laser_array_state, X ; stop the laser
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
 
-    LDA laserArray_state, X ; check if the laser is going left
+    LDA laser_array_state, X ; check if the laser is going left
     AND #%00000011
     CMP #$02
     BNE @end
@@ -332,7 +332,7 @@ laser_action_mirror_corner_ul:
     TYA
     PHA
 
-    LDA laserArray_state, X  ; get direction of the laser
+    LDA laser_array_state, X  ; get direction of the laser
     AND #%00000011
     CMP #$01    ; is it going down ?
     BEQ @yes
@@ -340,9 +340,9 @@ laser_action_mirror_corner_ul:
     BEQ @yes
 
     @nop:
-    LDA laserArray_state, X ; stop the laser
+    LDA laser_array_state, X ; stop the laser
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
     JMP @end
 
     @yes:
@@ -366,7 +366,7 @@ laser_action_mirror_corner_ur:
     TYA
     PHA
 
-    LDA laserArray_state, X  ; get direction of the laser
+    LDA laser_array_state, X  ; get direction of the laser
     AND #%00000011
     CMP #$01    ; is it going down ?
     BEQ @yes
@@ -374,9 +374,9 @@ laser_action_mirror_corner_ur:
     BEQ @yes
 
     @nop:
-    LDA laserArray_state, X ; stop the laser
+    LDA laser_array_state, X ; stop the laser
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
     JMP @end
 
     @yes:
@@ -400,7 +400,7 @@ laser_action_mirror_corner_dl:
     TYA
     PHA
 
-    LDA laserArray_state, X  ; get direction of the laser
+    LDA laser_array_state, X  ; get direction of the laser
     AND #%00000011
     CMP #$00    ; is it going up ?
     BEQ @yes
@@ -408,9 +408,9 @@ laser_action_mirror_corner_dl:
     BEQ @yes
 
     @nop:
-    LDA laserArray_state, X ; stop the laser
+    LDA laser_array_state, X ; stop the laser
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
     JMP @end
 
     @yes:
@@ -434,7 +434,7 @@ laser_action_mirror_corner_dr:
     TYA
     PHA
 
-    LDA laserArray_state, X  ; get direction of the laser
+    LDA laser_array_state, X  ; get direction of the laser
     AND #%00000011
     CMP #$00    ; is it going up ?
     BEQ @yes
@@ -442,9 +442,9 @@ laser_action_mirror_corner_dr:
     BEQ @yes
 
     @nop:
-    LDA laserArray_state, X ; stop the laser
+    LDA laser_array_state, X ; stop the laser
     ORA #%00000100
-    STA laserArray_state, X
+    STA laser_array_state, X
     JMP @end
 
     @yes:
@@ -467,7 +467,7 @@ laser_action_splitter_h:
     PHA
 
     ; check if laser is going verticaly
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BNE @end
 
@@ -490,7 +490,7 @@ laser_action_splitter_v:
     PHA
 
     ; check if laser is going horizontaly
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BEQ @end
 
@@ -513,12 +513,12 @@ laser_action_merger_h:
     pushreg
 
     ; check if laser is going verticaly
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BNE @end
 
     ; set merger to a "1 laser state"
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     BEQ @up
     @down:
     LDA #MTILE::MERGER_H_T
@@ -540,12 +540,12 @@ laser_action_merger_v:
     PHA
 
     ; check if laser is going horizontaly
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BEQ @end
 
     ; set merger to a "1 laser state"
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     CMP #$02
     BEQ @left
     @right:
@@ -568,7 +568,7 @@ laser_action_merger_ht:
     PHA
 
     ; check if laser is going up
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     CMP #$00
     BNE @end
 
@@ -591,7 +591,7 @@ laser_action_merger_hb:
     PHA
 
     ; check if laser is going down
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     CMP #$01
     BNE @end
 
@@ -614,7 +614,7 @@ laser_action_merger_vl:
     PHA
 
     ; check if laser is going left
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     CMP #$02
     BNE @end
 
@@ -637,7 +637,7 @@ laser_action_merger_vr:
     PHA
 
     ; check if laser is going right
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     CMP #$03
     BNE @end
 
@@ -662,7 +662,7 @@ laser_action_door_h:
     PHA
 
     ; check if laser is going verticaly
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BNE @stop
 
@@ -710,7 +710,7 @@ laser_action_door_v:
     PHA
 
     ; check if laser is going horizontaly
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BEQ @stop
 
@@ -758,7 +758,7 @@ laser_action_door_h_on:
     PHA
 
     ; check if laser is going horizontaly
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BEQ @stop
 
@@ -787,7 +787,7 @@ laser_action_door_v_on:
     PHA
 
     ; check if laser is going verticaly
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BNE @stop
 
@@ -833,7 +833,7 @@ laser_action_cross:
     TYA
     PHA
 
-    LDA laserArray_state, X
+    LDA laser_array_state, X
     AND #%00000010
     BEQ @vertical
     @horizontal:

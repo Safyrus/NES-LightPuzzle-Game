@@ -1,81 +1,81 @@
 VBLANK:
     pushreg
 
-    LDA drawStates
+    LDA draw_states
     AND #%01000000
     BEQ vblank_update
-        LDA drawStates
+        LDA draw_states
         AND #%00100000
-        BEQ vblank_turnPPUOff
+        BEQ vblank_turn_ppu_off
 
-        LDX PPUOffcounter
+        LDX ppu_off_counter
         CPX #$00
-        BEQ vblank_turnPPUFlagOff
+        BEQ vblank_turn_ppu_flag_off
         DEX
-        STX PPUOffcounter
+        STX ppu_off_counter
         JMP vblank_end
 
-        vblank_turnPPUOff:
-            LDA drawStates
+        vblank_turn_ppu_off:
+            LDA draw_states
             ORA #%00100000
-            STA drawStates
+            STA draw_states
 
             LDA #%00000000  ; Disable rendering
             STA PPUMASK
 
             JMP vblank_end
 
-        vblank_turnPPUFlagOff:
-            LDA drawStates
+        vblank_turn_ppu_flag_off:
+            LDA draw_states
             AND #%10011111
-            STA drawStates
+            STA draw_states
 
             JMP vblank_end
     vblank_update:
 
-    LDA drawStates
+    LDA draw_states
     AND #%00000010
-    BEQ vblank_sprUpdate_end
-    vblank_sprUpdate:
+    BEQ vblank_spr_update_end
+    vblank_spr_update:
         LDA #$02        ; Update sprites
         STA OAMDMA
-    vblank_sprUpdate_end:
+    vblank_spr_update_end:
 
-    LDA drawStates
+    LDA draw_states
     AND #%00000001
-    BEQ vblank_bgUpdate_end
+    BEQ vblank_bg_update_end
     ; Background updating
     BIT PPUSTATUS   ; reset latch
     LDX #$FF        ; reset X to 0, it will serve as an array index
-    vblank_bgUpdate:
+    vblank_bg_update:
         INX
-        LDA bgDrawData, X       ; Check if next string length is 0
-        BEQ vblank_bgUpdate_end ; If 0, then stop because it means
+        LDA bg_draw_data, X       ; Check if next string length is 0
+        BEQ vblank_bg_update_end ; If 0, then stop because it means
                                 ; their is no more data to draw
 
         TAY     ; save data length in Y
 
         INX                 ; Write high byte of address
-        LDA bgDrawData, X
+        LDA bg_draw_data, X
         STA PPUADDR
 
         INX
-        LDA bgDrawData, X   ; Write low byte of addres
+        LDA bg_draw_data, X   ; Write low byte of addres
         STA PPUADDR
 
         ; write data
-        vblank_bgUpdate_loop:
+        vblank_bg_update_loop:
             INX
-            LDA bgDrawData, X
+            LDA bg_draw_data, X
             STA PPUDATA
 
             DEY
             CPY #$00
-            BNE vblank_bgUpdate_loop
-        JMP vblank_bgUpdate
-    vblank_bgUpdate_end:
+            BNE vblank_bg_update_loop
+        JMP vblank_bg_update
+    vblank_bg_update_end:
 
-    LDA drawStates
+    LDA draw_states
     AND #%00000100
     BEQ vblank_attribute_end
     vblank_attribute:
@@ -93,14 +93,14 @@ VBLANK:
             BNE vblank_attribute_loop
     vblank_attribute_end:
 
-    LDA drawStates
+    LDA draw_states
     AND #%00001000
     BEQ vblank_palette_end
     vblank_palette:
         JSR load_palettes_ppu
     vblank_palette_end:
 
-    LDA drawStates
+    LDA draw_states
     AND #%00010000
     BEQ vblank_scroll_end
     vblank_scroll:
@@ -116,9 +116,9 @@ VBLANK:
     vblank_scroll_end:
 
     vblank_end:
-    LDA drawStates ; set draw_end flag
+    LDA draw_states ; set draw_end flag
     ORA #%10000000
-    STA drawStates
+    STA draw_states
 
     pullreg
     RTI     ; Return

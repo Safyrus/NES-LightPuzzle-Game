@@ -1,13 +1,13 @@
 stage_menu:
-    LDA drawStates
+    LDA draw_states
     ORA #%00010001
-    STA drawStates
+    STA draw_states
 
     LDA level_index
     AND #%00001111
     CLC
     ADC #$10
-    STA cursY
+    STA curs_y
     LDA level_index
     AND #%11110000
     LSR
@@ -16,21 +16,21 @@ stage_menu:
     LSR
     CLC
     ADC #$10
-    STA cursX
+    STA curs_x
 
     LDA #$21
-    STA vramAdr_h
+    STA vram_adr_h
     LDA #$D2
-    STA vramAdr_l
-    LDA #>cursX
-    STA dataAdr_h
-    LDA #<cursX
-    STA dataAdr_l
+    STA vram_adr_l
+    LDA #>curs_x
+    STA data_adr_h
+    LDA #<curs_x
+    STA data_adr_l
     LDX #$02
     JSR update_bg_data
 
     CLC
-    LDA buttons1
+    LDA buttons_1
     ASL
     BCS @A
     ASL
@@ -58,7 +58,7 @@ stage_menu:
         JSR play_note
         JMP @end
     @inc:
-        LDA buttons1Timer
+        LDA buttons_1_timer
         BNE @end
         LDX level_index
         INX
@@ -69,7 +69,7 @@ stage_menu:
         STX level_index
         JMP @end
     @dec:
-        LDA buttons1Timer
+        LDA buttons_1_timer
         BNE @end
         LDX level_index
         DEX

@@ -21,11 +21,11 @@ stage_level_load:
     LDY #$04
     JSR set_palette
 
-    LDA #10         ; Set level_MaxFrame
-    STA level_MaxFrame
+    LDA #10         ; Set level_max_frame
+    STA level_max_frame
 
     LDX #$00        ; reset laser count
-    STX level_LaserCount
+    STX level_laser_count
 
     STX selected    ; reset selected object
 
@@ -45,10 +45,10 @@ stage_level_load:
 
     ; set cursor position
     LDA #$70
-    STA cursX
-    STA cursY
+    STA curs_x
+    STA curs_y
 
-    LDA #STG::LEVEL_EDIT   ; Change gameStage to LevelEdit
-    STA gameStage
+    LDA #STG::LEVEL_EDIT   ; Change game_stage to LevelEdit
+    STA game_stage
 
     RTS

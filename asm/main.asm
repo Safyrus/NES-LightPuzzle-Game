@@ -8,27 +8,27 @@
 
 main:
     ; wait for a transition to finish
-    @waitPPUOffCounter:
-        LDA PPUOffcounter
-        BNE @waitPPUOffCounter
+    @wait_ppu_off_counter:
+        LDA ppu_off_counter
+        BNE @wait_ppu_off_counter
 
     ; wait for the screen to refresh
-    @waitDrawEnd:
-        LDA drawStates
+    @wait_draw_end:
+        LDA draw_states
         AND #%10000000
-        BEQ @waitDrawEnd
+        BEQ @wait_draw_end
 
-    LDA drawStates  ; clear the draw_end flag
+    LDA draw_states ; clear the draw_end flag
     AND #%01111111
-    STA drawStates
+    STA draw_states
 
-    LDA #$00        ; "reset" bgDrawData array
-    STA bgDataIndex
-    STA bgDrawData
+    LDA #$00        ; "reset" bg_draw_data array
+    STA bg_data_index
+    STA bg_draw_data
 
     JSR readjoy     ; read controllers inputs
 
-    LDA gameStage   ; get the variable gameStage
+    LDA game_stage   ; get the variable game_stage
     CMP #STG::MENU   ; are we in the Menu stage ?
     BEQ @menu
     CMP #STG::MENU_LOAD     ; are we in the MenuLoad stage ?
@@ -46,9 +46,9 @@ main:
 
     @end:
     JSR update_btn_timer
-    LDA #$00        ; put a zero at the end of bgDrawData array
-    LDX bgDataIndex
-    STA bgDrawData, X
+    LDA #$00        ; put a zero at the end of bg_draw_data array
+    LDX bg_data_index
+    STA bg_draw_data, X
     JMP main        ; return to the start of the main loop
 
     ; stages

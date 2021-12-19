@@ -11,34 +11,34 @@
 .segment "ZEROPAGE"
 
 ; 7: draw_end flag
-; 6: disablePPU
-; 5: PPUDisable
+; 6: disable PPU
+; 5: PPU disable
 ; 4: scroll update
 ; 3: palettes update
 ; 2: attributes update
 ; 1: sprite update
 ; 0: background update
-drawStates: .res 1
+draw_states: .res 1
 
 ; Game stage index
-gameStage: .res 1
+game_stage: .res 1
 
 ; Remaining numbre of frames to turn off the PPU
-PPUOffcounter: .res 1
+ppu_off_counter: .res 1
 
 ; Temporary 16 bits address variable
-dataAdr:
-    ; high part of the temporary 16 bits dataAdr variable
-    dataAdr_l: .res 1
-    ; low part of the temporary 16 bits dataAdr variable
-    dataAdr_h: .res 1
+data_adr:
+    ; high part of the temporary 16 bits data_adr variable
+    data_adr_l: .res 1
+    ; low part of the temporary 16 bits data_adr variable
+    data_adr_h: .res 1
 ; Temporary 16 bits address variable
 
-vramAdr:
-    ; high part of the temporary 16 bits vramAdr variable
-    vramAdr_l: .res 1
-    ; low part of the temporary 16 bits vramAdr variable
-    vramAdr_h: .res 1
+vram_adr:
+    ; high part of the temporary 16 bits vram_adr variable
+    vram_adr_l: .res 1
+    ; low part of the temporary 16 bits vram_adr variable
+    vram_adr_h: .res 1
 
 ; Temporary variable use to count
 counter: .res 1
@@ -56,7 +56,7 @@ tmp: .res 1
 ;  6: B
 ;  7: A
 
-buttons1: .res 1
+buttons_1: .res 1
 ; Joypad 2 flags
 ;  0: Right
 ;  1: Left
@@ -66,34 +66,34 @@ buttons1: .res 1
 ;  5: Select
 ;  6: B
 ;  7: A
-buttons2: .res 1
+buttons_2: .res 1
 
 ; Joypad 1 remaning frame before processing input again
-buttons1Timer: .res 1
+buttons_1_timer: .res 1
 
 ; Cursor X position
-cursX: .res 1
+curs_x: .res 1
 
 ; Cursor Y position
-cursY: .res 1
+curs_y: .res 1
 
 ; Remaning frames before next cursor animation
-cursAnimTimer: .res 1
+curs_anim_timer: .res 1
 
 ; Current selected item
 selected: .res 1
 
 ; maximum item selectable in the level
-maxSelected: .res 1
+max_selected: .res 1
 
 ; padding
 .res 64-17
 
-; index of the bgDrawData array
-bgDataIndex: .res 1
+; index of the bg_draw_data array
+bg_data_index: .res 1
 
 ; tiles data to update during vblank
-bgDrawData: .res 63
+bg_draw_data: .res 63
 
 ; padding
 .res 32
@@ -117,22 +117,22 @@ spr0_atr: .res 1
 spr0_x: .res 1
 
 ; sprite cursor
-sprCursUL_y: .res 1
-sprCursUL: .res 1
-sprCursUL_atr: .res 1
-sprCursUL_x: .res 1
-sprCursUR_y: .res 1
-sprCursUR: .res 1
-sprCursUR_atr: .res 1
-sprCursUR_x: .res 1
-sprCursDL_y: .res 1
-sprCursDL: .res 1
-sprCursDL_atr: .res 1
-sprCursDL_x: .res 1
-sprCursDR_y: .res 1
-sprCursDR: .res 1
-sprCursDR_atr: .res 1
-sprCursDR_x: .res 1
+spr_curs_ul_y: .res 1
+spr_curs_ul: .res 1
+spr_curs_ul_atr: .res 1
+spr_curs_ul_x: .res 1
+spr_curs_ur_y: .res 1
+spr_curs_ur: .res 1
+spr_curs_ur_atr: .res 1
+spr_curs_ur_x: .res 1
+spr_curs_dl_y: .res 1
+spr_curs_dl: .res 1
+spr_curs_dl_atr: .res 1
+spr_curs_dl_x: .res 1
+spr_curs_dr_y: .res 1
+spr_curs_dr: .res 1
+spr_curs_dr_atr: .res 1
+spr_curs_dr_x: .res 1
 
 
 .segment "RAM"
@@ -147,14 +147,14 @@ level_edit: .res 240
 
 ; laser positions array
 ; position: YYYYXXXX
-laserArray_pos: .res LASER_MAX
+laser_array_pos: .res LASER_MAX
 
 ; laser states array
 ; states flags: ....RSDD
 ;  D = Direction (0=up, 1=down, 2=left, 3=right)
 ;  S = Stop moving
 ;  R = Restart moving
-laserArray_state: .res LASER_MAX
+laser_array_state: .res LASER_MAX
 
 ; Array of metatiles corresponding to the selectable items in the level
 level_selectable_object_type: .res 16
@@ -166,13 +166,13 @@ level_selectable_object_count: .res 16
 level_index: .res 1
 
 ; Remaining number of frames befor next level step
-level_FrameCounter: .res 1
+level_frame_counter: .res 1
 
 ; Number of lasers updated for the current level step
-level_LaserDoneCounter: .res 1
+level_laser_done_counter: .res 1
 
 ; Number of frames to wait between each step of the level
-level_MaxFrame: .res 1
+level_max_frame: .res 1
 
 ; Number of lasers in the level
-level_LaserCount: .res 1
+level_laser_count: .res 1

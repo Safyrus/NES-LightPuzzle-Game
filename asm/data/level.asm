@@ -1,7 +1,7 @@
 ; level size 14*12 meta tiles
 
 ; level table
-levelArrayLo:
+level_array_lo:
     .byte <level_00
     .byte <level_01
     .byte <level_02
@@ -15,7 +15,7 @@ levelArrayLo:
     .byte <level_0A
     .byte <level_0B
     .byte <level_debug
-levelArrayHi:
+level_array_hi:
     .byte >level_00
     .byte >level_01
     .byte >level_02

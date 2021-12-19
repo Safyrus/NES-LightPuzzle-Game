@@ -2,9 +2,9 @@ move_laser_mirror1:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
 
-    LDA laserArray_state, X  ; get direction of the laser
+    LDA laser_array_state, X  ; get direction of the laser
     AND #%00000011
     CMP #$00    ; is it going up ?
     BEQ @up
@@ -15,27 +15,27 @@ move_laser_mirror1:
     JMP @right  ; then it is going right
 
     @up:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11111100
         ORA #%00000011
-        STA laserArray_state, X
+        STA laser_array_state, X
         JMP @end
     @down:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11111100
         ORA #%00000010
-        STA laserArray_state, X
+        STA laser_array_state, X
         JMP @end
     @left:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11111100
         ORA #%00000001
-        STA laserArray_state, X
+        STA laser_array_state, X
         JMP @end
     @right:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11111100
-        STA laserArray_state, X
+        STA laser_array_state, X
 
     @end:
     PLA
@@ -46,9 +46,9 @@ move_laser_mirror2:
     PHA
 
     TYA
-    STA laserArray_pos, X   ; set new laser position
+    STA laser_array_pos, X   ; set new laser position
 
-    LDA laserArray_state, X  ; get direction of the laser
+    LDA laser_array_state, X  ; get direction of the laser
     AND #%00000011
     CMP #$00    ; is it going up ?
     BEQ @up
@@ -59,27 +59,27 @@ move_laser_mirror2:
     JMP @right  ; then it is going right
 
     @up:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11111100
         ORA #%00000010
-        STA laserArray_state, X
+        STA laser_array_state, X
         JMP @end
     @down:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11111100
         ORA #%00000011
-        STA laserArray_state, X
+        STA laser_array_state, X
         JMP @end
     @left:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11111100
-        STA laserArray_state, X
+        STA laser_array_state, X
         JMP @end
     @right:
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11111100
         ORA #%00000001
-        STA laserArray_state, X
+        STA laser_array_state, X
 
     @end:
     PLA
@@ -95,18 +95,18 @@ move_laser_restart:
     LDX #$00
     STX counter ; reset return value
     @loop:
-        LDA laserArray_pos, X
+        LDA laser_array_pos, X
         STA tmp
         CPY tmp
         BNE @loop_cmp
 
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%0001000
         BEQ @loop_cmp
 
-        LDA laserArray_state, X
+        LDA laser_array_state, X
         AND #%11110011 ; desactivate restart + stop flags
-        STA laserArray_state, X
+        STA laser_array_state, X
 
         TXA
         PHA

@@ -9,13 +9,13 @@ add_laser_up:
     TXA
     TAY
 
-    LDX level_LaserCount    ; put a laser
+    LDX level_laser_count    ; put a laser
     TYA                     ; at Y
-    STA laserArray_pos, X   ;
+    STA laser_array_pos, X   ;
     LDA #$00                ; and going up
-    STA laserArray_state, X ;
+    STA laser_array_state, X ;
     INX                     ;
-    STX level_LaserCount    ;
+    STX level_laser_count    ;
 
     pullreg
     RTS
@@ -32,13 +32,13 @@ add_laser_down:
     TXA
     TAY
 
-    LDX level_LaserCount    ; put a laser
+    LDX level_laser_count    ; put a laser
     TYA                     ; at Y
-    STA laserArray_pos, X   ;
+    STA laser_array_pos, X   ;
     LDA #$01                ; and going down
-    STA laserArray_state, X ;
+    STA laser_array_state, X ;
     INX                     ;
-    STX level_LaserCount    ;
+    STX level_laser_count    ;
 
     pullreg
     RTS
@@ -55,13 +55,13 @@ add_laser_left:
     TXA
     TAY
 
-    LDX level_LaserCount    ; put a laser
+    LDX level_laser_count    ; put a laser
     TYA                     ; at Y
-    STA laserArray_pos, X   ;
+    STA laser_array_pos, X   ;
     LDA #$02                ; and going left
-    STA laserArray_state, X ;
+    STA laser_array_state, X ;
     INX                     ;
-    STX level_LaserCount    ;
+    STX level_laser_count    ;
 
     pullreg
     RTS
@@ -78,13 +78,13 @@ add_laser_right:
     TXA
     TAY
 
-    LDX level_LaserCount    ; put a laser
+    LDX level_laser_count    ; put a laser
     TYA                     ; at Y
-    STA laserArray_pos, X   ;
+    STA laser_array_pos, X   ;
     LDA #$03                ; and going right
-    STA laserArray_state, X ;
+    STA laser_array_state, X ;
     INX                     ;
-    STX level_LaserCount    ;
+    STX level_laser_count    ;
 
     pullreg
     RTS

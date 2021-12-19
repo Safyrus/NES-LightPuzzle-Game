@@ -59,7 +59,7 @@ data:
 .include "data/data.asm"
 .include "data/palette.asm"
 .include "data/level.asm"
-.include "data/metaTile.asm"
+.include "data/metatile.asm"
 
 
 ; 6502 vectors

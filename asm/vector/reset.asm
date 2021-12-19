@@ -41,7 +41,7 @@ rst_vwait2:
     STA PPUCTRL
 
     LDA #STG::MENU_LOAD ; set the stage to MenuLoad
-    STA gameStage
+    STA game_stage
 
     CLI
 

@@ -1,10 +1,10 @@
 move_cursor:
     PHA
     
-    LDA buttons1Timer   ;check if buttons are unlock
+    LDA buttons_1_timer   ;check if buttons are unlock
     BNE @end
 
-    LDA buttons1    ; check what direction was pressed
+    LDA buttons_1    ; check what direction was pressed
     LSR
     BCS @right
     LSR
@@ -16,41 +16,41 @@ move_cursor:
     JMP @end
 
     @right:
-        LDA cursX
+        LDA curs_x
         AND #%11110000
         CMP #$F0
         BEQ @end
         CLC
         ADC #$10
-        STA cursX
+        STA curs_x
         JMP @end
 
     @left:
-        LDA cursX
+        LDA curs_x
         AND #%11110000
         BEQ @end
         SEC
         SBC #$10
-        STA cursX
+        STA curs_x
         JMP @end
 
     @down:
-        LDA cursY
+        LDA curs_y
         AND #%11110000
         CMP #$E0
         BEQ @end
         CLC
         ADC #$10
-        STA cursY
+        STA curs_y
         JMP @end
 
     @up:
-        LDA cursY
+        LDA curs_y
         AND #%11110000
         BEQ @end
         SEC
         SBC #$10
-        STA cursY
+        STA curs_y
         JMP @end
 
     @end:
@@ -61,20 +61,20 @@ move_cursor:
 place_at_cursor:
     pushreg
 
-    LDA buttons1Timer   ; check if buttons are unlock
+    LDA buttons_1_timer   ; check if buttons are unlock
     BNE @end
 
-    LDA buttons1    ; check if A was pressed
+    LDA buttons_1    ; check if A was pressed
     AND #%10000000
     BEQ @end
 
-    LDA cursX       ; compute the cursor pos in the level
+    LDA curs_x       ; compute the cursor pos in the level
     LSR
     LSR
     LSR
     LSR
     CLC
-    ADC cursY
+    ADC curs_y
     TAX
 
     LDA level, X        ; check if the tile we want to place on
@@ -103,14 +103,14 @@ place_at_cursor:
     STA level_edit, X
 
     ; draw the new mtile
-    JSR get_metaTile_nametable_adr
-    LDA dataAdr_l
-    STA vramAdr_l
-    LDA dataAdr_h
-    STA vramAdr_h
+    JSR get_metatile_nametable_adr
+    LDA data_adr_l
+    STA vram_adr_l
+    LDA data_adr_h
+    STA vram_adr_h
     TYA
     TAX
-    JSR update_bg_metaTile
+    JSR update_bg_metatile
     
     @end:
     pullreg
@@ -121,20 +121,20 @@ place_at_cursor:
 remove_at_cursor:
     pushreg
 
-    LDA buttons1Timer   ; check if buttons are unlock
+    LDA buttons_1_timer   ; check if buttons are unlock
     BNE @end
 
-    LDA buttons1        ; check if B was pressed
+    LDA buttons_1        ; check if B was pressed
     AND #%01000000
     BEQ @end
 
-    LDA cursX   ; compute the cursor pos in the level
+    LDA curs_x   ; compute the cursor pos in the level
     LSR
     LSR
     LSR
     LSR
     CLC
-    ADC cursY
+    ADC curs_y
     TAX
 
     LDA level_edit, X   ; check if a mtile was place here
@@ -166,16 +166,16 @@ remove_at_cursor:
     ; draw the default mtile of the level
     TXA
     TAY
-    JSR get_metaTile_nametable_adr
-    LDA dataAdr_l
-    STA vramAdr_l
-    LDA dataAdr_h
-    STA vramAdr_h
+    JSR get_metatile_nametable_adr
+    LDA data_adr_l
+    STA vram_adr_l
+    LDA data_adr_h
+    STA vram_adr_h
     TYA
     TAX
     LDA level, X
     TAX
-    JSR update_bg_metaTile
+    JSR update_bg_metatile
 
     @end:
     pullreg
@@ -185,24 +185,24 @@ remove_at_cursor:
 change_at_cursor:
     pushreg
 
-    LDA buttons1Timer   ; check if buttons are unlock
+    LDA buttons_1_timer   ; check if buttons are unlock
     BEQ @check_button
     JMP @end
 
     @check_button:
-    LDA buttons1    ; check if A was pressed
+    LDA buttons_1    ; check if A was pressed
     AND #%10000000
     BNE @get_curs_pos
     JMP @end
 
     @get_curs_pos:
-    LDA cursX       ; compute the cursor pos in the level
+    LDA curs_x       ; compute the cursor pos in the level
     LSR
     LSR
     LSR
     LSR
     CLC
-    ADC cursY
+    ADC curs_y
     TAX
 
     LDA level_edit, X
@@ -295,14 +295,14 @@ change_at_cursor:
 
     @draw:
         ; draw the new mtile
-        JSR get_metaTile_nametable_adr
-        LDA dataAdr_l
-        STA vramAdr_l
-        LDA dataAdr_h
-        STA vramAdr_h
+        JSR get_metatile_nametable_adr
+        LDA data_adr_l
+        STA vram_adr_l
+        LDA data_adr_h
+        STA vram_adr_h
         TYA
         TAX
-        JSR update_bg_metaTile
+        JSR update_bg_metatile
 
     @end:
     pullreg

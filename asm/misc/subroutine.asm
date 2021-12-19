@@ -1,5 +1,5 @@
 ; X = Coord
-get_metaTile_nametable_adr:
+get_metatile_nametable_adr:
     PHA
 
     TXA
@@ -11,37 +11,37 @@ get_metaTile_nametable_adr:
     LSR
     CLC
     ADC #$20
-    STA dataAdr_h
+    STA data_adr_h
     TXA
     ASL
     AND #%00011111
-    STA dataAdr_l
+    STA data_adr_l
     TXA
     ASL
     ASL
     AND #%11000000
     CLC
-    ADC dataAdr_l
-    STA dataAdr_l
+    ADC data_adr_l
+    STA data_adr_l
 
     PLA
     RTS
 
 
-; add 1 to dataAdr
-inc_dataAdr:
+; add 1 to data_adr
+inc_data_adr:
     PHA
     TXA
     PHA
 
-    LDX dataAdr_l
+    LDX data_adr_l
     INX
-    STX dataAdr_l
+    STX data_adr_l
     CPX #$00
     BNE @end
-    LDX dataAdr_h
+    LDX data_adr_h
     INX
-    STX dataAdr_h
+    STX data_adr_h
 
     @end:
     PLA
@@ -50,20 +50,20 @@ inc_dataAdr:
     RTS
 
 ; X = number to add
-add_dataAdr:
+add_data_adr:
     PHA
     TXA
     PHA
 
-    LDA dataAdr_l
+    LDA data_adr_l
     CLC
     STX tmp
     ADC tmp
-    STA dataAdr_l
+    STA data_adr_l
     BCC @end
-    LDX dataAdr_h
+    LDX data_adr_h
     INX
-    STX dataAdr_h
+    STX data_adr_h
 
     @end:
     PLA
@@ -75,15 +75,15 @@ add_dataAdr:
 change_to_level_load:
     PHA
 
-    LDA drawStates  ; Disable PPU at the next Vblank
+    LDA draw_states  ; Disable PPU at the next Vblank
     AND #%11101100
     ORA #%01001000
-    STA drawStates
+    STA draw_states
     LDA #10        ; Disable for 10 frame
-    STA PPUOffcounter
+    STA ppu_off_counter
 
     LDA #STG::LEVEL_LOAD  ; load the main game
-    STA gameStage
+    STA game_stage
 
     PLA
     RTS
@@ -92,15 +92,15 @@ change_to_level_load:
 change_to_menu_load:
     PHA
 
-    LDA drawStates  ; Disable PPU at the next Vblank
+    LDA draw_states  ; Disable PPU at the next Vblank
     AND #%11101000
     ORA #%01001000
-    STA drawStates
+    STA draw_states
     LDA #10        ; Disable for 10 frame
-    STA PPUOffcounter
+    STA ppu_off_counter
 
     LDA #STG::MENU_LOAD ; set the stage to MenuLoad
-    STA gameStage
+    STA game_stage
 
     PLA
     RTS

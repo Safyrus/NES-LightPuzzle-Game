@@ -3,16 +3,16 @@ load_level:
     pushreg
 
     ; get level address
-    LDA levelArrayHi, X
-    STA dataAdr_h
-    LDA levelArrayLo, X
-    STA dataAdr_l
+    LDA level_array_hi, X
+    STA data_adr_h
+    LDA level_array_lo, X
+    STA data_adr_l
 
-    LDX #$00 ; tileCount
-    @loadTiles:
+    LDX #$00 ; tile_count
+    @load_tiles:
         ; Check if Special Mtile
         LDY #$00
-        LDA (dataAdr), Y
+        LDA (data_adr), Y
         CMP #$FF
         BEQ @array
 
@@ -20,44 +20,44 @@ load_level:
             STA level, X    ; store the tile into Level
             LDA #$00
             STA level_edit, X
-            INX             ; Increase tileCount
-            JSR inc_dataAdr ; increase dataAdr
-            JMP @loadTilesEnd
+            INX             ; Increase tile_count
+            JSR inc_data_adr ; increase data_adr
+            JMP @load_tiles_end
 
         @array:
             ; get length
-            JSR inc_dataAdr
-            LDA (dataAdr), Y
+            JSR inc_data_adr
+            LDA (data_adr), Y
             STA counter ; counter for the loop
-            ; increase dataAdr to get the tile
-            JSR inc_dataAdr
+            ; increase data_adr to get the tile
+            JSR inc_data_adr
             @array_loop:
                 LDY #$00        ; get the tile
-                LDA (dataAdr), Y
+                LDA (data_adr), Y
                 STA level, X    ; store the tile into Level
                 LDA #$00
                 STA level_edit, X
 
-                INX             ; Increase tileCount
+                INX             ; Increase tile_count
                 LDY counter     ; decrease counter loop
                 DEY
                 STY counter
                 CPY #$00
                 BNE @array_loop
 
-        @loadTilesEnd:
+        @load_tiles_end:
         CPX #$F0
-        BNE @loadTiles
+        BNE @load_tiles
 
     LDY #$00
-    @loadData:
-        LDA (dataAdr), Y
+    @load_data:
+        LDA (data_adr), Y
         STA level, X
         INX
 
         INY
         CPY #$0A
-        BNE @loadData
+        BNE @load_data
 
     JSR load_object
 
@@ -70,7 +70,7 @@ level_place_lasers:
     pushreg
 
     LDA #$00
-    STA level_LaserDoneCounter
+    STA level_laser_done_counter
 
     LDY #$00
     @loop:
@@ -83,22 +83,22 @@ level_place_lasers:
         BEQ @left
         CMP #MTILE::EMIT_RIGHT_ON
         BEQ @right
-        JMP @loopEnd
+        JMP @loop_end
 
         @up:
         JSR add_laser_up
-        JMP @loopEnd
+        JMP @loop_end
         @down:
         JSR add_laser_down
-        JMP @loopEnd
+        JMP @loop_end
         @left:
         JSR add_laser_left
-        JMP @loopEnd
+        JMP @loop_end
         @right:
         JSR add_laser_right
-        JMP @loopEnd
+        JMP @loop_end
 
-        @loopEnd:
+        @loop_end:
         INY
         CPY #$F0
         BNE @loop
@@ -180,7 +180,7 @@ load_object:
         BNE @loop
 
     LDA tmp
-    STA maxSelected
+    STA max_selected
 
     pullreg
     RTS

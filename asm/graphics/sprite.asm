@@ -1,35 +1,35 @@
 update_cursor_sprite:
     PHA
 
-    LDA cursX
-    STA sprCursUL_x
-    STA sprCursDL_x
+    LDA curs_x
+    STA spr_curs_ul_x
+    STA spr_curs_dl_x
     CLC
     ADC #$08
-    STA sprCursUR_x
-    STA sprCursDR_x
+    STA spr_curs_ur_x
+    STA spr_curs_dr_x
 
-    LDA cursY
-    STA sprCursUL_y
-    STA sprCursUR_y
+    LDA curs_y
+    STA spr_curs_ul_y
+    STA spr_curs_ur_y
     CLC
     ADC #$08
-    STA sprCursDL_y
-    STA sprCursDR_y
+    STA spr_curs_dl_y
+    STA spr_curs_dr_y
 
     LDA #%00000000
-    STA sprCursUL_atr
+    STA spr_curs_ul_atr
     LDA #%01000000
-    STA sprCursUR_atr
+    STA spr_curs_ur_atr
     LDA #%10000000
-    STA sprCursDL_atr
+    STA spr_curs_dl_atr
     LDA #%11000000
-    STA sprCursDR_atr
+    STA spr_curs_dr_atr
 
-    LDA cursAnimTimer
+    LDA curs_anim_timer
     CLC
     ADC #$01
-    STA cursAnimTimer
+    STA curs_anim_timer
     AND #%00010000
     BEQ @curs2
     @curs1:
@@ -38,10 +38,10 @@ update_cursor_sprite:
     @curs2:
         LDA #SPR::CURS2
     @next:
-    STA sprCursUL
-    STA sprCursUR
-    STA sprCursDL
-    STA sprCursDR
+    STA spr_curs_ul
+    STA spr_curs_ur
+    STA spr_curs_dl
+    STA spr_curs_dr
 
     PLA
     RTS
