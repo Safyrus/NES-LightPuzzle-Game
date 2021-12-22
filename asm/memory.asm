@@ -23,6 +23,9 @@ draw_states: .res 1
 ; Game stage index
 game_stage: .res 1
 
+; Stage state
+stage_state: .res 1
+
 ; Remaining numbre of frames to turn off the PPU
 ppu_off_counter: .res 1
 
@@ -32,8 +35,8 @@ data_adr:
     data_adr_l: .res 1
     ; low part of the temporary 16 bits data_adr variable
     data_adr_h: .res 1
-; Temporary 16 bits address variable
 
+; Temporary 16 bits address variable
 vram_adr:
     ; high part of the temporary 16 bits vram_adr variable
     vram_adr_l: .res 1
@@ -87,7 +90,7 @@ selected: .res 1
 max_selected: .res 1
 
 ; padding
-.res 64-17
+.res 64-18
 
 ; index of the bg_draw_data array
 bg_data_index: .res 1
@@ -133,6 +136,20 @@ spr_curs_dr_y: .res 1
 spr_curs_dr: .res 1
 spr_curs_dr_atr: .res 1
 spr_curs_dr_x: .res 1
+
+; sprite selected
+spr_selected_left_y: .res 1
+spr_selected_left: .res 1
+spr_selected_left_atr: .res 1
+spr_selected_left_x: .res 1
+spr_selected_middle_y: .res 1
+spr_selected_middle: .res 1
+spr_selected_middle_atr: .res 1
+spr_selected_middle_x: .res 1
+spr_selected_right_y: .res 1
+spr_selected_right: .res 1
+spr_selected_right_atr: .res 1
+spr_selected_right_x: .res 1
 
 
 .segment "RAM"

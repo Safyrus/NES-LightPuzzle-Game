@@ -45,3 +45,69 @@ update_cursor_sprite:
 
     PLA
     RTS
+
+update_sprite_item_selected:
+    pushreg
+
+    ; find the item index in the placable items array
+    LDX selected
+    JSR find_item_index
+
+    ; calculate sprite y position
+    CPX #$06
+    BCC @find_y_1row
+    CPX #$0C
+    BCC @find_y_2row
+    @find_y_3row:
+    LDA #$0F
+    JMP @update_y
+    @find_y_2row:
+    LDA #$17
+    JMP @update_y
+    @find_y_1row:
+    LDA #$1F
+
+    ; update y position
+    @update_y:
+    STA spr_selected_left_y
+    STA spr_selected_middle_y
+    STA spr_selected_right_y
+
+    ; calculate sprite x position
+    TXA
+    @find_x_loop:
+        CMP #$06
+        BCC @find_x_loop_end
+        SEC
+        SBC #$06
+        JMP @find_x_loop
+    @find_x_loop_end:
+    ASL
+    ASL
+    ASL
+    ASL
+    ASL
+    CLC
+    ADC #$09
+
+    ; update x position
+    STA spr_selected_left_x
+    CLC
+    ADC #$08
+    STA spr_selected_middle_x
+    CLC
+    ADC #$08
+    STA spr_selected_right_x
+
+    ; update sprite and attributes
+    LDA #SPR::SELECTED
+    STA spr_selected_left
+    STA spr_selected_middle
+    STA spr_selected_right
+    LDA #%00100000
+    STA spr_selected_left_atr
+    STA spr_selected_middle_atr
+    STA spr_selected_right_atr
+
+    pullreg
+    RTS

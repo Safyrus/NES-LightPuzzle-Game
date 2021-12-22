@@ -75,14 +75,14 @@ add_data_adr:
 change_to_level_load:
     PHA
 
-    LDA draw_states  ; Disable PPU at the next Vblank
-    AND #%11101100
-    ORA #%01001000
+    LDA draw_states ; Disable PPU at the next Vblank
+    AND #%11100000
+    ORA #%01000000
     STA draw_states
-    LDA #10        ; Disable for 10 frame
+    LDA #10         ; Disable for 10 frame
     STA ppu_off_counter
 
-    LDA #STG::LEVEL_LOAD  ; load the main game
+    LDA #STG::LEVEL_LOAD    ; load the main game
     STA game_stage
 
     PLA
@@ -147,5 +147,23 @@ wait_ui:
 
     PLA
     TAX
+    PLA
+    RTS
+
+
+; X = item type. Return index
+find_item_index:
+    PHA
+
+    LDA level_selectable_object_type, X
+    LDX #$00
+    @loop:
+        CMP select_tiles, X
+        BEQ @end
+        INX
+        CPX #$10
+        BNE @loop
+
+    @end:
     PLA
     RTS

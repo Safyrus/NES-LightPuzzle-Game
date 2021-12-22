@@ -144,7 +144,7 @@ metatile_VOID:          .byte $00, $00, $00, $00   ; VOID
 metatile_WALL:          .byte $50, $50, $40, $50   ; WALL
 metatile_GROUND:        .byte $5D, $00, $00, $5C   ; GROUND
 metatile_UI_BOT:        .byte $00, $00, $52, $52   ; UI_BOT
-metatile_GLASS:         .byte $07, $07, $07, $07   ; GLASS
+metatile_GLASS:         .byte $4D, $4D, $4D, $4D   ; GLASS
 metatile_CROSS:         .byte $62, $63, $72, $73   ; CROSS
 metatile_CROSS_H:       .byte $64, $65, $74, $75   ; CROSS_H
 metatile_CROSS_V:       .byte $66, $67, $76, $77   ; CROSS_V

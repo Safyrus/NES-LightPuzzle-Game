@@ -1,16 +1,16 @@
 ; X = level
 draw_level:
-    PHA
-    TXA
-    PHA
-    TYA
-    PHA
+    pushreg
 
     ; get level address
     LDA level_array_hi, X
     STA data_adr_h
     LDA level_array_lo, X
     STA data_adr_l
+
+    ; save level index
+    TXA
+    PHA
 
     LDX #$00
     @loop:
@@ -53,10 +53,20 @@ draw_level:
         BNE @loop
 
     PLA
-    TAY
-    PLA
-    TAX
-    PLA
+    CMP #$00
+    BNE @lv1
+    JSR draw_text_level_0
+    @lv1:
+    CMP #$01
+    BNE @lv5
+    JSR draw_text_level_1
+    @lv5:
+    CMP #$05
+    BNE @end
+    JSR draw_text_level_5
+
+    @end:
+    pullreg
     RTS
 
 ; X = Coord, Y= ID
@@ -224,12 +234,14 @@ draw_menu:
 draw_ui:
     pushreg
 
+    ; set PPU address to the top left of the second nametable
     BIT PPUSTATUS
     LDA #$24
     STA PPUADDR
     LDA #$00
     STA PPUADDR
 
+    ; clean 5 rows of tiles
     LDX #$00
     LDA #$00
     @loop_void:
@@ -238,6 +250,7 @@ draw_ui:
         CPX #($5*$20)
         BNE @loop_void
 
+    ; draw the bottom line
     LDX #$00
     LDA #$52
     @loop_line:
@@ -246,6 +259,7 @@ draw_ui:
         CPX #$20
         BNE @loop_line
     
+    ; draw txt_ui_1
     LDA #$24
     STA vram_adr_h
     LDA #$80
@@ -256,6 +270,7 @@ draw_ui:
     STA data_adr_l
     JSR draw_text
 
+    ; draw txt_ui_2
     LDA #$60
     STA vram_adr_l
     LDA #>txt_ui_2
@@ -264,6 +279,7 @@ draw_ui:
     STA data_adr_l
     JSR draw_text
 
+    ; draw txt_ui_3
     LDA #$40
     STA vram_adr_l
     LDA #>txt_ui_3
@@ -271,6 +287,53 @@ draw_ui:
     LDA #<txt_ui_3
     STA data_adr_l
     JSR draw_text
+
+    ; draw the number of items
+    LDY #$00
+    @loop_item_number:
+        ; find the item index
+        TYA
+        TAX
+        JSR find_item_index
+
+        ; compute the item position on the UI
+        LDA #$24
+        STA vram_adr_h
+        TXA
+        ASL
+        ASL
+        CLC
+        ADC #$81
+        CMP #$96
+        BCC @draw
+        SEC
+        SBC #$38
+        CMP #$76
+        BCC @draw
+        SEC
+        SBC #$38
+        SEC
+
+        @draw:
+        ; set the PPU address
+        STA vram_adr_l
+        BIT PPUSTATUS
+        LDA vram_adr_h
+        STA PPUADDR
+        LDA vram_adr_l
+        STA PPUADDR
+
+        ; draw the correct number
+        LDA level_selectable_object_count, Y
+        CLC
+        ADC #$10
+        STA PPUDATA
+
+        ; loop
+        INY
+        CPY max_selected
+        BNE @loop_item_number
+
 
     LDA PPUSTATUS   ; read PPU status to reset the high/low latch
     LDA #$27
@@ -312,4 +375,110 @@ draw_text:
         JMP @loop
     @end:
     pullreg
+    RTS
+
+
+draw_text_level_0:
+    PHA
+
+    ; draw txt arrow button
+    LDA #<txt_btn_move_1
+    STA data_adr_l
+    LDA #>txt_btn_move_1
+    STA data_adr_h
+    LDA #$D5
+    STA vram_adr_l
+    LDA #$21
+    STA vram_adr_h
+    JSR draw_text
+    LDA #<txt_btn_move_2
+    STA data_adr_l
+    LDA #>txt_btn_move_2
+    STA data_adr_h
+    LDA #$F4
+    STA vram_adr_l
+    JSR draw_text
+    LDA #<txt_btn_move_3
+    STA data_adr_l
+    LDA #>txt_btn_move_3
+    STA data_adr_h
+    LDA #$15
+    STA vram_adr_l
+    LDA #$22
+    STA vram_adr_h
+    JSR draw_text
+
+    ; draw txt start button
+    LDA #<txt_btn_start
+    STA data_adr_l
+    LDA #>txt_btn_start
+    STA data_adr_h
+    LDA #$54
+    STA vram_adr_l
+    JSR draw_text
+
+    ; draw txt goal
+    LDA #<txt_goal
+    STA data_adr_l
+    LDA #>txt_goal
+    STA data_adr_h
+    LDA #$2B
+    STA vram_adr_l
+    LDA #$21
+    STA vram_adr_h
+    JSR draw_text
+
+    PLA
+    RTS
+
+
+draw_text_level_1:
+    PHA
+
+    ; draw txt A button
+    LDA #<txt_btn_a_1
+    STA data_adr_l
+    LDA #>txt_btn_a_1
+    STA data_adr_h
+    LDA #$26
+    STA vram_adr_l
+    LDA #$23
+    STA vram_adr_h
+    JSR draw_text
+    LDA #<txt_btn_a_2
+    STA data_adr_l
+    LDA #>txt_btn_a_2
+    STA data_adr_h
+    LDA #$48
+    STA vram_adr_l
+    JSR draw_text
+
+    ; draw txt B button
+    LDA #<txt_btn_b
+    STA data_adr_l
+    LDA #>txt_btn_b
+    STA data_adr_h
+    LDA #$31
+    STA vram_adr_l
+    JSR draw_text
+
+    PLA
+    RTS
+
+
+draw_text_level_5:
+    PHA
+
+    ; draw txt select button
+    LDA #<txt_btn_select
+    STA data_adr_l
+    LDA #>txt_btn_select
+    STA data_adr_h
+    LDA #$2A
+    STA vram_adr_l
+    LDA #$23
+    STA vram_adr_h
+    JSR draw_text
+
+    PLA
     RTS

@@ -6,8 +6,6 @@
 ; - refactor code to take less space
 ; - fix POS_OUTOFMAP
 ; - fix LASER_TOOMANY (add_laser and other functions)
-; - fix graphical glitch when loading end
-; - fix graphical glitch in UI
 ; - fix typos
 ; - better comments
 ; - a LOT more levels

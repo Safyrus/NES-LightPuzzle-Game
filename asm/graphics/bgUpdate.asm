@@ -86,16 +86,9 @@ update_bg_metatile:
 update_ui_count:
     pushreg
 
-    LDA level_selectable_object_type, Y
-    LDX #$00
-    @loop:
-        CMP select_tiles, X
-        BEQ @loop_end
-
-        INX
-        CPX #$10
-        BNE @loop
-    @loop_end:
+    TYA
+    TAX
+    JSR find_item_index
 
     LDA #$24
     STA vram_adr_h

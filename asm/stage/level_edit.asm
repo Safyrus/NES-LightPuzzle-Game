@@ -1,4 +1,19 @@
 stage_level_edit:
+    LDA stage_state
+    BEQ @start
+
+    @setup:
+        ; update only palettes
+        LDA #%00001000
+        STA draw_states
+        
+        ; disable stage flags
+        LDA #$00
+        STA stage_state
+        
+        JMP @end
+
+    @start:
     LDA draw_states
     AND #%11110111  ; disable palette update
     ORA #%00010111  ; render background and sprites +
@@ -29,6 +44,8 @@ stage_level_edit:
         LDX #$00
         @selected:
         STX selected
+
+        JSR update_sprite_item_selected
     @btn_select_end:
 
     @btn_start:

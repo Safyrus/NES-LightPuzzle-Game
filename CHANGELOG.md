@@ -6,13 +6,59 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
-## **[0.1.3]** - _2021-12-??_
+## **[0.1.3]** - _2021-12-22_
 
-### **Changed**
+### **Added**
+
+- Multiple buttons tiles and one sprite for the selected UI item in the CHR file.
 
 #### ASM
 
-- Normalized function and variable names
+- _Data:_
+  - new texts (goal, btn_move_1, btn_move_2, btn_move_3, btn_start, btn_a_1,
+    btn_a_2, btn_b, btn_select).
+  - 2 new levels to explain controls.
+- _Graphics:_
+  - Specific text is display depending on the level loaded in draw_level function.
+    (currently only use for level 0, 1 and 5).
+  - "draw_text_level_0", "draw_text_level_1" and "draw_text_level_5" functions
+    to draw text for a specific level.
+  - "update_sprite_item_selected" function to update sprites of the selected item.
+- _Other:_
+  - SPR constants (SELECTED, BTN_A, BTN_B, BTN_START, BTN_SELECT,
+    BTN_UP, BTN_DOWN, BTN_LEFT, BTN_RIGHT).
+  - "stage_state" variable.
+  - 3 sprite variables (spr_selected_left, spr_selected_middle, spr_selected_right).
+  - "find_item_index" function to find the index of an item type
+    in select_tiles array.
+
+### **Changed**
+
+- Move glass sprite position in the CHR file.
+
+#### ASM
+
+- _Data:_
+  - metatile_GLASS to fit the new glass tile position.
+  - txt_version to "V0.1.3".
+  - MIRRORC_UL to MIRRORC_DR in select_tiles array.
+  - level 1 (used to be 0).
+- _Graphics:_
+  - update_ui_count to use find_item_index.
+- _Stage:_
+  - level_load stage to set stage_state to a non-zero value.
+  - level_edit to update palettes only when stage_state is not zero
+    and set it to zero afterward. Also call update_sprite_item_selected
+    when select is pressed.
+- _Other:_
+  - Normalized function and variable names
+  - LEVEL_MAX to 15.
+
+### **Fixed**
+
+- Graphical glitch when loading a level caused by the vblank writing data
+  to the PPU when it should not.
+- Items number not being correct when loading a level.
 
 -----------------
 

@@ -48,7 +48,11 @@ stage_level_load:
     STA curs_x
     STA curs_y
 
-    LDA #STG::LEVEL_EDIT   ; Change game_stage to LevelEdit
+    JSR update_sprite_item_selected
+
+    LDA #STG::LEVEL_EDIT    ; Change game_stage to LevelEdit
     STA game_stage
+    LDA #%00000001          ; tell to the LevelEdit stage
+    STA stage_state         ; that it just started
 
     RTS

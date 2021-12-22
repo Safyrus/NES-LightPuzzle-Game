@@ -42,7 +42,7 @@ OAMDMA := $4014
 ; Game
 LASER_MAX = 48
 POS_OUTOFMAP = $F0
-LEVEL_MAX = 13
+LEVEL_MAX = 15
 MAXLASERPERFRAME = 3 ; need to be a power of 2-1
 
 ; Game Stage
@@ -136,4 +136,13 @@ MAXLASERPERFRAME = 3 ; need to be a power of 2-1
     CURS1
     CURS2
     ZERO
+    SELECTED
+    BTN_A
+    BTN_B
+    BTN_START
+    BTN_SELECT
+    BTN_UP
+    BTN_DOWN
+    BTN_LEFT
+    BTN_RIGHT
 .endenum
