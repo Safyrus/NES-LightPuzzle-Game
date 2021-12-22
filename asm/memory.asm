@@ -20,8 +20,13 @@
 ; 0: background update
 draw_states: .res 1
 
-; Game stage index
+; Current stage of the game
 game_stage: .res 1
+
+; Game flags
+; 7-1: Nothing
+;   0: Game can be resume
+game_flags: .res 1
 
 ; Stage state
 stage_state: .res 1
@@ -90,7 +95,7 @@ selected: .res 1
 max_selected: .res 1
 
 ; padding
-.res 64-18
+.res 64-19
 
 ; index of the bg_draw_data array
 bg_data_index: .res 1

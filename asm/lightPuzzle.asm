@@ -9,6 +9,10 @@
 ; - fix typos
 ; - better comments
 ; - a LOT more levels
+; - use differents palettes in levels
+; - level selection menu
+; - hide UI when cursor on top
+; - hide unused item in ui
 
 ; Header of the file (not part of the cartridge, used by the emulator)
 .segment "HEADER"

@@ -6,6 +6,40 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.1.4]** - _2021-12-??_
+
+### **Added**
+
+- Stage:_
+  - In menu, new options start and resume.
+    Start load the first level.
+    Resume (available when start had been selected at least one time)
+    load the selected level.
+- _Data:_
+  - new texts (start, resume, selectlevel).
+- _Other:_
+  - new variable "game_flags" to save some states of the game.
+
+### **Changed**
+
+- Stage:_
+  - In level_win, load the next level when pressing START or SELECT.
+    Return to menu if it is the last level.
+  - In menu, refactor code layout.
+- _Data:_
+  - txt_version to "V0.1.4".
+- _Graphics:_
+  - draw_menu to draw a text for each option.
+  - Colors of the menu stage from gray to green.
+- _Other:_
+  - draw_states flags in change_to_menu_load.
+
+### **Removed**
+
+- txt_level.
+
+-----------------
+
 ## **[0.1.3]** - _2021-12-22_
 
 ### **Added**

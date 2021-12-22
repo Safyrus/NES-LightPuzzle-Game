@@ -208,11 +208,44 @@ draw_menu:
     JSR draw_text
 
     ; display txt_level
-    LDA #$CC
+    ;LDA #$CC
+    ;STA vram_adr_l
+    ;LDA #>txt_level
+    ;STA data_adr_h
+    ;LDA #<txt_level
+    ;STA data_adr_l
+    ;JSR draw_text
+
+    ; display txt_start
+    LDA #$22
+    STA vram_adr_h
+    LDA #$0E
     STA vram_adr_l
-    LDA #>txt_level
+    LDA #>txt_start
     STA data_adr_h
-    LDA #<txt_level
+    LDA #<txt_start
+    STA data_adr_l
+    JSR draw_text
+
+    LDA game_flags
+    AND #%00000001
+    BEQ @draw_txt_resume_end
+        ; display txt_resume
+        LDA #$4E
+        STA vram_adr_l
+        LDA #>txt_resume
+        STA data_adr_h
+        LDA #<txt_resume
+        STA data_adr_l
+        JSR draw_text
+    @draw_txt_resume_end:
+
+    ; display txt_selectlevel
+    LDA #$8B
+    STA vram_adr_l
+    LDA #>txt_selectlevel
+    STA data_adr_h
+    LDA #<txt_selectlevel
     STA data_adr_l
     JSR draw_text
 

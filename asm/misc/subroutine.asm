@@ -92,9 +92,9 @@ change_to_level_load:
 change_to_menu_load:
     PHA
 
-    LDA draw_states  ; Disable PPU at the next Vblank
-    AND #%11101000
-    ORA #%01001000
+    LDA draw_states ; Disable PPU at the next Vblank
+    AND #%11101000  ; Disable scroll update
+    ORA #%01001100  ; Activate palette and attributes updates
     STA draw_states
     LDA #10        ; Disable for 10 frame
     STA ppu_off_counter

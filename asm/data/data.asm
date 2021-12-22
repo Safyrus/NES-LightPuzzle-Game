@@ -2,8 +2,7 @@
 ; text
 txt_menu: .byte $26, $1E, $27, $2E, $FF
 txt_game_title: .byte $25, $22, $20, $21, $2D, $00, $29, $2E, $33, $33, $25, $1E, $00, $20, $1A, $26, $1E, $FF
-txt_level: .byte $25, $1E, $2F, $1E, $25, $FF
-txt_version: .byte $2F, $10, $34, $11, $34, $13, $FF
+txt_version: .byte $2F, $10, $34, $11, $34, $14, $FF
 txt_win: .byte $30, $22, $27, $FF
 txt_loose: .byte $25, $28, $28, $2C, $1E, $FF
 txt_ui_1: .byte $00, $10, $37, $08, $00, $10, $37, $09, $00, $10, $37, $0E, $00, $10, $37, $0F, $00, $10, $37, $0A, $00, $10, $37, $0C, $FF
@@ -18,6 +17,9 @@ txt_btn_a_1: .byte $01, $00, $29, $25, $1A, $1C, $1E, $FF
 txt_btn_a_2: .byte $2D, $2E, $2B, $27, $FF
 txt_btn_b: .byte $02, $00, $2B, $1E, $26, $28, $2F, $1E, $FF
 txt_btn_select: .byte $3B, $3C, $00, $2C, $30, $22, $2D, $1C, $21, $FF
+txt_start: .byte $2C, $2D, $1A, $2B, $2D, $FF
+txt_resume: .byte $2B, $1E, $2C, $2E, $26, $1E, $FF
+txt_selectlevel: .byte $2C, $1E, $25, $1E, $1C, $2D, $00, $25, $1E, $2F, $1E, $25, $00, $05, $00, $00, $06, $FF
 
 
 ; selectable metatiles

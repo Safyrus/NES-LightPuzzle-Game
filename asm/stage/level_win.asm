@@ -7,6 +7,11 @@ stage_level_win:
     BNE @menu
     JMP @end
     @load:
+        LDX level_index
+        INX
+        CPX #LEVEL_MAX
+        BEQ @menu
+        STX level_index
         JSR change_to_level_load
         JMP @end
     @menu:
