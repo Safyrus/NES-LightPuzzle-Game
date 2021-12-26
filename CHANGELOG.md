@@ -6,9 +6,11 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
-## **[0.1.4]** - _2021-12-??_
+## **[0.1.4]** - _2021-12-26_
 
 ### **Added**
+
+#### ASM
 
 - Stage:_
   - In menu, new options start and resume.
@@ -19,9 +21,19 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
   - new texts (start, resume, selectlevel).
 - _Other:_
   - new variable "game_flags" to save some states of the game.
+  - "laser_pos_to_vram_adr" to transform a laser position into a VRAM address.
 
 ### **Changed**
 
+- The gitignore.
+
+#### ASM
+
+- Split laser actions and graphics into multiple files.
+- Refactor "big if else block" codes to "switch table" to take less space and time.
+- _Game:_
+  - Refactor move_laser_mirror functions to take less space and time.
+  - Refactor add_laser functions to take less space.
 - Stage:_
   - In level_win, load the next level when pressing START or SELECT.
     Return to menu if it is the last level.
@@ -31,12 +43,15 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 - _Graphics:_
   - draw_menu to draw a text for each option.
   - Colors of the menu stage from gray to green.
+  - Refactor laser graphic functions to take less space.
 - _Other:_
   - draw_states flags in change_to_menu_load.
 
 ### **Removed**
 
 - txt_level.
+- WIN stage constant.
+- Useless push and pull in IRQ vector.
 
 -----------------
 

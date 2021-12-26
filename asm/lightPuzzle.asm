@@ -3,7 +3,7 @@
 ;****************
 
 ; TODO:
-; - refactor code to take less space
+; - find code to refactor to take less space
 ; - fix POS_OUTOFMAP
 ; - fix LASER_TOOMANY (add_laser and other functions)
 ; - fix typos

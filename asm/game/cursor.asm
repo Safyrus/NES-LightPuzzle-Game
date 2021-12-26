@@ -205,104 +205,67 @@ change_at_cursor:
     ADC curs_y
     TAX
 
+    ; push X
+    PHA
+
     LDA level_edit, X
-    CMP #MTILE::MIRROR_1
-    BEQ @do_mirror_1
-    CMP #MTILE::MIRROR_2
-    BEQ @do_mirror_2
-    CMP #MTILE::MIRRORC_UL
-    BEQ @do_mirrorc_ul
-    CMP #MTILE::MIRRORC_UR
-    BEQ @do_mirrorc_ur
-    CMP #MTILE::MIRRORC_DL
-    BEQ @do_mirrorc_dl
-    CMP #MTILE::MIRRORC_DR
-    BEQ @do_mirrorc_dr
-    CMP #MTILE::SPLITTER_H
-    BEQ @do_splitter_h
-    CMP #MTILE::SPLITTER_V
-    BEQ @do_splitter_v
-    CMP #MTILE::MERGER_H
-    BEQ @do_merger_h
-    CMP #MTILE::MERGER_V
-    BEQ @do_merger_v
-    CMP #MTILE::DOOR_H
-    BEQ @do_door_h
-    CMP #MTILE::DOOR_V
-    BEQ @do_door_v
+    LDX #$00
+    @newtile_loop:
+        CMP @tile_table, X
+        BEQ @newtile_loop_end
+        ; loop
+        INX
+        CPX #$0C
+        BNE @newtile_loop
+    ; pull X
+    PLA
     JMP @end
 
-    @do_mirror_1:
-        LDA #MTILE::MIRROR_2
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_mirror_2:
-        LDA #MTILE::MIRROR_1
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_mirrorc_ul:
-        LDA #MTILE::MIRRORC_UR
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_mirrorc_ur:
-        LDA #MTILE::MIRRORC_DR
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_mirrorc_dl:
-        LDA #MTILE::MIRRORC_UL
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_mirrorc_dr:
-        LDA #MTILE::MIRRORC_DL
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_splitter_h:
-        LDA #MTILE::SPLITTER_V
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_splitter_v:
-        LDA #MTILE::SPLITTER_H
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_merger_h:
-        LDA #MTILE::MERGER_V
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_merger_v:
-        LDA #MTILE::MERGER_H
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_door_h:
-        LDA #MTILE::DOOR_V
-        STA level_edit, X
-        TAY
-        JMP @draw
-    @do_door_v:
-        LDA #MTILE::DOOR_H
-        STA level_edit, X
-        TAY
-        JMP @draw
+    @newtile_loop_end:    
+    LDY @newtile_table, X
+    ; pull X
+    PLA
+    TAX
+    TYA
+    STA level_edit, X
 
-    @draw:
-        ; draw the new mtile
-        JSR get_metatile_nametable_adr
-        LDA data_adr_l
-        STA vram_adr_l
-        LDA data_adr_h
-        STA vram_adr_h
-        TYA
-        TAX
-        JSR update_bg_metatile
+    ; draw the new mtile
+    JSR get_metatile_nametable_adr
+    LDA data_adr_l
+    STA vram_adr_l
+    LDA data_adr_h
+    STA vram_adr_h
+    TYA
+    TAX
+    JSR update_bg_metatile
+    JMP @end
+
+    @tile_table:
+        .byte MTILE::MIRROR_1
+        .byte MTILE::MIRROR_2
+        .byte MTILE::MIRRORC_UL
+        .byte MTILE::MIRRORC_UR
+        .byte MTILE::MIRRORC_DL
+        .byte MTILE::MIRRORC_DR
+        .byte MTILE::SPLITTER_H
+        .byte MTILE::SPLITTER_V
+        .byte MTILE::MERGER_H
+        .byte MTILE::MERGER_V
+        .byte MTILE::DOOR_H
+        .byte MTILE::DOOR_V
+    @newtile_table:
+        .byte MTILE::MIRROR_2
+        .byte MTILE::MIRROR_1
+        .byte MTILE::MIRRORC_UR
+        .byte MTILE::MIRRORC_DR
+        .byte MTILE::MIRRORC_UL
+        .byte MTILE::MIRRORC_DL
+        .byte MTILE::SPLITTER_V
+        .byte MTILE::SPLITTER_H
+        .byte MTILE::MERGER_V
+        .byte MTILE::MERGER_H
+        .byte MTILE::DOOR_V
+        .byte MTILE::DOOR_H
 
     @end:
     pullreg

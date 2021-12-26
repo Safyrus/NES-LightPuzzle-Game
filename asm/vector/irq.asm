@@ -1,7 +1,7 @@
 IRQ:
-    pushreg
+    PHA
 
     LDA APU_STATUS
 
-    pullreg    
+    PLA
     RTI     ; Return

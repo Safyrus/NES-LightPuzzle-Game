@@ -1,90 +1,88 @@
 ; Y = pos
 add_laser_up:
-    pushreg
-
-    TYA                     ; change metatile palette
-    TAX
-    LDY #$02
-    JSR change_attribute
+    PHA
     TXA
-    TAY
+    PHA
 
-    LDX level_laser_count    ; put a laser
-    TYA                     ; at Y
-    STA laser_array_pos, X   ;
-    LDA #$00                ; and going up
-    STA laser_array_state, X ;
-    INX                     ;
-    STX level_laser_count    ;
+    LDX #$00
+    JSR add_laser
 
-    pullreg
+    PLA
+    TAX
+    PLA
     RTS
 
 
 ; Y = pos
 add_laser_down:
-    pushreg
-
-    TYA                     ; change metatile palette
-    TAX
-    LDY #$02
-    JSR change_attribute
+    PHA
     TXA
-    TAY
+    PHA
 
-    LDX level_laser_count    ; put a laser
-    TYA                     ; at Y
-    STA laser_array_pos, X   ;
-    LDA #$01                ; and going down
-    STA laser_array_state, X ;
-    INX                     ;
-    STX level_laser_count    ;
+    LDX #$01
+    JSR add_laser
 
-    pullreg
+    PLA
+    TAX
+    PLA
     RTS
-
 
 ; Y = pos
 add_laser_left:
-    pushreg
-
-    TYA                     ; change metatile palette
-    TAX
-    LDY #$02
-    JSR change_attribute
+    PHA
     TXA
-    TAY
+    PHA
 
-    LDX level_laser_count    ; put a laser
-    TYA                     ; at Y
-    STA laser_array_pos, X   ;
-    LDA #$02                ; and going left
-    STA laser_array_state, X ;
-    INX                     ;
-    STX level_laser_count    ;
+    LDX #$02
+    JSR add_laser
 
-    pullreg
+    PLA
+    TAX
+    PLA
+    RTS
+
+; Y = pos
+add_laser_right:
+    PHA
+    TXA
+    PHA
+
+    LDX #$03
+    JSR add_laser
+
+    PLA
+    TAX
+    PLA
     RTS
 
 
 ; Y = pos
-add_laser_right:
+; X = direction
+add_laser:
     pushreg
 
-    TYA                     ; change metatile palette
+    ; save X
+    TXA
+    PHA
+
+    ; change metatile palette
+    TYA
     TAX
     LDY #$02
     JSR change_attribute
     TXA
     TAY
 
-    LDX level_laser_count    ; put a laser
-    TYA                     ; at Y
-    STA laser_array_pos, X   ;
-    LDA #$03                ; and going right
-    STA laser_array_state, X ;
-    INX                     ;
-    STX level_laser_count    ;
+    ; add a laser at Y with the direction pull from stack (old X value)
+    LDX level_laser_count
+    TYA
+    STA laser_array_pos, X
+    PLA
+    STA laser_array_state, X
+
+    ; increment laser count
+    INX
+    STX level_laser_count
 
     pullreg
     RTS

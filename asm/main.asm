@@ -28,21 +28,16 @@ main:
 
     JSR readjoy     ; read controllers inputs
 
-    LDA game_stage   ; get the variable game_stage
-    CMP #STG::MENU   ; are we in the Menu stage ?
-    BEQ @menu
-    CMP #STG::MENU_LOAD     ; are we in the MenuLoad stage ?
-    BEQ @menu_load
-    CMP #STG::LEVEL_EDIT    ; are we in the LevelEdit stage ?
-    BEQ @level_edit
-    CMP #STG::LEVEL_LOAD    ; are we in the LevelLoad stage ?
-    BEQ @level_load
-    CMP #STG::LEVEL_PLAY    ; are we in the LevelPlay stage ?
-    BEQ @level_play
-    CMP #STG::LEVEL_WIN    ; are we in the LevelWin stage ?
-    BEQ @level_win
-    CMP #STG::LEVEL_LOOSE  ; are we in the LevelLoose stage ?
-    BEQ @level_loose
+    LDA game_stage  ; get the variable game_stage
+    AND #%00000111  ; modulo 8
+    TAX             ; into X
+    ; get the address of the stage function from the switch table
+    LDA @switch_table_l, X
+    STA data_adr_l
+    LDA @switch_table_h, X
+    STA data_adr_h
+    ; call the stage function
+    JSR @switch_call
 
     @end:
     JSR update_btn_timer
@@ -51,25 +46,26 @@ main:
     STA bg_draw_data, X
     JMP main        ; return to the start of the main loop
 
+    ; call a function in the switch table
+    @switch_call:
+        JMP (data_adr)
+
     ; stages
-    @level_edit:
-        JSR stage_level_edit
-        JMP @end
-    @level_load:
-        JSR stage_level_load
-        JMP @end
-    @level_play:
-        JSR stage_level_play
-        JMP @end
-    @level_win:
-        JSR stage_level_win
-        JMP @end
-    @level_loose:
-        JSR stage_level_loose
-        JMP @end
-    @menu:
-        JSR stage_menu
-        JMP @end
-    @menu_load:
-        JSR stage_menu_load
-        JMP @end
+    @switch_table_l:
+        .byte <stage_level_edit
+        .byte <stage_menu_load
+        .byte <stage_menu
+        .byte <stage_level_load
+        .byte <stage_level_play
+        .byte <stage_level_win
+        .byte <stage_level_loose
+        .byte <@end
+    @switch_table_h:
+        .byte >stage_level_edit
+        .byte >stage_menu_load
+        .byte >stage_menu
+        .byte >stage_level_load
+        .byte >stage_level_play
+        .byte >stage_level_win
+        .byte >stage_level_loose
+        .byte >@end

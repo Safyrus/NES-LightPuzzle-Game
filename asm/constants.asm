@@ -48,7 +48,6 @@ MAXLASERPERFRAME = 3 ; need to be a power of 2-1
 ; Game Stage
 .enum STG
     LEVEL_EDIT
-    WIN
     MENU_LOAD
     MENU
     LEVEL_LOAD

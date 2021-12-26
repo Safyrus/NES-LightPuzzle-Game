@@ -1,6 +1,13 @@
 .include "game/laser/action.asm"
 .include "game/laser/add.asm"
+.include "game/laser/cross.asm"
+.include "game/laser/door.asm"
+.include "game/laser/merger.asm"
+.include "game/laser/mirror.asm"
+.include "game/laser/mirrorcorner.asm"
 .include "game/laser/move.asm"
+.include "game/laser/receive.asm"
+.include "game/laser/splitter.asm"
 
 ; X = laser index
 get_next_laser_pos:

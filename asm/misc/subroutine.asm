@@ -167,3 +167,26 @@ find_item_index:
     @end:
     PLA
     RTS
+
+
+; Y = laser index
+laser_pos_to_vram_adr:
+    PHA
+    TXA
+    PHA
+
+    ; get the laser position in nametable
+    LDA laser_array_pos, Y
+    TAX
+    JSR get_metatile_nametable_adr
+
+    ; set the laser position to vram_adr
+    LDA data_adr_h
+    STA vram_adr_h
+    LDA data_adr_l
+    STA vram_adr_l
+
+    PLA
+    TAX
+    PLA
+    RTS

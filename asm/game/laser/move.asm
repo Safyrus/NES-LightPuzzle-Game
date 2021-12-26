@@ -4,38 +4,9 @@ move_laser_mirror1:
     TYA
     STA laser_array_pos, X   ; set new laser position
 
-    LDA laser_array_state, X  ; get direction of the laser
-    AND #%00000011
-    CMP #$00    ; is it going up ?
-    BEQ @up
-    CMP #$01    ; is it going down ?
-    BEQ @down
-    CMP #$02    ; is it going left ?
-    BEQ @left
-    JMP @right  ; then it is going right
-
-    @up:
-        LDA laser_array_state, X
-        AND #%11111100
-        ORA #%00000011
-        STA laser_array_state, X
-        JMP @end
-    @down:
-        LDA laser_array_state, X
-        AND #%11111100
-        ORA #%00000010
-        STA laser_array_state, X
-        JMP @end
-    @left:
-        LDA laser_array_state, X
-        AND #%11111100
-        ORA #%00000001
-        STA laser_array_state, X
-        JMP @end
-    @right:
-        LDA laser_array_state, X
-        AND #%11111100
-        STA laser_array_state, X
+    LDA laser_array_state, X    ; get direction of the laser
+    EOR #%00000011
+    STA laser_array_state, X    ; set new direction of the laser
 
     @end:
     PLA
@@ -46,40 +17,11 @@ move_laser_mirror2:
     PHA
 
     TYA
-    STA laser_array_pos, X   ; set new laser position
+    STA laser_array_pos, X  ; set new laser position
 
-    LDA laser_array_state, X  ; get direction of the laser
-    AND #%00000011
-    CMP #$00    ; is it going up ?
-    BEQ @up
-    CMP #$01    ; is it going down ?
-    BEQ @down
-    CMP #$02    ; is it going left ?
-    BEQ @left
-    JMP @right  ; then it is going right
-
-    @up:
-        LDA laser_array_state, X
-        AND #%11111100
-        ORA #%00000010
-        STA laser_array_state, X
-        JMP @end
-    @down:
-        LDA laser_array_state, X
-        AND #%11111100
-        ORA #%00000011
-        STA laser_array_state, X
-        JMP @end
-    @left:
-        LDA laser_array_state, X
-        AND #%11111100
-        STA laser_array_state, X
-        JMP @end
-    @right:
-        LDA laser_array_state, X
-        AND #%11111100
-        ORA #%00000001
-        STA laser_array_state, X
+    LDA laser_array_state, X    ; get direction of the laser
+    EOR #%00000010
+    STA laser_array_state, X    ; set new direction of the laser
 
     @end:
     PLA

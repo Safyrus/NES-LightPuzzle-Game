@@ -1,4 +1,4 @@
-; level size 14*12 meta tiles
+; level size 16*15 meta tiles (14*13 without level border)
 
 ; level table
 level_array_lo:

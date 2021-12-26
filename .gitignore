@@ -9,3 +9,4 @@
 # Other files
 .markdownlint.json
 *ignore/
+dump.txt

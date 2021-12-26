@@ -23,166 +23,35 @@ stage_level_play:
         @laser_loop:
             LDA laser_array_state, X ; check if the laser has stop
             AND #%00000100
-            BEQ @laser_find_action
-            JMP @laser_loop_inc
+            BNE @laser_loop_inc
 
             @laser_find_action:
-            JSR get_next_laser_pos ; get the next position of the laser into A
             ; /!\ TODO: Check for out of map position and if it is then state = PLAY_ERROR and error = LASER_OUTOFMAP
-            TAY                 ; and transfere it to Y
-            LDA level, Y        ; get tile type at the next laser position
 
-            CMP #MTILE::VOID
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_move
-                JMP @laser_loop_inc
-            CMP #MTILE::GROUND
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_ground
-                JMP @laser_loop_inc
-            CMP #MTILE::LASER_HOR
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_laserhor
-                JMP @laser_loop_inc
-            CMP #MTILE::LASER_VER
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_laserver
-                JMP @laser_loop_inc
-            CMP #MTILE::LASER_CROSS
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_move
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRROR_1
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_1
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRROR_2
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_2
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRROR_UL
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_ul
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRROR_UR
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_ur
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRROR_DL
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_dl
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRROR_DR
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_dr
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRROR_CROSS1
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_cross1
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRROR_CROSS2
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_cross2
-                JMP @laser_loop_inc
-            CMP #MTILE::RECEIVE_UP
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_receive_up
-                JMP @laser_loop_inc
-            CMP #MTILE::RECEIVE_DOWN
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_receive_down
-                JMP @laser_loop_inc
-            CMP #MTILE::RECEIVE_LEFT
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_receive_left
-                JMP @laser_loop_inc
-            CMP #MTILE::RECEIVE_RIGHT
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_receive_right
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRRORC_UL
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_corner_ul
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRRORC_UR
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_corner_ur
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRRORC_DL
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_corner_dl
-                JMP @laser_loop_inc
-            CMP #MTILE::MIRRORC_DR
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_mirror_corner_dr
-                JMP @laser_loop_inc
-            CMP #MTILE::SPLITTER_H
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_splitter_h
-                JMP @laser_loop_inc
-            CMP #MTILE::SPLITTER_V
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_splitter_v
-                JMP @laser_loop_inc
-            CMP #MTILE::MERGER_H
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_merger_h
-                JMP @laser_loop_inc
-            CMP #MTILE::MERGER_V
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_merger_v
-                JMP @laser_loop_inc
-            CMP #MTILE::MERGER_H_T
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_merger_ht
-                JMP @laser_loop_inc
-            CMP #MTILE::MERGER_H_B
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_merger_hb
-                JMP @laser_loop_inc
-            CMP #MTILE::MERGER_V_L
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_merger_vl
-                JMP @laser_loop_inc
-            CMP #MTILE::MERGER_V_R
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_merger_vr
-                JMP @laser_loop_inc
-            CMP #MTILE::DOOR_H
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_door_h
-                JMP @laser_loop_inc
-            CMP #MTILE::DOOR_V
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_door_v
-                JMP @laser_loop_inc
-            CMP #MTILE::DOOR_H_ON
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_door_h_on
-                JMP @laser_loop_inc
-            CMP #MTILE::DOOR_V_ON
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_door_v_on
-                JMP @laser_loop_inc
-            CMP #MTILE::GLASS
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_glass
-                JMP @laser_loop_inc
-            CMP #MTILE::CROSS
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_cross
-                JMP @laser_loop_inc
-            CMP #MTILE::CROSS_H
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_cross_h
-                JMP @laser_loop_inc
-            CMP #MTILE::CROSS_V
-            .byte $D0, $06 ; BNE @next
-                JSR laser_action_cross_v
-                JMP @laser_loop_inc
-            @laser_action_stop:
-                JSR laser_action_stop
-                JMP @laser_loop_inc
+            JSR get_next_laser_pos ; get the next position of the laser into A
+            TAY             ; and transfere it to Y
+            LDA level, Y    ; get tile type at the next laser position
+            AND #%11000000  ; check if it is out of range of the switch table
+            BEQ @laser_find_action_switch
+            JMP laser_action_stop
+            @laser_find_action_switch:
+            ; push X
+            TXA
+            PHA
+            ; get tile type at the next laser position
+            LDA level, Y
+            AND #%00111111  ; modulo 64
+            TAX             ; into X
+            ; get the address of the laser action function from the switch table
+            LDA @switch_table_l, X
+            STA data_adr_l
+            LDA @switch_table_h, X
+            STA data_adr_h
+            ; pull X
+            PLA
+            TAX
+            ; call the laser action function
+            JSR @switch_call
 
             ; increase the laser index and loop
             @laser_loop_inc:
@@ -218,8 +87,10 @@ stage_level_play:
     @check_laser_stop_loop:
         LDA laser_array_state, X
         AND #%00000100
-        BEQ @end
+        BNE @check_laser_stop_loop_inc
+        JMP @end
 
+        @check_laser_stop_loop_inc:
         INX
         CPX level_laser_count
         BNE @check_laser_stop_loop
@@ -283,6 +154,149 @@ stage_level_play:
 
             LDA #STG::LEVEL_WIN  ; go to the win stage
             STA game_stage
+
+            JMP @end
+    
+    @switch_call:
+        JMP (data_adr)
+
+    @switch_table_l:
+        .byte <laser_action_move
+        .byte <laser_action_stop
+        .byte <laser_action_ground
+        .byte <laser_action_stop
+        .byte <laser_action_glass
+        .byte <laser_action_laserhor
+        .byte <laser_action_laserver
+        .byte <laser_action_move
+        .byte <laser_action_cross
+        .byte <laser_action_cross_h
+        .byte <laser_action_cross_v
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_receive_up
+        .byte <laser_action_receive_down
+        .byte <laser_action_receive_left
+        .byte <laser_action_receive_right
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+
+        .byte <laser_action_mirror_1
+        .byte <laser_action_mirror_2
+        .byte <laser_action_mirror_cross1
+        .byte <laser_action_mirror_cross2
+        .byte <laser_action_mirror_ul
+        .byte <laser_action_mirror_ur
+        .byte <laser_action_mirror_dl
+        .byte <laser_action_mirror_dr
+        .byte <laser_action_mirror_corner_ul
+        .byte <laser_action_mirror_corner_ur
+        .byte <laser_action_mirror_corner_dl
+        .byte <laser_action_mirror_corner_dr
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+
+        .byte <laser_action_door_h
+        .byte <laser_action_door_v
+        .byte <laser_action_door_h_on
+        .byte <laser_action_door_v_on
+        .byte <laser_action_splitter_h
+        .byte <laser_action_splitter_v
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+        .byte <laser_action_merger_h
+        .byte <laser_action_merger_v
+        .byte <laser_action_merger_ht
+        .byte <laser_action_merger_vl
+        .byte <laser_action_merger_hb
+        .byte <laser_action_merger_vr
+        .byte <laser_action_stop
+        .byte <laser_action_stop
+
+    @switch_table_h:
+        .byte >laser_action_move
+        .byte >laser_action_stop
+        .byte >laser_action_ground
+        .byte >laser_action_stop
+        .byte >laser_action_glass
+        .byte >laser_action_laserhor
+        .byte >laser_action_laserver
+        .byte >laser_action_move
+        .byte >laser_action_cross
+        .byte >laser_action_cross_h
+        .byte >laser_action_cross_v
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_receive_up
+        .byte >laser_action_receive_down
+        .byte >laser_action_receive_left
+        .byte >laser_action_receive_right
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+
+        .byte >laser_action_mirror_1
+        .byte >laser_action_mirror_2
+        .byte >laser_action_mirror_cross1
+        .byte >laser_action_mirror_cross2
+        .byte >laser_action_mirror_ul
+        .byte >laser_action_mirror_ur
+        .byte >laser_action_mirror_dl
+        .byte >laser_action_mirror_dr
+        .byte >laser_action_mirror_corner_ul
+        .byte >laser_action_mirror_corner_ur
+        .byte >laser_action_mirror_corner_dl
+        .byte >laser_action_mirror_corner_dr
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+
+        .byte >laser_action_door_h
+        .byte >laser_action_door_v
+        .byte >laser_action_door_h_on
+        .byte >laser_action_door_v_on
+        .byte >laser_action_splitter_h
+        .byte >laser_action_splitter_v
+        .byte >laser_action_stop
+        .byte >laser_action_stop
+        .byte >laser_action_merger_h
+        .byte >laser_action_merger_v
+        .byte >laser_action_merger_ht
+        .byte >laser_action_merger_vl
+        .byte >laser_action_merger_hb
+        .byte >laser_action_merger_vr
+        .byte >laser_action_stop
+        .byte >laser_action_stop
 
     @end:
     RTS     ; Return
