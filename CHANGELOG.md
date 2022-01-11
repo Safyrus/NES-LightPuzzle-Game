@@ -6,6 +6,32 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.1.5]** - _2022-01-??_
+
+### **Added**
+
+- SKULL graphic in CHR.
+
+#### ASM
+
+- _Data:_
+  - 5 levels.
+
+### **Changed**
+
+#### ASM
+
+- _Data:_
+  - txt_version to "V0.1.5".
+  - CROSS metatiles tiles.
+  - palette 6 and 7.
+- Stage:_
+  - In LevelPlay, condition for winning or loosing are now check every tick.
+- _Other:_
+  - LEVEL_MAX to 20.
+
+-----------------
+
 ## **[0.1.4]** - _2021-12-26_
 
 ### **Added**

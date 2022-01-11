@@ -145,9 +145,9 @@ metatile_WALL:          .byte $50, $50, $40, $50   ; WALL
 metatile_GROUND:        .byte $5D, $00, $00, $5C   ; GROUND
 metatile_UI_BOT:        .byte $00, $00, $52, $52   ; UI_BOT
 metatile_GLASS:         .byte $4D, $4D, $4D, $4D   ; GLASS
-metatile_CROSS:         .byte $62, $63, $72, $73   ; CROSS
-metatile_CROSS_H:       .byte $64, $65, $74, $75   ; CROSS_H
-metatile_CROSS_V:       .byte $66, $67, $76, $77   ; CROSS_V
+metatile_CROSS:         .byte $4E, $4F, $5E, $5F   ; CROSS
+metatile_CROSS_H:       .byte $4E, $4F, $5E, $5F   ; CROSS_H
+metatile_CROSS_V:       .byte $4E, $4F, $5E, $5F   ; CROSS_V
 
 metatile_EMIT_UP:       .byte $42, $43, $44, $45   ; EMIT_UP
 metatile_EMIT_DOWN:     .byte $54, $55, $42, $43   ; EMIT_DOWN

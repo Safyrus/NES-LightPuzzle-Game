@@ -42,7 +42,7 @@ OAMDMA := $4014
 ; Game
 LASER_MAX = 48
 POS_OUTOFMAP = $F0
-LEVEL_MAX = 15
+LEVEL_MAX = 20
 MAXLASERPERFRAME = 3 ; need to be a power of 2-1
 
 ; Game Stage

@@ -82,7 +82,44 @@ stage_level_play:
 
     @step_done:
 
+    ;
+    LDY #$00
+    @check_victory_loop:
+        LDA level, Y
+        CMP #MTILE::RECEIVE_UP
+        BEQ @check_laser_stop
+        CMP #MTILE::RECEIVE_DOWN
+        BEQ @check_laser_stop
+        CMP #MTILE::RECEIVE_LEFT
+        BEQ @check_laser_stop
+        CMP #MTILE::RECEIVE_RIGHT
+        BEQ @check_laser_stop
+
+        INY
+        CPY #$F0
+        BNE @check_victory_loop
+    @check_victory_end:
+
+    ; 
+    LDY #$00
+    @check_loose_loop:
+        LDA level, Y
+        CMP #MTILE::CROSS_H
+        BEQ @stage_loose
+        CMP #MTILE::CROSS_V
+        BEQ @stage_loose
+        CMP #MTILE::CROSS_ON
+        BEQ @stage_loose
+
+        INY
+        CPY #$F0
+        BNE @check_loose_loop
+    @check_loose_end:
+    JMP @stage_win
+
+
     ; check if all lasers has stop
+    @check_laser_stop:
     LDX #$00
     @check_laser_stop_loop:
         LDA laser_array_state, X
@@ -94,68 +131,46 @@ stage_level_play:
         INX
         CPX level_laser_count
         BNE @check_laser_stop_loop
+    @check_laser_stop_end:
+    JMP @stage_loose
+
+    @stage_loose:
+        LDA #$21
+        STA vram_adr_h
+        LDA #$68
+        STA vram_adr_l
+
+        LDA #>txt_loose
+        STA data_adr_h
+        LDA #<txt_loose
+        STA data_adr_l
+
+        LDX #$05
+        JSR update_bg_data
+
+        LDA #STG::LEVEL_LOOSE  ; go to the loose stage
+        STA game_stage
+
+        JMP @end
     
-    @laser_stop:
-        LDY #$00
-        @laser_stop_loop:
-            LDA level, Y
-            CMP #MTILE::RECEIVE_UP
-            BEQ @stage_loose
-            CMP #MTILE::RECEIVE_DOWN
-            BEQ @stage_loose
-            CMP #MTILE::RECEIVE_LEFT
-            BEQ @stage_loose
-            CMP #MTILE::RECEIVE_RIGHT
-            BEQ @stage_loose
-            CMP #MTILE::CROSS_H
-            BEQ @stage_loose
-            CMP #MTILE::CROSS_V
-            BEQ @stage_loose
-            CMP #MTILE::CROSS_ON
-            BEQ @stage_loose
+    @stage_win:
+        LDA #$21
+        STA vram_adr_h
+        LDA #$68
+        STA vram_adr_l
 
-            INY
-            CPY #$F0
-            BNE @laser_stop_loop
-        JMP @stage_win
+        LDA #>txt_win
+        STA data_adr_h
+        LDA #<txt_win
+        STA data_adr_l
 
-        @stage_loose:
-            LDA #$21
-            STA vram_adr_h
-            LDA #$68
-            STA vram_adr_l
+        LDX #$03
+        JSR update_bg_data
 
-            LDA #>txt_loose
-            STA data_adr_h
-            LDA #<txt_loose
-            STA data_adr_l
+        LDA #STG::LEVEL_WIN  ; go to the win stage
+        STA game_stage
 
-            LDX #$05
-            JSR update_bg_data
-
-            LDA #STG::LEVEL_LOOSE  ; go to the loose stage
-            STA game_stage
-
-            JMP @end
-        
-        @stage_win:
-            LDA #$21
-            STA vram_adr_h
-            LDA #$68
-            STA vram_adr_l
-
-            LDA #>txt_win
-            STA data_adr_h
-            LDA #<txt_win
-            STA data_adr_l
-
-            LDX #$03
-            JSR update_bg_data
-
-            LDA #STG::LEVEL_WIN  ; go to the win stage
-            STA game_stage
-
-            JMP @end
+        JMP @end
     
     @switch_call:
         JMP (data_adr)
