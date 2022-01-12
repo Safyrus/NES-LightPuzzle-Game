@@ -1,6 +1,6 @@
 ; X = laser index
 ; Y = laser position
-laser_action_cross:
+laser_action_skull:
     PHA
     TYA
     PHA
@@ -9,20 +9,20 @@ laser_action_cross:
     AND #%00000010
     BEQ @vertical
     @horizontal:
-    LDA #MTILE::CROSS_H
+    LDA #MTILE::SKULL_H
     STA level, Y
     JSR laser_action_move
     TXA
     TAY
-    JSR laser_draw_cross_h
+    JSR laser_draw_skull_h
     JMP @end
     @vertical:
-    LDA #MTILE::CROSS_V
+    LDA #MTILE::SKULL_V
     STA level, Y
     JSR laser_action_move
     TXA
     TAY
-    JSR laser_draw_cross_v
+    JSR laser_draw_skull_v
 
     @end:
     PLA
@@ -31,8 +31,8 @@ laser_action_cross:
     RTS
 
 
-laser_action_cross_h:
-laser_action_cross_v:
+laser_action_skull_h:
+laser_action_skull_v:
     PHA
     TYA
     PHA
@@ -40,7 +40,7 @@ laser_action_cross_v:
     JSR laser_action_move
     TXA
     TAY
-    JSR laser_draw_cross_on
+    JSR laser_draw_skull_on
 
     PLA
     TAY

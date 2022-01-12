@@ -1,10 +1,10 @@
 ; Y = laser index
-laser_draw_cross_h:
+laser_draw_skull_h:
     pushreg
 
     JSR laser_pos_to_vram_adr
 
-    LDX #MTILE::CROSS_H
+    LDX #MTILE::SKULL_H
     JSR update_bg_metatile
     JSR laser_draw_activate
 
@@ -14,12 +14,12 @@ laser_draw_cross_h:
 
 
 ; Y = laser index
-laser_draw_cross_v:
+laser_draw_skull_v:
     pushreg
 
     JSR laser_pos_to_vram_adr
 
-    LDX #MTILE::CROSS_V
+    LDX #MTILE::SKULL_V
     JSR update_bg_metatile
     JSR laser_draw_activate
 
@@ -29,12 +29,12 @@ laser_draw_cross_v:
 
 
 ; Y = laser index
-laser_draw_cross_on:
+laser_draw_skull_on:
     pushreg
 
     JSR laser_pos_to_vram_adr
 
-    LDX #MTILE::CROSS_ON
+    LDX #MTILE::SKULL_ON
     JSR update_bg_metatile
 
     @end:

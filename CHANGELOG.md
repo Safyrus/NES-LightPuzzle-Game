@@ -6,7 +6,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
-## **[0.1.5]** - _2022-01-??_
+## **[0.1.5]** - _2022-01-12_
 
 ### **Added**
 
@@ -29,6 +29,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
   - In LevelPlay, condition for winning or loosing are now check every tick.
 - _Other:_
   - LEVEL_MAX to 20.
+  - Refactor CROSS metatiles, functions and file names to SKULL.
 
 -----------------
 

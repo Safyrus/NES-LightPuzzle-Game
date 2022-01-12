@@ -66,10 +66,10 @@ MAXLASERPERFRAME = 3 ; need to be a power of 2-1
     LASER_HOR
     LASER_VER
     LASER_CROSS
-    CROSS
-    CROSS_H
-    CROSS_V
-    CROSS_ON
+    SKULL
+    SKULL_H
+    SKULL_V
+    SKULL_ON
     NULL_0C
     NULL_0D
     NULL_0E

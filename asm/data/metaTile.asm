@@ -8,10 +8,10 @@ metatile_array_lo:
     .byte <metatile_LASER_HOR
     .byte <metatile_LASER_VER
     .byte <metatile_LASER_CROSS
-    .byte <metatile_CROSS
-    .byte <metatile_CROSS_H
-    .byte <metatile_CROSS_V
-    .byte <metatile_CROSS
+    .byte <metatile_SKULL
+    .byte <metatile_SKULL_H
+    .byte <metatile_SKULL_V
+    .byte <metatile_SKULL
     .byte <metatile_VOID
     .byte <metatile_VOID
     .byte <metatile_VOID
@@ -77,10 +77,10 @@ metatile_array_hi:
     .byte >metatile_LASER_HOR
     .byte >metatile_LASER_VER
     .byte >metatile_LASER_CROSS
-    .byte >metatile_CROSS
-    .byte >metatile_CROSS_H
-    .byte >metatile_CROSS_V
-    .byte >metatile_CROSS
+    .byte >metatile_SKULL
+    .byte >metatile_SKULL_H
+    .byte >metatile_SKULL_V
+    .byte >metatile_SKULL
     .byte >metatile_VOID
     .byte >metatile_VOID
     .byte >metatile_VOID
@@ -145,9 +145,9 @@ metatile_WALL:          .byte $50, $50, $40, $50   ; WALL
 metatile_GROUND:        .byte $5D, $00, $00, $5C   ; GROUND
 metatile_UI_BOT:        .byte $00, $00, $52, $52   ; UI_BOT
 metatile_GLASS:         .byte $4D, $4D, $4D, $4D   ; GLASS
-metatile_CROSS:         .byte $4E, $4F, $5E, $5F   ; CROSS
-metatile_CROSS_H:       .byte $4E, $4F, $5E, $5F   ; CROSS_H
-metatile_CROSS_V:       .byte $4E, $4F, $5E, $5F   ; CROSS_V
+metatile_SKULL:         .byte $4E, $4F, $5E, $5F   ; SKULL
+metatile_SKULL_H:       .byte $4E, $4F, $5E, $5F   ; SKULL_H
+metatile_SKULL_V:       .byte $4E, $4F, $5E, $5F   ; SKULL_V
 
 metatile_EMIT_UP:       .byte $42, $43, $44, $45   ; EMIT_UP
 metatile_EMIT_DOWN:     .byte $54, $55, $42, $43   ; EMIT_DOWN

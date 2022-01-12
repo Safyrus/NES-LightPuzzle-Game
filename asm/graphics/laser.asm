@@ -1,4 +1,4 @@
-.include "graphics/laser/cross.asm"
+.include "graphics/laser/skull.asm"
 .include "graphics/laser/door.asm"
 .include "graphics/laser/mirror.asm"
 .include "graphics/laser/receive.asm"

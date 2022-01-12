@@ -1,6 +1,6 @@
 .include "game/laser/action.asm"
 .include "game/laser/add.asm"
-.include "game/laser/cross.asm"
+.include "game/laser/skull.asm"
 .include "game/laser/door.asm"
 .include "game/laser/merger.asm"
 .include "game/laser/mirror.asm"

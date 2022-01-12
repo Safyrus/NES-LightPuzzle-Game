@@ -18,7 +18,6 @@
 ; - better menu input mapping
 ; - remove tile in any orientation
 ; # GRAPHICS #
-; - change CROSS to SKULL (graphic)
 ; - Title logo
 ; - create a custom font
 ; # OTHER #
@@ -27,7 +26,6 @@
 ; - find code to refactor to take less space
 ; - fix typos
 ; - better comments
-; - refactor CROSS to SKULL (code)
 
 
 ; Header of the file (not part of the cartridge, used by the emulator)

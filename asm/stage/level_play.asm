@@ -104,11 +104,11 @@ stage_level_play:
     LDY #$00
     @check_loose_loop:
         LDA level, Y
-        CMP #MTILE::CROSS_H
+        CMP #MTILE::SKULL_H
         BEQ @stage_loose
-        CMP #MTILE::CROSS_V
+        CMP #MTILE::SKULL_V
         BEQ @stage_loose
-        CMP #MTILE::CROSS_ON
+        CMP #MTILE::SKULL_ON
         BEQ @stage_loose
 
         INY
@@ -184,9 +184,9 @@ stage_level_play:
         .byte <laser_action_laserhor
         .byte <laser_action_laserver
         .byte <laser_action_move
-        .byte <laser_action_cross
-        .byte <laser_action_cross_h
-        .byte <laser_action_cross_v
+        .byte <laser_action_skull
+        .byte <laser_action_skull_h
+        .byte <laser_action_skull_v
         .byte <laser_action_stop
         .byte <laser_action_stop
         .byte <laser_action_stop
@@ -253,9 +253,9 @@ stage_level_play:
         .byte >laser_action_laserhor
         .byte >laser_action_laserver
         .byte >laser_action_move
-        .byte >laser_action_cross
-        .byte >laser_action_cross_h
-        .byte >laser_action_cross_v
+        .byte >laser_action_skull
+        .byte >laser_action_skull_h
+        .byte >laser_action_skull_v
         .byte >laser_action_stop
         .byte >laser_action_stop
         .byte >laser_action_stop
