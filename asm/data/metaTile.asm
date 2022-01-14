@@ -68,6 +68,23 @@ metatile_array_lo:
     .byte <metatile_MERGER_H
     .byte <metatile_MERGER_V
 
+    .byte <metatile_TITLE_NAME_1
+    .byte <metatile_TITLE_NAME_2
+    .byte <metatile_TITLE_NAME_3
+    .byte <metatile_TITLE_NAME_4
+    .byte <metatile_TITLE_NAME_5
+    .byte <metatile_TITLE_EFFECT_1
+    .byte <metatile_TITLE_EFFECT_2
+    .byte <metatile_TITLE_EFFECT_3
+    .byte <metatile_TITLE_EFFECT_4
+    .byte <metatile_TITLE_EFFECT_5
+    .byte <metatile_TITLE_LASER
+    .byte <metatile_TITLE_LASER_DIAGONAL_1
+    .byte <metatile_TITLE_LASER_DIAGONAL_2
+    .byte <metatile_TITLE_SAPHYR
+    .byte <metatile_TITLE_SAFYRUS_GAMES_1
+    .byte <metatile_TITLE_SAFYRUS_GAMES_2
+
 metatile_array_hi:
     .byte >metatile_VOID
     .byte >metatile_WALL
@@ -137,6 +154,23 @@ metatile_array_hi:
     .byte >metatile_MERGER_H
     .byte >metatile_MERGER_V
 
+    .byte >metatile_TITLE_NAME_1
+    .byte >metatile_TITLE_NAME_2
+    .byte >metatile_TITLE_NAME_3
+    .byte >metatile_TITLE_NAME_4
+    .byte >metatile_TITLE_NAME_5
+    .byte >metatile_TITLE_EFFECT_1
+    .byte >metatile_TITLE_EFFECT_2
+    .byte >metatile_TITLE_EFFECT_3
+    .byte >metatile_TITLE_EFFECT_4
+    .byte >metatile_TITLE_EFFECT_5
+    .byte >metatile_TITLE_LASER
+    .byte >metatile_TITLE_LASER_DIAGONAL_1
+    .byte >metatile_TITLE_LASER_DIAGONAL_2
+    .byte >metatile_TITLE_SAPHYR
+    .byte >metatile_TITLE_SAFYRUS_GAMES_1
+    .byte >metatile_TITLE_SAFYRUS_GAMES_2
+
 
 
 ; Data
@@ -181,3 +215,20 @@ metatile_SPLITTER_H:    .byte $88, $89, $98, $99   ; SPLITTER_H
 metatile_SPLITTER_V:    .byte $8A, $8B, $9A, $9B   ; SPLITTER_V
 metatile_MERGER_H:      .byte $8C, $8D, $9C, $9D   ; MERGER_H
 metatile_MERGER_V:      .byte $8E, $8F, $9E, $9F   ; MERGER_V
+
+metatile_TITLE_NAME_1:  .byte $A0, $A1, $B0, $B1   ; TITLE_NAME_1
+metatile_TITLE_NAME_2:  .byte $A2, $A3, $B2, $B3   ; TITLE_NAME_2
+metatile_TITLE_NAME_3:  .byte $A4, $A5, $B4, $B5   ; TITLE_NAME_3
+metatile_TITLE_NAME_4:  .byte $A6, $A7, $B6, $B7   ; TITLE_NAME_4
+metatile_TITLE_NAME_5:  .byte $A8, $A9, $B8, $B9   ; TITLE_NAME_5
+metatile_TITLE_EFFECT_1: .byte $C0, $C1, $00, $00  ; TITLE_EFFECT_1
+metatile_TITLE_EFFECT_2: .byte $C2, $C3, $00, $00  ; TITLE_EFFECT_2
+metatile_TITLE_EFFECT_3: .byte $C4, $C5, $00, $00  ; TITLE_EFFECT_3
+metatile_TITLE_EFFECT_4: .byte $C6, $C7, $00, $7E  ; TITLE_EFFECT_4
+metatile_TITLE_EFFECT_5: .byte $C8, $C9, $AD, $6F  ; TITLE_EFFECT_5
+metatile_TITLE_LASER:   .byte $AA, $AA, $BA, $BA   ; TITLE_LASER
+metatile_TITLE_LASER_DIAGONAL_1: .byte $7E, $AD, $00, $7E   ; TITLE_LASER_DIAGONAL_1
+metatile_TITLE_LASER_DIAGONAL_2: .byte $6F, $00, $AD, $6F   ; TITLE_LASER_DIAGONAL_2
+metatile_TITLE_SAPHYR:  .byte $AB, $AC, $BB, $BC   ; TITLE_SAPHYR
+metatile_TITLE_SAFYRUS_GAMES_1: .byte $CA, $CB, $DA, $DB   ; TITLE_SAFYRUS_GAMES_1
+metatile_TITLE_SAFYRUS_GAMES_2: .byte $CC, $CD, $DC, $DD   ; TITLE_SAFYRUS_GAMES_2

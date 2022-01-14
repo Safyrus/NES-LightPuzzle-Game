@@ -6,6 +6,41 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.2.0]** - _2022-01-??_
+
+### **Added**
+
+- Game name and "Safyrus Games" logo in CHR.
+
+#### ASM
+
+- _Data:_
+  - txt_version to "V0.2.0".
+  - New metatiles (TITLE_NAME 1 to 5, TITLE_EFFECT 1 to 5, TITLE_LASER,
+    TITLE_LASER_DIAGONAL 1 and 2, TITLE_SAPHYR, TITLE_SAFYRUS_GAMES 1 and 2).
+  - New title level (not a real level).
+- _Other:_
+  - New metatiles constants.
+
+### **Changed**
+
+- The default Mario font for a custom one in CHR.
+
+#### ASM
+
+- _Data:_
+  - palette 1.
+- _Graphics:_
+  - "draw_menu" function by drawing the title level.
+- Stage:_
+  - Menu stage background palette.
+
+### **Removed**
+
+- txt_menu and txt_game_title.
+
+-----------------
+
 ## **[0.1.5]** - _2022-01-12_
 
 ### **Added**

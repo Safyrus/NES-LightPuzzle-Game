@@ -170,51 +170,8 @@ draw_menu:
     LDA #$00
     STA PPUADDR
     
-    LDA #$00        ; tile number
-    LDX #$04        ; number of high loop
-    @back1:
-        LDY #$F0        ; number of low loop
-        @back2:
-            STA PPUDATA
-    
-            DEY
-            CPY #$00
-            BNE @back2
-
-        DEX
-        CPX #$00
-        BNE @back1
-
-    ; display txt_game_title
-    LDA #$20
-    STA vram_adr_h
-    LDA #$A8
-    STA vram_adr_l
-    LDA #>txt_game_title
-    STA data_adr_h
-    LDA #<txt_game_title
-    STA data_adr_l
-    JSR draw_text
-
-    ; display txt_menu
-    LDA #$21
-    STA vram_adr_h
-    LDA #$2E
-    STA vram_adr_l
-    LDA #>txt_menu
-    STA data_adr_h
-    LDA #<txt_menu
-    STA data_adr_l
-    JSR draw_text
-
-    ; display txt_level
-    ;LDA #$CC
-    ;STA vram_adr_l
-    ;LDA #>txt_level
-    ;STA data_adr_h
-    ;LDA #<txt_level
-    ;STA data_adr_l
-    ;JSR draw_text
+    LDX #LEVEL_MAX
+    JSR draw_level  ; Draw the title level
 
     ; display txt_start
     LDA #$22

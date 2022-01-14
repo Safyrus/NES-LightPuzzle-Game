@@ -6,12 +6,12 @@ stage_menu:
 
     ; reset attributes
     LDX #$00
-    LDA #$AA
-    @loop:
+    LDA #$55
+    @atr_rst:
         STA attributes, X
         INX
         CPX #$40
-        BNE @loop
+        BNE @atr_rst
     
     LDA stage_state
     AND #%00000011
