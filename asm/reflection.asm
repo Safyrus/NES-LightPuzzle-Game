@@ -17,11 +17,7 @@
 ; - better level play input mapping
 ; - better menu input mapping
 ; - remove tile in any orientation
-; # GRAPHICS #
-; - Title logo
-; - create a custom font
 ; # OTHER #
-; - change game name to "Reflection"
 ; - add option (tick speed)
 ; - find code to refactor to take less space
 ; - fix typos
@@ -87,4 +83,4 @@ data:
 
 ; CHR ROM data 
 .segment "CHARS"
-.incbin "lightPuzzle.chr"
+.incbin "Reflection.chr"

@@ -92,14 +92,17 @@ change_to_level_load:
 change_to_menu_load:
     PHA
 
-    LDA draw_states ; Disable PPU at the next Vblank
-    AND #%11101000  ; Disable scroll update
-    ORA #%01001100  ; Activate palette and attributes updates
+    ; Disable PPU at the next Vblank
+    LDA draw_states
+    AND #%11100000
+    ORA #%01000000
     STA draw_states
-    LDA #10        ; Disable for 10 frame
+    ; Disable PPU for 10 frame
+    LDA #10
     STA ppu_off_counter
 
-    LDA #STG::MENU_LOAD ; set the stage to MenuLoad
+    ; set the stage to MenuLoad
+    LDA #STG::MENU_LOAD
     STA game_stage
 
     PLA

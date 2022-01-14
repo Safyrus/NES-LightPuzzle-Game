@@ -24,6 +24,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 ### **Changed**
 
+- Game name from "lightPuzzle" to "Reflection".
 - The default Mario font for a custom one in CHR.
 
 #### ASM

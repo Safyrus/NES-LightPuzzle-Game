@@ -1,7 +1,7 @@
 stage_menu:
     LDA draw_states
-    AND #%11110101
-    ORA #%00010101
+    AND #%11100000
+    ORA #%00011101
     STA draw_states
 
     ; reset attributes
