@@ -176,7 +176,7 @@ draw_menu:
     ; display txt_start
     LDA #$22
     STA vram_adr_h
-    LDA #$0E
+    LDA #$0A
     STA vram_adr_l
     LDA #>txt_start
     STA data_adr_h
@@ -188,7 +188,7 @@ draw_menu:
     AND #%00000001
     BEQ @draw_txt_resume_end
         ; display txt_resume
-        LDA #$4E
+        LDA #$4A
         STA vram_adr_l
         LDA #>txt_resume
         STA data_adr_h
@@ -198,7 +198,7 @@ draw_menu:
     @draw_txt_resume_end:
 
     ; display txt_selectlevel
-    LDA #$8B
+    LDA #$8A
     STA vram_adr_l
     LDA #>txt_selectlevel
     STA data_adr_h
@@ -209,7 +209,7 @@ draw_menu:
     ; display txt_version
     LDA #$23
     STA vram_adr_h
-    LDA #$0D
+    LDA #$0A
     STA vram_adr_l
     LDA #>txt_version
     STA data_adr_h

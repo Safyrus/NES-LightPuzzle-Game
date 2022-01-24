@@ -22,7 +22,18 @@ stage_level_edit:
     LDA #%00011110  ; Activate sprites and background and the left 8 pixels
     STA PPUMASK
 
-    JSR wait_ui
+    LDA curs_y
+    AND #$C0
+    BEQ @ui_hide
+        JSR wait_ui
+        JSR update_sprite_item_selected
+        JMP @wait_ui_end
+    @ui_hide:
+        LDA #$FF
+        STA spr_selected_middle_y
+        STA spr_selected_left_y
+        STA spr_selected_right_y
+    @wait_ui_end:
 
     JSR move_cursor
     JSR change_at_cursor
@@ -44,8 +55,6 @@ stage_level_edit:
         LDX #$00
         @selected:
         STX selected
-
-        JSR update_sprite_item_selected
     @btn_select_end:
 
     @btn_start:

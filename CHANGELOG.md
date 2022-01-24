@@ -19,6 +19,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
   - New metatiles (TITLE_NAME 1 to 5, TITLE_EFFECT 1 to 5, TITLE_LASER,
     TITLE_LASER_DIAGONAL 1 and 2, TITLE_SAPHYR, TITLE_SAFYRUS_GAMES 1 and 2).
   - New title level (not a real level).
+  - select_tiles_index_table to map a tile in tile_table to a tile in select_tiles.
 - _Other:_
   - New metatiles constants.
 
@@ -31,10 +32,19 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 - _Data:_
   - palette 1.
+  - Move tile_table and newtile_table to global.
+- _Game:_
+  - Remove objects in LevelPlay can now be done in any orientation.
 - _Graphics:_
   - "draw_menu" function by drawing the title level.
+  - Texts position in the menu.
+  - UI and UI sprites, in LevelPlay, is hided when cursor is on top.
 - Stage:_
   - Menu stage background palette.
+
+### **Fixed**
+
+- Emitter and receiver objects not changing orientation.
 
 ### **Removed**
 

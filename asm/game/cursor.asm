@@ -143,15 +143,36 @@ remove_at_cursor:
     ; find the index of the object
     LDY #$00
     @loop:
-        CMP level_selectable_object_type, Y
+        CMP tile_table, Y
         BEQ @remove
 
         INY
-        CPY #$10
+        CPY #$15
         BNE @loop
     JMP @end
 
     @remove:
+    ; push X
+    TXA
+    PHA
+    ; find tile index
+    LDA select_tiles_index_table, Y
+    TAY
+    LDA select_tiles, Y
+    LDX #$00
+    @remove_find_index:
+        CMP level_selectable_object_type, X
+        BEQ @remove_find_index_end
+        ; loop
+        INX
+        CPX #$10
+        BNE @remove_find_index
+    @remove_find_index_end:
+    TXA
+    TAY
+    ; pull X
+    PLA
+    TAX
     ; increment the number of this object
     LDA level_selectable_object_count, Y
     CLC
@@ -211,18 +232,18 @@ change_at_cursor:
     LDA level_edit, X
     LDX #$00
     @newtile_loop:
-        CMP @tile_table, X
+        CMP tile_table, X
         BEQ @newtile_loop_end
         ; loop
         INX
-        CPX #$0C
+        CPX #$15
         BNE @newtile_loop
     ; pull X
     PLA
     JMP @end
 
     @newtile_loop_end:    
-    LDY @newtile_table, X
+    LDY newtile_table, X
     ; pull X
     PLA
     TAX
@@ -238,34 +259,6 @@ change_at_cursor:
     TYA
     TAX
     JSR update_bg_metatile
-    JMP @end
-
-    @tile_table:
-        .byte MTILE::MIRROR_1
-        .byte MTILE::MIRROR_2
-        .byte MTILE::MIRRORC_UL
-        .byte MTILE::MIRRORC_UR
-        .byte MTILE::MIRRORC_DL
-        .byte MTILE::MIRRORC_DR
-        .byte MTILE::SPLITTER_H
-        .byte MTILE::SPLITTER_V
-        .byte MTILE::MERGER_H
-        .byte MTILE::MERGER_V
-        .byte MTILE::DOOR_H
-        .byte MTILE::DOOR_V
-    @newtile_table:
-        .byte MTILE::MIRROR_2
-        .byte MTILE::MIRROR_1
-        .byte MTILE::MIRRORC_UR
-        .byte MTILE::MIRRORC_DR
-        .byte MTILE::MIRRORC_UL
-        .byte MTILE::MIRRORC_DL
-        .byte MTILE::SPLITTER_V
-        .byte MTILE::SPLITTER_H
-        .byte MTILE::MERGER_V
-        .byte MTILE::MERGER_H
-        .byte MTILE::DOOR_V
-        .byte MTILE::DOOR_H
 
     @end:
     pullreg

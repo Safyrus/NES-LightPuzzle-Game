@@ -22,14 +22,14 @@ stage_menu:
 
     ; change attributes to highlight the selected option
     @select_start:
-        LDX #$23
+        LDX #$22
         LDA #$AF
         STA attributes, X
         INX
         STA attributes, X
         JMP @next
     @select_resume:
-        LDX #$23
+        LDX #$22
         LDA #$FA
         STA attributes, X
         INX
@@ -69,7 +69,7 @@ stage_menu:
     ; write level index text
     LDA #$22
     STA vram_adr_h
-    LDA #$99
+    LDA #$98
     STA vram_adr_l
     LDA #>curs_x
     STA data_adr_h

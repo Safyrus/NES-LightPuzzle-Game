@@ -11,12 +11,10 @@
 ; - use differents palettes in levels
 ; # UI #
 ; - level selection menu
-; - hide UI when cursor on top
 ; - hide unused item in ui
 ; # CONTROL #
 ; - better level play input mapping
 ; - better menu input mapping
-; - remove tile in any orientation
 ; # OTHER #
 ; - add option (tick speed)
 ; - find code to refactor to take less space
