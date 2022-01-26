@@ -6,7 +6,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
-## **[0.2.0]** - _2022-01-??_
+## **[0.2.0]** - _2022-01-26_
 
 ### **Added**
 
@@ -19,6 +19,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
   - New metatiles (TITLE_NAME 1 to 5, TITLE_EFFECT 1 to 5, TITLE_LASER,
     TITLE_LASER_DIAGONAL 1 and 2, TITLE_SAPHYR, TITLE_SAFYRUS_GAMES 1 and 2).
   - New title level (not a real level).
+  - 3 new levels.
   - select_tiles_index_table to map a tile in tile_table to a tile in select_tiles.
 - _Other:_
   - New metatiles constants.
