@@ -11,7 +11,6 @@
 ; - use differents palettes in levels
 ; # UI #
 ; - level selection menu
-; - hide unused item in ui
 ; # CONTROL #
 ; - better level play input mapping
 ; - better menu input mapping

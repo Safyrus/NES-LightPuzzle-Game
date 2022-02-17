@@ -69,6 +69,26 @@ draw_level:
     pullreg
     RTS
 
+draw_level_edit:
+    pushreg
+
+    LDX #$00
+    @loop:
+        ; draw
+        LDA level_edit, X
+        BEQ @loop_end
+        TAY
+        JSR draw_metatile
+
+        @loop_end:
+        ; loop
+        INX
+        CPX #$F0
+        BNE @loop
+
+    pullreg
+    RTS
+
 ; X = Coord, Y= ID
 draw_metatile:
     ; push registers
@@ -248,35 +268,6 @@ draw_ui:
         INX
         CPX #$20
         BNE @loop_line
-    
-    ; draw txt_ui_1
-    LDA #$24
-    STA vram_adr_h
-    LDA #$80
-    STA vram_adr_l
-    LDA #>txt_ui_1
-    STA data_adr_h
-    LDA #<txt_ui_1
-    STA data_adr_l
-    JSR draw_text
-
-    ; draw txt_ui_2
-    LDA #$60
-    STA vram_adr_l
-    LDA #>txt_ui_2
-    STA data_adr_h
-    LDA #<txt_ui_2
-    STA data_adr_l
-    JSR draw_text
-
-    ; draw txt_ui_3
-    LDA #$40
-    STA vram_adr_l
-    LDA #>txt_ui_3
-    STA data_adr_h
-    LDA #<txt_ui_3
-    STA data_adr_l
-    JSR draw_text
 
     ; draw the number of items
     LDY #$00
@@ -317,6 +308,15 @@ draw_ui:
         LDA level_selectable_object_count, Y
         CLC
         ADC #$10
+        STA PPUDATA
+        ; draw a x sign
+        LDA #$37
+        STA PPUDATA
+        ; draw the icon
+        TYA
+        TAX
+        JSR find_item_index
+        LDA tile_icon_table, X
         STA PPUDATA
 
         ; loop

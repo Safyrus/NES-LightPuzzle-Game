@@ -147,7 +147,7 @@ remove_at_cursor:
         BEQ @remove
 
         INY
-        CPY #$15
+        CPY #TILE_TABLE_SIZE
         BNE @loop
     JMP @end
 
@@ -236,7 +236,7 @@ change_at_cursor:
         BEQ @newtile_loop_end
         ; loop
         INX
-        CPX #$15
+        CPX #TILE_TABLE_SIZE
         BNE @newtile_loop
     ; pull X
     PLA

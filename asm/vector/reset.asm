@@ -8,7 +8,7 @@ RESET:
     INX         ; X=0
     STX PPUCTRL ; Disable NMI
     STX PPUMASK ; Disable Rendering
-    STX APU_DMC ; Disable DMC IRQ
+    STX APU_DMC_FREQ ; Disable DMC IRQ
 
     ; Wait for the PPU to initialized
     BIT PPUSTATUS       ; Clear the VBL flag if it was set at reset time

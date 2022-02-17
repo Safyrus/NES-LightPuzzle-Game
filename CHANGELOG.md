@@ -6,6 +6,51 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 -----------------
 
+## **[0.2.1]** - _2022-02-17_
+
+### **Added**
+
+#### ASM
+
+- _Data:_
+  - tile_icon_table.
+- _Game:_
+  - "find_item_selectable_index" subroutine to find the index of a tile
+    in the level_selectable_object_type array.
+  - "clear_level_edit" function to clear tiles placed by the player.
+  - level_edit_load function to update the number of items
+    by accounting for already placed ones.
+- _Graphics:_
+  - "draw_level_edit" function to draw tiles that have been placed by the player.
+- _Other:_
+  - Constant TILE_TABLE_SIZE.
+
+### **Changed**
+
+#### ASM
+
+- _Data:_
+  - txt_version to "V0.2.1".
+- _Game:_
+  - some functions to call clear_level_edit (change_to_menu_load, stage_level_win).
+  - load_level function to not removed placed items.
+  - stage_level_load function to draw the level after it has been loaded
+    and to draw already placed tiles.
+- _Graphics:_
+  - draw_ui function to make the UI only show item that are used in the level.
+- _Other:_
+  - APU constants name.
+
+### **Fixed**
+
+- Changelog of version 2.0.0.
+
+### **Removed**
+
+- strings txt_ui_1, txt_ui_2 and txt_ui_3.
+
+-----------------
+
 ## **[0.2.0]** - _2022-01-26_
 
 ### **Added**
@@ -15,7 +60,6 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 #### ASM
 
 - _Data:_
-  - txt_version to "V0.2.0".
   - New metatiles (TITLE_NAME 1 to 5, TITLE_EFFECT 1 to 5, TITLE_LASER,
     TITLE_LASER_DIAGONAL 1 and 2, TITLE_SAPHYR, TITLE_SAFYRUS_GAMES 1 and 2).
   - New title level (not a real level).
@@ -32,6 +76,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 #### ASM
 
 - _Data:_
+  - txt_version to "V0.2.0".
   - palette 1.
   - Move tile_table and newtile_table to global.
 - _Game:_

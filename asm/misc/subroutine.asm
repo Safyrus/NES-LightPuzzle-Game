@@ -101,6 +101,8 @@ change_to_menu_load:
     LDA #10
     STA ppu_off_counter
 
+    JSR clear_level_edit
+
     ; set the stage to MenuLoad
     LDA #STG::MENU_LOAD
     STA game_stage
@@ -169,6 +171,20 @@ find_item_index:
 
     @end:
     PLA
+    RTS
+
+
+; A = select tile
+; X = return index
+find_item_selectable_index:
+    LDX #$00
+    @loop:
+        CMP level_selectable_object_type, X
+        BEQ @end
+        INX
+        CPX #$10
+        BNE @loop
+    @end:
     RTS
 
 

@@ -18,8 +18,6 @@ load_level:
 
         @normal:
             STA level, X    ; store the tile into Level
-            LDA #$00
-            STA level_edit, X
             INX             ; Increase tile_count
             JSR inc_data_adr ; increase data_adr
             JMP @load_tiles_end
@@ -35,8 +33,6 @@ load_level:
                 LDY #$00        ; get the tile
                 LDA (data_adr), Y
                 STA level, X    ; store the tile into Level
-                LDA #$00
-                STA level_edit, X
 
                 INX             ; Increase tile_count
                 LDY counter     ; decrease counter loop
@@ -60,10 +56,52 @@ load_level:
         BNE @load_data
 
     JSR load_object
+    JSR level_edit_load
 
     pullreg
     RTS
 
+
+level_edit_load:
+    PHA
+    TXA
+    PHA
+
+    LDY #$00
+    @loop:
+        LDA level_edit, Y
+        BEQ @loop_end ; no tile was place before
+
+        LDX #$00
+        @loop_tile_table:
+            CMP tile_table, X
+            BEQ @get_index
+
+            INX
+            CPX #TILE_TABLE_SIZE
+            BNE @loop_tile_table
+
+        @get_index:
+        LDA select_tiles_index_table, X
+        TAX
+        LDA select_tiles, X
+        TAX
+        JSR find_item_selectable_index
+        LDA level_selectable_object_count, X
+        SEC
+        SBC #$01
+        STA level_selectable_object_count, X
+
+        @loop_end:
+        INY
+        CPY #$F0
+        BNE @loop
+
+    @end:
+    PLA
+    TAX
+    PLA
+    RTS
 
 
 level_place_lasers:
@@ -185,3 +223,21 @@ load_object:
     pullreg
     RTS
 
+
+clear_level_edit:
+    PHA
+    TXA
+    PHA
+
+    LDX #$00
+    LDA #$00
+    @loop:
+        STA level_edit, X
+        INX
+        CPX #$F0
+        BNE @loop
+
+    PLA
+    TAX
+    PLA
+    RTS

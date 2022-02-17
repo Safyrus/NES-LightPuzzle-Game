@@ -7,6 +7,7 @@ stage_level_win:
     BNE @menu
     JMP @end
     @load:
+        JSR clear_level_edit
         LDX level_index
         INX
         CPX #LEVEL_MAX

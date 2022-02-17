@@ -1,8 +1,8 @@
-CA65 = ../cc65/bin/ca65.exe
-LD65 = ../cc65/bin/ld65.exe
+CA65 = ../../cc65/bin/ca65.exe
+LD65 = ../../cc65/bin/ld65.exe
 #EMULATOR = ../fceux-2.2.3-win32/fceux.exe
-EMULATOR = ../Mesen/Mesen.exe
-HEXDUMP = ..\hexdump.exe
+EMULATOR = ../../Mesen/Mesen.exe
+HEXDUMP = ..\..\hexdump.exe
 GAME_NAME = Reflection
 
 all:

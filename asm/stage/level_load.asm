@@ -1,8 +1,9 @@
 stage_level_load:
     LDX level_index
 
-    JSR draw_level  ; Draw the level
     JSR load_level  ; Load the level into main memory
+    JSR draw_level  ; Draw the level
+    JSR draw_level_edit
     JSR draw_ui     ; Draw the UI
 
     ; load background palettes
