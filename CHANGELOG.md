@@ -10,6 +10,8 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 ### **Added**
 
+- logo
+
 #### ASM
 
 - _Data:_
@@ -26,6 +28,8 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
   - Constant TILE_TABLE_SIZE.
 
 ### **Changed**
+
+- readme
 
 #### ASM
 

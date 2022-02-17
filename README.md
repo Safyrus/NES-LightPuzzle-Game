@@ -1,5 +1,7 @@
 # NES-LightPuzzle-Game
 
+![Reflexion](reflexion-logo.png)
+
 A basic NES puzzle game about moving light.
 
 -----------------
