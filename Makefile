@@ -3,7 +3,7 @@ LD65 = ../../cc65/bin/ld65.exe
 #EMULATOR = ../fceux-2.2.3-win32/fceux.exe
 EMULATOR = ../../Mesen/Mesen.exe
 HEXDUMP = ..\..\hexdump.exe
-GAME_NAME = Reflection
+GAME_NAME = Reflexion
 
 all:
 	.\$(CA65) asm/$(GAME_NAME).asm --debug-info

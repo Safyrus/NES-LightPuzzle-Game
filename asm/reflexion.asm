@@ -80,4 +80,4 @@ data:
 
 ; CHR ROM data 
 .segment "CHARS"
-.incbin "Reflection.chr"
+.incbin "Reflexion.chr"

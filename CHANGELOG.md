@@ -29,7 +29,8 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 ### **Changed**
 
-- readme
+- Readme
+- Makefile
 
 #### ASM
 
@@ -48,6 +49,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 ### **Fixed**
 
 - Changelog of version 2.0.0.
+- Game name
 
 ### **Removed**
 
@@ -74,7 +76,7 @@ This project try to follow the [Semantic Versioning](https://semver.org/spec/v2.
 
 ### **Changed**
 
-- Game name from "lightPuzzle" to "Reflection".
+- Game name from "lightPuzzle" to "Reflexion".
 - The default Mario font for a custom one in CHR.
 
 #### ASM
