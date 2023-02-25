@@ -24,7 +24,7 @@ else
 	mkdir -p "$(BIN)"
 endif
 # assemble main file
-	$(CA65) asm/$(GAME_NAME).asm -o $(BIN)/$(GAME_NAME).o --debug-info
+	$(CA65) asm/reflexion.asm -o $(BIN)/$(GAME_NAME).o --debug-info
 # link files
 	$(LD65) $(BIN)/$(GAME_NAME).o -C $(GAME_NAME).cfg -o $(GAME_NAME).nes --dbgfile $(GAME_NAME).dbg
 
