@@ -331,10 +331,11 @@ level_debug:
     .byte $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $1A, $1B, $1C, $1D, $1E, $1F
     .byte $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $2A, $2B, $2C, $2D, $2E, $2F
     .byte $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $3A, $3B, $3C, $3D, $3E, $3F
+    .byte $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $4A, $4B, $4C, $4D, $4E, $4F
     .byte MTILE::SPE_ARRAY, (16-1), MTILE::EMIT_DOWN_ON
-    .byte MTILE::SPE_ARRAY, (16*9-1), MTILE::GROUND
+    .byte MTILE::SPE_ARRAY, (16*8-1), MTILE::GROUND
     .byte MTILE::SPE_ARRAY, (16-1), MTILE::EMIT_UP_ON
-    .byte $FF, $FF, $FF, $FF, $00, $00, $00, $00, $01, $01
+    .byte $FF, $FF, $FF, $FF, $00, $00, $00, $00, $08, $08
 
 level_title:
     .byte MTILE::SPE_ARRAY, (5-1), MTILE::VOID, MTILE::TITLE_LASER_DIAGONAL_1, MTILE::TITLE_LASER_DIAGONAL_2, MTILE::SPE_ARRAY, (9+6-1), MTILE::VOID

@@ -61,9 +61,6 @@
 .include "graphics/sprite.asm"
 .include "graphics/laser.asm"
 
-.include "audio/init.asm"
-.include "audio/subroutine.asm"
-
 data:
 .include "data/data.asm"
 .include "data/palette.asm"

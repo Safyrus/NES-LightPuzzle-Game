@@ -88,14 +88,10 @@ stage_menu:
         @A:
         ASL
         BCC @B
-            LDX #(2*12)+3
-            JSR play_note
             JMP @end
         @B:
         ASL
         BCC @SELECT
-            LDX #(2*12)+0
-            JSR play_note
             JMP @end
         @SELECT:
         ASL

@@ -33,7 +33,6 @@ rst_vwait2:
     BIT PPUSTATUS
     BPL rst_vwait2      ; At this point, about 57165 cycles have passed
 
-    JSR init_apu        ; Initialize Audio
     LDA #%00000000
     STA APU_FRAME
 
