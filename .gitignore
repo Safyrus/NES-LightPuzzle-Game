@@ -2,6 +2,7 @@
 *.nes
 *.dbg
 *.deb
+*.o
 
 # VSCode
 *.vscode/
